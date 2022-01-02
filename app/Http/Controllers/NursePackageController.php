@@ -28,8 +28,6 @@ class NursePackageController extends Controller
      */
     public function store(StoreNursePackageRequest $request)
     {
-        $this->authorize('create', NursePackage::class);
-
         $validated = $request->validated();
 
         $package = NursePackage::create($validated);
@@ -57,8 +55,6 @@ class NursePackageController extends Controller
      */
     public function update(UpdateNursePackageRequest $request, NursePackage $nursePackage)
     {
-        $this->authorize('update', $nursePackage);
-
         $validated = $request->validated();
 
         $nursePackage->update($validated);
@@ -74,8 +70,6 @@ class NursePackageController extends Controller
      */
     public function destroy(NursePackage $nursePackage)
     {
-        $this->authorize('delete', $nursePackage);
-
         $nursePackage->delete();
 
         return response()->json(['message' => 'Nurse package deleted.']);

@@ -29,8 +29,6 @@ class HomeSampleCategoryController extends Controller
      */
     public function store(StoreHomeSampleCategoryRequest $request)
     {
-        $this->authorize('create', HomeSampleCategory::class);
-
         $validated = $request->validated();
 
         $validated['slug'] = Str::slug($validated['name']);
@@ -60,8 +58,6 @@ class HomeSampleCategoryController extends Controller
      */
     public function update(UpdateHomeSampleCategoryRequest $request, HomeSampleCategory $homeSampleCategory)
     {
-        $this->authorize('update', $homeSampleCategory);
-
         $validated = $request->validated();
 
         $validated['slug'] = Str::slug($validated['name']);
@@ -79,8 +75,6 @@ class HomeSampleCategoryController extends Controller
      */
     public function destroy(HomeSampleCategory $homeSampleCategory)
     {
-        $this->authorize('delete', $homeSampleCategory);
-
         $homeSampleCategory->delete();
 
         return response()->json(['message' => 'Home sample category deleted']);

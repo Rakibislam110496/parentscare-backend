@@ -37,8 +37,6 @@ class DoctorController extends Controller
      */
     public function store(StoreDoctorRequest $request): JsonResponse
     {
-        $this->authorize('create', Doctor::class);
-
         $validated = $request->validated();
 
         $validated['password'] = Hash::make(Str::random(6));
@@ -67,8 +65,6 @@ class DoctorController extends Controller
      */
     public function update(UpdateDoctorRequest $request, Doctor $doctor): JsonResponse
     {
-        $this->authorize('update', $doctor);
-
         $validated = $request->validated();
 
         if($request->has('password')){
@@ -88,8 +84,6 @@ class DoctorController extends Controller
      */
     public function destroy(Doctor $doctor)
     {
-        $this->authorize('delete', $doctor);
-
         PhotoController::delete($doctor->photo);
 
         $doctor->delete();

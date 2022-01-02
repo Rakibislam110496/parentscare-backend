@@ -32,8 +32,6 @@ class DoctorDepartmentController extends Controller
      */
     public function store(StoreDoctorDepartmentRequest $request)
     {
-        $this->authorize('create', DoctorDepartment::class);
-
         $validated = $request->validated();
 
         $validated['slug'] = Str::slug($validated['name']);
@@ -63,8 +61,6 @@ class DoctorDepartmentController extends Controller
      */
     public function update(UpdateDoctorDepartmentRequest $request, DoctorDepartment $doctor_department)
     {
-        $this->authorize('update', $doctor_department);
-
         $validated = $request->validated();
 
         $validated['slug'] = Str::slug($validated['name']);
@@ -82,8 +78,6 @@ class DoctorDepartmentController extends Controller
      */
     public function destroy(DoctorDepartment $doctorDepartment)
     {
-        $this->authorize('delete', $doctorDepartment);
-
         $doctorDepartment->delete();
 
         return response()->json(['message' => "Doctor department deleted."]);

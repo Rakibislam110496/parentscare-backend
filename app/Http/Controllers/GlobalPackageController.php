@@ -28,8 +28,6 @@ class GlobalPackageController extends Controller
      */
     public function store(StoreGlobalPackageRequest $request)
     {
-        $this->authorize('create', GlobalPackage::class);
-
         $validated = $request->validated();
 
         $package = GlobalPackage::create($validated);
@@ -57,8 +55,6 @@ class GlobalPackageController extends Controller
      */
     public function update(UpdateGlobalPackageRequest $request, GlobalPackage $globalPackage)
     {
-        $this->authorize('update', $globalPackage);
-
         $validated = $request->validated();
 
         $globalPackage->update($validated);
@@ -74,8 +70,6 @@ class GlobalPackageController extends Controller
      */
     public function destroy(GlobalPackage $globalPackage)
     {
-        $this->authorize('delete', $globalPackage);
-
         $globalPackage->delete();
 
         return response()->json(['message' => 'Global package deleted.']);

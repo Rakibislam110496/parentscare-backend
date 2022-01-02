@@ -32,8 +32,6 @@ class NurseController extends Controller
      */
     public function store(StoreNurseRequest $request): JsonResponse
     {
-        $this->authorize('create', Nurse::class);
-
         $validated = $request->validated();
 
         $validated['password'] = Hash::make(Str::random(6));
@@ -63,8 +61,6 @@ class NurseController extends Controller
      */
     public function update(UpdateNurseRequest $request, Nurse $nurse): JsonResponse
     {
-        $this->authorize('update', $nurse);
-
         $validated = $request->validated();
 
         if($request->has('password')){
@@ -84,8 +80,6 @@ class NurseController extends Controller
      */
     public function destroy(Nurse $nurse)
     {
-        $this->authorize('delete', $nurse);
-
         PhotoController::delete($nurse->photo);
 
         $nurse->delete();

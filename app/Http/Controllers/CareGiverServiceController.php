@@ -29,8 +29,6 @@ class CareGiverServiceController extends Controller
      */
     public function store(StoreCareGiverServiceRequest $request)
     {
-        $this->authorize('create', CareGiverService::class);
-
         $validated = $request->validated();
         $validated['slug'] = Str::slug($validated['name']);
 
@@ -59,8 +57,6 @@ class CareGiverServiceController extends Controller
      */
     public function update(UpdateCareGiverServiceRequest $request, CareGiverService $careGiverService)
     {
-        $this->authorize('update', $careGiverService);
-
         $validated = $request->validated();
         $validated['slug'] = Str::slug($validated['name']);
 
@@ -77,8 +73,6 @@ class CareGiverServiceController extends Controller
      */
     public function destroy(CareGiverService $careGiverService)
     {
-        $this->authorize('delete', $careGiverService);
-
         $careGiverService->delete();
 
         return response()->json(['message'=>'Care giver service deleted.']);

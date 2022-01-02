@@ -31,8 +31,6 @@ class PatientGuideController extends Controller
      */
     public function store(StorePatientGuideRequest $request): JsonResponse
     {
-        $this->authorize('create', PatientGuide::class);
-
         $validated = $request->validated();
 
         $validated['password'] = Hash::make(Str::random(6));
@@ -62,8 +60,6 @@ class PatientGuideController extends Controller
      */
     public function update(UpdatePatientGuideRequest $request, PatientGuide $patient_guide): JsonResponse
     {
-        $this->authorize('update', $patient_guide);
-
         $validated = $request->validated();
 
         if($request->has('password')){
@@ -83,8 +79,6 @@ class PatientGuideController extends Controller
      */
     public function destroy(PatientGuide $patientGuide)
     {
-        $this->authorize('delete', $patientGuide);
-
         PhotoController::delete($patientGuide->photo);
 
         $patientGuide->delete();

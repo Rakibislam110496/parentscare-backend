@@ -32,8 +32,6 @@ class TherapistController extends Controller
      */
     public function store(StoreTherapistRequest $request)
     {
-        $this->authorize('create', Therapist::class);
-
         $validated = $request->validated();
 
         $validated['password'] = Hash::make(Str::random(6));
@@ -63,8 +61,6 @@ class TherapistController extends Controller
      */
     public function update(UpdateTherapistRequest $request, Therapist $therapist)
     {
-        $this->authorize('update', $therapist);
-
         $validated = $request->validated();
 
         if($request->has('password')){
@@ -84,8 +80,6 @@ class TherapistController extends Controller
      */
     public function destroy(Therapist $therapist)
     {
-        $this->authorize('delete', $therapist);
-
         PhotoController::delete($therapist->photo);
 
         $therapist->delete();

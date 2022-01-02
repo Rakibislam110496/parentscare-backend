@@ -28,8 +28,6 @@ class ForeignMedicalLocationController extends Controller
      */
     public function store(StoreForeignMedicalLocationRequest $request)
     {
-        $this->authorize('create', ForeignMedicalLocation::class);
-
         $validated = $request->validated();
 
         $location = ForeignMedicalLocation::create($validated);
@@ -57,8 +55,6 @@ class ForeignMedicalLocationController extends Controller
      */
     public function update(UpdateForeignMedicalLocationRequest $request, ForeignMedicalLocation $foreign_medical_location)
     {
-        $this->authorize('update', $foreign_medical_location);
-
         $validated = $request->validated();
 
         $foreign_medical_location->update($validated);
@@ -74,8 +70,6 @@ class ForeignMedicalLocationController extends Controller
      */
     public function destroy(ForeignMedicalLocation $foreignMedicalLocation)
     {
-        $this->authorize('delete', $foreignMedicalLocation);
-
         $foreignMedicalLocation->delete();
 
         return response()->json(["message" => "Foreign medical location deleted."]);

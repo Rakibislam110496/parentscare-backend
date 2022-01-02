@@ -29,8 +29,6 @@ class TherapistLocationController extends Controller
      */
     public function store(StoreTherapistLocationRequest $request)
     {
-        $this->authorize('create', TherapistLocation::class);
-
         $validated = $request->validated();
 
         $location = TherapistLocation::create($validated);
@@ -58,8 +56,6 @@ class TherapistLocationController extends Controller
      */
     public function update(UpdateTherapistLocationRequest $request, TherapistLocation $therapist_location)
     {
-        $this->authorize('update', $therapist_location);
-
         $validated = $request->validated();
 
         $therapist_location->update($validated);
@@ -75,8 +71,6 @@ class TherapistLocationController extends Controller
      */
     public function destroy(TherapistLocation $therapist_location)
     {
-        $this->authorize('delete', $therapist_location);
-
         $therapist_location->delete();
 
         return response()->json(["message" => "Therapist location deleted."]);

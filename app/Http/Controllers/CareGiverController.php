@@ -30,8 +30,6 @@ class CareGiverController extends Controller
      */
     public function store(StoreCareGiverRequest $request)
     {
-        $this->authorize('create', CareGiver::class);
-
         $validated = $request->validated();
         $validated['password'] = Hash::make(Str::random(6));
 
@@ -60,8 +58,6 @@ class CareGiverController extends Controller
      */
     public function update(UpdateCareGiverRequest $request, CareGiver $care_giver)
     {
-        $this->authorize('update', $care_giver);
-
         $validated = $request->validated();
 
         if($request->has('password')){
@@ -81,8 +77,6 @@ class CareGiverController extends Controller
      */
     public function destroy(CareGiver $careGiver)
     {
-        $this->authorize( 'delete', $careGiver);
-
         PhotoController::delete($careGiver->photo);
 
         $careGiver->delete();

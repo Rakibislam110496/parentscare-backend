@@ -29,8 +29,6 @@ class HomeSampleSubcategoriesController extends Controller
      */
     public function store(StoreHomeSampleSubcategoryRequest $request)
     {
-        $this->authorize('create', HomeSampleSubcategory::class);
-
         $validated = $request->validated();
 
         $validated['slug'] = Str::slug($validated['name']);
@@ -60,8 +58,6 @@ class HomeSampleSubcategoriesController extends Controller
      */
     public function update(UpdateHomeSampleSubcategoryRequest $request, HomeSampleSubcategory $homeSampleSubcategory)
     {
-        $this->authorize('update', $homeSampleSubcategory);
-
         $validated = $request->validated();
 
         $validated['slug'] = Str::slug($validated['name']);
@@ -79,8 +75,6 @@ class HomeSampleSubcategoriesController extends Controller
      */
     public function destroy(HomeSampleSubcategory $homeSampleSubcategory)
     {
-        $this->authorize('delete', $homeSampleSubcategory);
-
         $homeSampleSubcategory->delete();
 
         return response()->json(['message'=>'Home sample subcategory deleted.']);
