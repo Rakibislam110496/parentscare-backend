@@ -29,7 +29,7 @@ class StoreDoctorRequest extends FormRequest
             "doctor_department_id" => 'required|exists:doctor_departments,id',
             "name" => "required|string|max:50",
             "email" => "required|email|unique:doctors",
-            "password" => "required|string",
+//            "password" => "required|string",
             "phone" => "required|string",
             "speciality" => "required|string",
             "dob" => "required|date",

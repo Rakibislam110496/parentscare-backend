@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\CareGiver;
 use App\Http\Requests\StoreCareGiverRequest;
 use App\Http\Requests\UpdateCareGiverRequest;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class CareGiverController extends Controller
 {
@@ -31,6 +33,7 @@ class CareGiverController extends Controller
         $this->authorize('create', CareGiver::class);
 
         $validated = $request->validated();
+        $validated['password'] = Hash::make(Str::random(6));
 
         $careGiver = CareGiver::create($validated);
 
@@ -60,6 +63,10 @@ class CareGiverController extends Controller
         $this->authorize('update', $care_giver);
 
         $validated = $request->validated();
+
+        if($request->has('password')){
+            $validated['password'] = Hash::make($request->password);
+        }
 
         $care_giver->update($validated);
 

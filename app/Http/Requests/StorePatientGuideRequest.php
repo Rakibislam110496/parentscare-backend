@@ -26,7 +26,7 @@ class StorePatientGuideRequest extends FormRequest
         return [
             "name" => "required|string|max:50",
             "email" => "required|email|unique:patient_guides",
-            "password" => "required|string",
+//            "password" => "required|string",
             "phone" => "required|string",
             "dob" => "required|date",
             "gender" => "required|string",

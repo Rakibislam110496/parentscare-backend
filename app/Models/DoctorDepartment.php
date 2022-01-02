@@ -10,4 +10,13 @@ class DoctorDepartment extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+
+        if(!isAdmin()){
+            $this->hidden = ['created_at', 'updated_at'];
+        }
+    }
 }

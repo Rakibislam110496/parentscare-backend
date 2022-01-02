@@ -28,7 +28,7 @@ class UpdatePatientGuideRequest extends FormRequest
         return [
             "name" => "string|max:50",
             "email" => ["email", Rule::unique('patient_guides')->ignore($this->patient_guide->id)],
-            "password" => "string",
+//            "password" => "string",
             "phone" => "string",
             "dob" => "date",
             "gender" => "string",

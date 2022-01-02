@@ -7,6 +7,8 @@ use App\Http\Requests\UpdateNurseRequest;
 use App\Models\Nurse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class NurseController extends Controller
 {
@@ -33,6 +35,8 @@ class NurseController extends Controller
         $this->authorize('create', Nurse::class);
 
         $validated = $request->validated();
+
+        $validated['password'] = Hash::make(Str::random(6));
 
         $nurse = Nurse::create($validated);
 
@@ -62,6 +66,10 @@ class NurseController extends Controller
         $this->authorize('update', $nurse);
 
         $validated = $request->validated();
+
+        if($request->has('password')){
+            $validated['password'] = Hash::make($request->password);
+        }
 
         $nurse->update($validated);
 

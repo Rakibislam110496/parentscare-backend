@@ -28,7 +28,7 @@ class UpdateTherapistRequest extends FormRequest
             'therapist_location_id' => 'exists:therapist_locations,id',
             "name" => "string|max:50",
             "email" => ["email", Rule::unique('therapists')->ignore($this->therapist->id)],
-            "password" => "string",
+//            "password" => "string",
             "phone" => "string",
             "dob" => "date",
             "gender" => "string",

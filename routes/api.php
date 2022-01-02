@@ -4,16 +4,19 @@ use App\Http\Controllers\CareGiverController;
 use App\Http\Controllers\CareGiverServiceController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\DoctorDepartmentController;
+use App\Http\Controllers\DoctorRequestController;
 use App\Http\Controllers\ForeignMedicalLocationController;
+use App\Http\Controllers\GlobalPackageController;
 use App\Http\Controllers\HomeSampleCategoryController;
 use App\Http\Controllers\HomeSampleSubcategoriesController;
 use App\Http\Controllers\NurseController;
+use App\Http\Controllers\NursePackageController;
 use App\Http\Controllers\PatientGuideController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\TherapistController;
 use App\Http\Controllers\TherapistLocationController;
+use App\Http\Controllers\UserController;
 use App\Models\Admin;
-use App\Models\ForeignMedicalLocation;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -51,6 +54,9 @@ Route::middleware('auth:sanctum')->group(function () {
     //Nurses
     Route::apiResource('nurses', NurseController::class);
 
+    //Nurse Packages
+    Route::apiResource('nurse_packages', NursePackageController::class);
+
     //Patient Guides
     Route::apiResource('patient_guides', PatientGuideController::class);
 
@@ -75,5 +81,22 @@ Route::middleware('auth:sanctum')->group(function () {
     //Care Givers
     Route::apiResource('care_givers', CareGiverController::class);
 
+    //Global Packages
+    Route::apiResource('global_packages', GlobalPackageController::class);
+
+    //Users
+    Route::apiResource('users', UserController::class);
+
+    //User's routes with user token
+    Route::middleware('auth:user')->prefix('user')->group(function () {
+        Route::post('get_care_giver_appointment', [UserController::class, 'getCareGiverAppointment']);
+        Route::post('get_doctor_appointment', [UserController::class, 'getDoctorAppointment']);
+        Route::post('get_foreign_medical_appointment', [UserController::class, 'getForeignMedicalAppointment']);
+        Route::post('get_home_sample_appointment', [UserController::class, 'getHomeSampleAppointment']);
+        Route::post('get_nurse_appointment', [UserController::class, 'getNurseAppointment']);
+        Route::post('get_patient_guide_appointment', [UserController::class, 'getPatientGuideAppointment']);
+        Route::post('get_therapist_appointment', [UserController::class, 'getTherapistAppointment']);
+        Route::get('appointments', [UserController::class, 'appointments']);
+    });
 });
 

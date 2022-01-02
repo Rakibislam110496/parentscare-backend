@@ -13,7 +13,6 @@ trait Auth
         $validated = $request->validate([
             'email' => 'required|email',
             'password' => "required|string",
-            'phone' => 'required|string'
         ]);
 
         $user = self::where('email', $validated['email'])->first();

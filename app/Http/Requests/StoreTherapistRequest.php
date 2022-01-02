@@ -27,7 +27,7 @@ class StoreTherapistRequest extends FormRequest
             'therapist_location_id' => 'required|exists:therapist_locations,id',
             "name" => "required|string|max:50",
             "email" => "required|email|unique:therapists",
-            "password" => "required|string",
+//            "password" => "required|string",
             "phone" => "required|string",
             "dob" => "required|date",
             "gender" => "required|string",

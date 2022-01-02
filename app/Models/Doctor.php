@@ -10,4 +10,9 @@ class Doctor extends Model
     use HasFactory;
 
     protected $guarded = [];
+    protected $hidden = ['password'];
+
+    public function appointments(){
+        return $this->hasMany(DoctorAppointment::class);
+    }
 }

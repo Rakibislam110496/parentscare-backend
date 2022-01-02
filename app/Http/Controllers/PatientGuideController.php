@@ -6,6 +6,8 @@ use App\Http\Requests\StorePatientGuideRequest;
 use App\Http\Requests\UpdatePatientGuideRequest;
 use App\Models\PatientGuide;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class PatientGuideController extends Controller
 {
@@ -32,6 +34,8 @@ class PatientGuideController extends Controller
         $this->authorize('create', PatientGuide::class);
 
         $validated = $request->validated();
+
+        $validated['password'] = Hash::make(Str::random(6));
 
         $patientGuide = PatientGuide::create($validated);
 
@@ -61,6 +65,10 @@ class PatientGuideController extends Controller
         $this->authorize('update', $patient_guide);
 
         $validated = $request->validated();
+
+        if($request->has('password')){
+            $validated['password'] = Hash::make($request->password);
+        }
 
         $patient_guide->update($validated);
 

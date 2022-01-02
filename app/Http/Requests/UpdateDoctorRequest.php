@@ -29,7 +29,7 @@ class UpdateDoctorRequest extends FormRequest
             "doctor_department_id" => 'exists:doctor_departments,id',
             "name" => "string|max:50",
             "email" => ['email', Rule::unique('doctors')->ignore($this->doctor->id)],
-            "password" => "string",
+//            "password" => "string",
             "phone" => "string",
             "speciality" => "string",
             "dob" => "date",

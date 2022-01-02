@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreDoctorAppointmentRequest;
 use App\Http\Requests\StoreDoctorRequest;
 use App\Http\Requests\UpdateDoctorRequest;
 use App\Models\Doctor;
@@ -9,7 +10,9 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use PhpParser\Comment\Doc;
 
 class DoctorController extends Controller
@@ -38,8 +41,7 @@ class DoctorController extends Controller
 
         $validated = $request->validated();
 
-        $validated['password'] = Hash::make($validated['password']);
-
+        $validated['password'] = Hash::make(Str::random(6));
 
         $doctor = Doctor::create($validated);
         return response()->json($doctor);
@@ -67,7 +69,13 @@ class DoctorController extends Controller
     {
         $this->authorize('update', $doctor);
 
-        $doctor->update($request->validated());
+        $validated = $request->validated();
+
+        if($request->has('password')){
+            $validated['password'] = Hash::make($request->password);
+        }
+
+        $doctor->update($validated);
 
         return response()->json($doctor);
     }

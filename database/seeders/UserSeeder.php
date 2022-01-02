@@ -16,11 +16,19 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::insert(
-            [
-                'name' => "User",
-                'email' => 'user@test.com',
-                'password' => Hash::make("password")
+        User::insert([
+                [
+                    'name' => "User 1",
+                    'email' => 'user1@test.com',
+                    'password' => Hash::make("password"),
+                    'phone' => "01834342343"
+                ],
+                [
+                    'name' => "User 2",
+                    'email' => 'user2@test.com',
+                    'password' => Hash::make("password"),
+                    'phone' => "01834344553"
+                ]
             ]
         );
     }

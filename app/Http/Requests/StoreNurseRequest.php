@@ -26,7 +26,7 @@ class StoreNurseRequest extends FormRequest
         return [
             "name" => "required|string|max:50",
             "email" => "required|email|unique:nurses",
-            "password" => "required|string",
+//            "password" => "required|string",
             "phone" => "required|string",
             "designation" => "required|string",
             "dob" => "required|date",

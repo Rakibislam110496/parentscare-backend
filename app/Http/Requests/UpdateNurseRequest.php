@@ -27,7 +27,7 @@ class UpdateNurseRequest extends FormRequest
         return [
             "name" => "string|max:50",
             "email" => ["email", Rule::unique('nurses')->ignore($this->nurse->id)],
-            "password" => "string",
+//            "password" => "string",
             "phone" => "string",
             "designation" => "string",
             "dob" => "date",

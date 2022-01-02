@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCaregiverAppointmentRequest;
+use App\Http\Requests\StoreDoctorAppointmentRequest;
+use App\Http\Requests\StoreForeignMedicalAppointmentRequest;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -22,7 +27,7 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -33,7 +38,7 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -44,8 +49,8 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -56,11 +61,76 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
 
     }
+
+    public function getCareGiverAppointment(StoreCaregiverAppointmentRequest $request)
+    {
+        $validated = $request->validated();
+
+        $appointment = DB::transaction(function () use ($validated) {
+            return auth()->user()->careGiverAppointments()->create($validated);
+        });
+
+        return response()->json($appointment);
+    }
+
+    public function getDoctorAppointment(StoreDoctorAppointmentRequest $request): JsonResponse
+    {
+        $validated = $request->validated();
+
+        $appointment = DB::transaction(function () use ($validated) {
+            return auth()->user()->doctorAppointments()->create($validated);
+        });
+
+        return response()->json($appointment);
+    }
+
+    public function getForeignMedicalAppointment(StoreForeignMedicalAppointmentRequest $request)
+    {
+        $validated = $request->validated();
+
+        $appointment = DB::transaction(function () use ($validated) {
+            return auth()->user()->foreignMedicalAppointments()->create($validated);
+        });
+    }
+
+    public function getHomeSampleAppointment()
+    {
+
+    }
+
+    public function getNurseAppointment()
+    {
+
+    }
+
+    public function getPatientGuideAppointment()
+    {
+
+    }
+
+    public function getTherapistAppointment()
+    {
+
+    }
+
+    public function appointments(Request $request)
+    {
+        switch ($request->t) {
+            case 'care_giver':
+                return response()->json(auth()->user()->careGiverAppointments);
+            case 'doctor':
+                return response()->json(auth()->user()->doctorAppointments);
+
+            default:
+                return response()->json([]);
+        }
+    }
+
 }

@@ -7,6 +7,8 @@ use App\Http\Requests\StoreTherapistRequest;
 use App\Http\Requests\UpdateTherapistRequest;
 use App\Models\Therapist;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class TherapistController extends Controller
 {
@@ -33,6 +35,8 @@ class TherapistController extends Controller
         $this->authorize('create', Therapist::class);
 
         $validated = $request->validated();
+
+        $validated['password'] = Hash::make(Str::random(6));
 
         $therapist = Therapist::create($validated);
 
@@ -62,6 +66,10 @@ class TherapistController extends Controller
         $this->authorize('update', $therapist);
 
         $validated = $request->validated();
+
+        if($request->has('password')){
+            $validated['password'] = Hash::make($request->password);
+        }
 
         $therapist->update($validated);
 

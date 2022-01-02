@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreDoctorDepartmentRequest;
 use App\Http\Requests\UpdateDoctorDepartmentRequest;
 use App\Models\DoctorDepartment;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class DoctorDepartmentController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
