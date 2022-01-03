@@ -67,7 +67,7 @@ class DoctorController extends Controller
     {
         $validated = $request->validated();
 
-        if($request->has('password')){
+        if ($request->has('password')) {
             $validated['password'] = Hash::make($request->password);
         }
 
@@ -89,5 +89,16 @@ class DoctorController extends Controller
         $doctor->delete();
 
         return response()->json(['message' => 'Doctor deleted.']);
+    }
+
+    public function book(StoreDoctorAppointmentRequest $request, Doctor $doctor)
+    {
+        $validated = $request->validated();
+
+        $validated['user_id'] = auth()->id();
+
+        $appointment = $doctor->appointments()->create($validated);
+
+        return response()->json($appointment);
     }
 }

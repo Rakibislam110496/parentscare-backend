@@ -69,56 +69,6 @@ class UserController extends Controller
 
     }
 
-    public function getCareGiverAppointment(StoreCaregiverAppointmentRequest $request)
-    {
-        $validated = $request->validated();
-
-        $appointment = DB::transaction(function () use ($validated) {
-            return auth()->user()->careGiverAppointments()->create($validated);
-        });
-
-        return response()->json($appointment);
-    }
-
-    public function getDoctorAppointment(StoreDoctorAppointmentRequest $request): JsonResponse
-    {
-        $validated = $request->validated();
-
-        $appointment = DB::transaction(function () use ($validated) {
-            return auth()->user()->doctorAppointments()->create($validated);
-        });
-
-        return response()->json($appointment);
-    }
-
-    public function getForeignMedicalAppointment(StoreForeignMedicalAppointmentRequest $request)
-    {
-        $validated = $request->validated();
-
-        $appointment = DB::transaction(function () use ($validated) {
-            return auth()->user()->foreignMedicalAppointments()->create($validated);
-        });
-    }
-
-    public function getHomeSampleAppointment()
-    {
-
-    }
-
-    public function getNurseAppointment()
-    {
-
-    }
-
-    public function getPatientGuideAppointment()
-    {
-
-    }
-
-    public function getTherapistAppointment()
-    {
-
-    }
 
     public function appointments(Request $request)
     {

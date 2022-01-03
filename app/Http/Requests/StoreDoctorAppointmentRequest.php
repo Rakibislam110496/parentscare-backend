@@ -24,7 +24,6 @@ class StoreDoctorAppointmentRequest extends FormRequest
     public function rules()
     {
         return [
-            'doctor_id' => 'required|exists:doctors,id',
             'patient_name' => 'required|string',
             'patient_gender' => 'required|string',
             'patient_age' => 'required|integer',
