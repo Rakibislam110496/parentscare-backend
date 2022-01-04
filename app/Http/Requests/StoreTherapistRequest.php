@@ -33,6 +33,7 @@ class StoreTherapistRequest extends FormRequest
             "gender" => "required|string",
             "bio" => "required|string",
             "photo" => "required|string",
+            "availabilities" => "required|string"
         ];
     }
 }

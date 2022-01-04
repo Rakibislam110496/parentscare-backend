@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\ForeignMedicalLocation;
 use Illuminate\Database\Seeder;
 
 class ForeignMedicalLocationSeeder extends Seeder
@@ -13,6 +14,8 @@ class ForeignMedicalLocationSeeder extends Seeder
      */
     public function run()
     {
-        //
+        ForeignMedicalLocation::create([
+            "country"=>"USA"
+        ]);
     }
 }

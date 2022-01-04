@@ -34,6 +34,7 @@ class UpdateTherapistRequest extends FormRequest
             "gender" => "string",
             "bio" => "string",
             "photo" => "string",
+            "availabilities" => "string"
         ];
     }
 }

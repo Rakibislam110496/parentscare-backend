@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\DoctorDepartment;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class DoctorDepartmentSeeder extends Seeder
 {
@@ -15,11 +15,13 @@ class DoctorDepartmentSeeder extends Seeder
      */
     public function run()
     {
-        DoctorDepartment::insert(
-            [
-                'name' => 'Cardiology',
-                'slug' => 'cardiology'
-            ]
-        );
+        DoctorDepartment::create([
+            'name' => 'Cardiology',
+            'slug' => Str::slug("Cardiology")
+        ]);
+        DoctorDepartment::create([
+            'name' => 'Neurology',
+            'slug' => Str::slug("Neurology")
+        ]);
     }
 }

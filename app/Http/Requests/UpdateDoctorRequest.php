@@ -39,7 +39,8 @@ class UpdateDoctorRequest extends FormRequest
             "photo" => "string",
             "price" => "integer",
             "share" => "integer",
-            "discount" => "integer"
+            "discount" => "integer",
+            "availabilities" => "string"
         ];
     }
 }

@@ -24,6 +24,7 @@ class CreateTherapistsTable extends Migration
             $table->date('dob');
             $table->text('bio');
             $table->string('photo');
+            $table->string('availabilities');
             $table->timestamps();
         });
     }

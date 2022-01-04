@@ -37,7 +37,8 @@ class StoreNurseRequest extends FormRequest
             "photo" => "required|string",
             "price" => "required|integer",
             "share" => "required|integer",
-            "discount" => "required|integer"
+            "discount" => "required|integer",
+            "availabilities" => "required|string"
         ];
     }
 }
