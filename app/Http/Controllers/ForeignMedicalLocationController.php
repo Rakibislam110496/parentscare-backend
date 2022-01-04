@@ -15,7 +15,7 @@ class ForeignMedicalLocationController extends Controller
      */
     public function index()
     {
-        $locations = ForeignMedicalLocation::simplePaginate(20);
+        $locations = ForeignMedicalLocation::paginate(20);
 
         return response()->json($locations);
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCaregiverAppointmentRequest;
 use App\Http\Requests\StoreDoctorAppointmentRequest;
 use App\Http\Requests\StoreForeignMedicalAppointmentRequest;
+use App\Http\Requests\StoreHomeSampleAppointmentRequest;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -19,7 +20,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::simplePaginate(20);
+        $users = User::paginate(20);
 
         return response()->json($users);
     }
@@ -69,6 +70,64 @@ class UserController extends Controller
 
     }
 
+    public function getCareGiverAppointment(StoreCaregiverAppointmentRequest $request)
+    {
+        $validated = $request->validated();
+
+        $appointment = DB::transaction(function () use ($validated) {
+            return auth()->user()->careGiverAppointments()->create($validated);
+        });
+
+        return response()->json($appointment);
+    }
+
+    public function getDoctorAppointment(StoreDoctorAppointmentRequest $request): JsonResponse
+    {
+        $validated = $request->validated();
+
+        $appointment = DB::transaction(function () use ($validated) {
+            return auth()->user()->doctorAppointments()->create($validated);
+        });
+
+        return response()->json($appointment);
+    }
+
+    public function getForeignMedicalAppointment(StoreForeignMedicalAppointmentRequest $request)
+    {
+        $validated = $request->validated();
+
+        $appointment = DB::transaction(function () use ($validated) {
+            return auth()->user()->foreignMedicalAppointments()->create($validated);
+        });
+
+        return response()->json($appointment);
+    }
+
+    public function getHomeSampleAppointment(StoreHomeSampleAppointmentRequest $request)
+    {
+        $validated = $request->validated();
+
+        $appointment = DB::transaction(function () use ($validated) {
+            return auth()->user()->homeSampleAppointments()->create($validated);
+        });
+
+        return response()->json($appointment);
+    }
+
+    public function getNurseAppointment()
+    {
+
+    }
+
+    public function getPatientGuideAppointment()
+    {
+
+    }
+
+    public function getTherapistAppointment()
+    {
+
+    }
 
     public function appointments(Request $request)
     {

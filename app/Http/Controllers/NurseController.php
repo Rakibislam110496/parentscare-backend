@@ -19,7 +19,7 @@ class NurseController extends Controller
      */
     public function index(): JsonResponse
     {
-        $nurses = Nurse::simplePaginate(20);
+        $nurses = Nurse::paginate(20);
 
         return response()->json($nurses);
     }
@@ -86,4 +86,5 @@ class NurseController extends Controller
 
         return response()->json(['message' => 'Nurse deleted.']);
     }
+
 }

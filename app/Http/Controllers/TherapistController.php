@@ -19,7 +19,7 @@ class TherapistController extends Controller
      */
     public function index()
     {
-        $therapists = Therapist::simplePaginate(20);
+        $therapists = Therapist::paginate(20);
 
         return response($therapists);
     }

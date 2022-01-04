@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreDoctorAppointmentRequest extends FormRequest
+class StoreHomeSampleAppointmentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,14 +24,14 @@ class StoreDoctorAppointmentRequest extends FormRequest
     public function rules()
     {
         return [
-            'doctor_id' => 'required|exists:doctors,id',
+            'home_sample_subcategories_id' => 'required|exists:home_sample_subcategories,id',
             'patient_name' => 'required|string',
             'patient_gender' => 'required|string',
             'patient_age' => 'required|integer',
-            'sickness_details' => 'required|string',
+            'test_details' => 'required|string',
             'phone' => 'required|string',
             'address' => 'required|string',
-            'expected_date_time' => 'required|date'
+            'expected_date' => 'required|date'
         ];
     }
 }

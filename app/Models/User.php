@@ -53,4 +53,13 @@ class User extends Authenticatable
     public function foreignMedicalAppointments(){
         return $this->hasMany(ForeignMedicalAppointment::class);
     }
+
+    public function homeSampleAppointments(){
+        return $this->hasMany(HomeSampleAppointment::class);
+    }
+
+    public function nurseAppointments()
+    {
+        return $this->hasMany(NurseAppointment::class);
+    }
 }

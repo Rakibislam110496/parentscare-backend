@@ -16,7 +16,7 @@ class HomeSampleCategoryController extends Controller
      */
     public function index()
     {
-        $categories = HomeSampleCategory::simplePaginate(20);
+        $categories = HomeSampleCategory::paginate(20);
 
         return response()->json($categories);
     }

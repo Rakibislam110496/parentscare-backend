@@ -15,7 +15,7 @@ class GlobalPackageController extends Controller
      */
     public function index()
     {
-        $packages = GlobalPackage::simplePaginate(20);
+        $packages = GlobalPackage::paginate(20);
 
         return response()->json($packages);
     }

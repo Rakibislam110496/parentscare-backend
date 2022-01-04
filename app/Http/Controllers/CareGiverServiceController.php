@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCaregiverAppointmentRequest;
 use App\Models\CareGiverService;
 use App\Http\Requests\StoreCareGiverServiceRequest;
 use App\Http\Requests\UpdateCareGiverServiceRequest;
@@ -16,7 +17,7 @@ class CareGiverServiceController extends Controller
      */
     public function index()
     {
-        $services = CareGiverService::simplePaginate(20);
+        $services = CareGiverService::paginate(20);
 
         return response($services);
     }

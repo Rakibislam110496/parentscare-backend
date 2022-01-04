@@ -32,15 +32,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::prefix('user')->group(function () {
+Route::prefix('user')->group(function (){
     Route::post('login', function (Request $request) {
         return User::login($request);
     });
 
-    Route::middleware('auth:user')->group(function () {
+    Route::middleware('auth:user')->group(function (){
         //Doctors
         Route::apiResource('doctors', DoctorController::class)->only('index', 'show');
-        Route::post('doctors/{doctor}/book', [DoctorController::class, 'book']);
+        Route::post('doctors/{doctor}/get_appointment', [DoctorController::class, 'getAppointment']);
 
         //Nurses
         Route::apiResource('nurses', NurseController::class)->only('index', 'show');
@@ -75,18 +75,27 @@ Route::prefix('user')->group(function () {
         //Global Packages
         Route::apiResource('global_packages', GlobalPackageController::class)->only('index', 'show');
 
-        //User's appointments
+
+        //Appointments
+        Route::post('get_care_giver_appointment', [UserController::class, 'getCareGiverAppointment']);
+        Route::post('get_doctor_appointment', [UserController::class, 'getDoctorAppointment']);
+        Route::post('get_foreign_medical_appointment', [UserController::class, 'getForeignMedicalAppointment']);
+        Route::post('get_home_sample_appointment', [UserController::class, 'getHomeSampleAppointment']);
+        Route::post('get_nurse_appointment', [UserController::class, 'getNurseAppointment']);
+        Route::post('get_patient_guide_appointment', [UserController::class, 'getPatientGuideAppointment']);
+        Route::post('get_therapist_appointment', [UserController::class, 'getTherapistAppointment']);
         Route::get('appointments', [UserController::class, 'appointments']);
     });
 
+
 });
 
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->group(function (){
     Route::post('login', function (Request $request) {
         return Admin::login($request);
     });
 
-    Route::middleware('auth:admin')->group(function () {
+    Route::middleware('auth:admin')->group(function (){
         //Users
         Route::apiResource('users', UserController::class);
 

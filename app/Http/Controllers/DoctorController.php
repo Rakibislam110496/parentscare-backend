@@ -24,7 +24,7 @@ class DoctorController extends Controller
      */
     public function index(): JsonResponse
     {
-        $doctors = Doctor::simplePaginate(20);
+        $doctors = Doctor::paginate(20);
 
         return response()->json($doctors);
     }

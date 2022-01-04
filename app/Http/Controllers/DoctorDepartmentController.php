@@ -19,7 +19,7 @@ class DoctorDepartmentController extends Controller
      */
     public function index()
     {
-        $departments = DoctorDepartment::simplePaginate(20);
+        $departments = DoctorDepartment::paginate(20);
 
         return response()->json($departments);
     }

@@ -17,7 +17,7 @@ class CareGiverController extends Controller
      */
     public function index()
     {
-        $careGivers = CareGiver::simplePaginate(20);
+        $careGivers = CareGiver::paginate(20);
 
         return response()->json($careGivers);
     }

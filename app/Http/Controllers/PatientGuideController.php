@@ -18,7 +18,7 @@ class PatientGuideController extends Controller
      */
     public function index(): JsonResponse
     {
-        $patientGuides = PatientGuide::simplePaginate(20);
+        $patientGuides = PatientGuide::paginate(20);
 
         return response()->json($patientGuides);
     }
