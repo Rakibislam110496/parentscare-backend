@@ -25,10 +25,10 @@ class CreateCareGiverAppointmentsTable extends Migration
             $table->string('patient_phone');
             $table->string('patient_address');
             $table->string('care_giver_type');
-            $table->date('expected_date_from');
-            $table->date('expected_date_to');
-            $table->date('appointment_date_from')->nullable();
-            $table->date('appointment_date_to')->nullable();
+            $table->date('expected_date');
+            $table->integer('duration');
+            $table->date('appointment_date')->nullable();
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }

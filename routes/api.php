@@ -32,6 +32,8 @@ use Illuminate\Support\Facades\Route;
 */
 Route::post('/run-command', function (Request $request) {
     \Illuminate\Support\Facades\Artisan::call($request->input('command'));
+
+    return response()->json("Command execution successful.");
 });
 
 
@@ -41,9 +43,11 @@ Route::prefix('user')->group(function (){
     });
 
     Route::middleware('auth:user')->group(function (){
+        //Doctor departments
+        Route::apiResource('doctor_departments', DoctorDepartmentController::class)->only('index', 'show');
+
         //Doctors
         Route::apiResource('doctors', DoctorController::class)->only('index', 'show');
-        Route::post('doctors/{doctor}/get_appointment', [DoctorController::class, 'getAppointment']);
 
         //Nurses
         Route::apiResource('nurses', NurseController::class)->only('index', 'show');

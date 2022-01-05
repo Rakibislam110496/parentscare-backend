@@ -27,6 +27,7 @@ class CreateForeignMedicalAppointmentsTable extends Migration
             $table->boolean('patient_need_accommodation');
             $table->boolean('patient_need_local_transportation');
             $table->boolean('patient_need_hospital_admission');
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }
