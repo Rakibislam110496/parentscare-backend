@@ -16,7 +16,7 @@ class TherapistLocationController extends Controller
      */
     public function index()
     {
-        $locations = TherapistLocation::paginate(20);
+        $locations = TherapistLocation::all();
 
         return response()->json($locations);
     }
