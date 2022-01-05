@@ -11,4 +11,8 @@ class Doctor extends Model
 
     protected $guarded = [];
     protected $hidden = ['password'];
+
+    public function department(){
+        return $this->belongsTo(DoctorDepartment::class, 'doctor_department_id');
+    }
 }

@@ -11,4 +11,8 @@ class Therapist extends Model
 
     protected $guarded = [];
     protected $hidden = ['password'];
+
+    public function location(){
+        return $this->belongsTo(TherapistLocation::class, 'therapist_location_id');
+    }
 }

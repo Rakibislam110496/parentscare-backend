@@ -10,4 +10,8 @@ class TherapistLocation extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function therapists(){
+        return $this->hasMany(Therapist::class);
+    }
 }

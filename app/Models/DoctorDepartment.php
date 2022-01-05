@@ -11,5 +11,7 @@ class DoctorDepartment extends Model
 
     protected $guarded = [];
 
-
+    public function doctors(){
+        return $this->hasMany(Doctor::class);
+    }
 }

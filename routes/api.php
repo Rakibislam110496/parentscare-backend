@@ -92,14 +92,6 @@ Route::prefix('user')->group(function (){
         Route::post('get_patient_guide_appointment', [UserController::class, 'getPatientGuideAppointment']);
         Route::post('get_therapist_appointment', [UserController::class, 'getTherapistAppointment']);
         Route::get('appointments', [UserController::class, 'appointments']);
-
-        //Care giver appointments
-        //Doctor appointments
-        //Foreign medical appointments
-        //Home sample appointments
-        //Nurse appointments
-        //Patient guide appointments
-        //Therapist appointments
     });
 });
 
@@ -150,6 +142,14 @@ Route::prefix('admin')->group(function (){
 
         //Global Packages
         Route::apiResource('global_packages', GlobalPackageController::class);
+
+        //Care giver appointments
+        //Doctor appointments
+        //Foreign medical appointments
+        //Home sample appointments
+        //Nurse appointments
+        //Patient guide appointments
+        //Therapist appointments
 
     });
 

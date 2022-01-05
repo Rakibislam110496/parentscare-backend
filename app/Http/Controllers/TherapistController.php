@@ -19,7 +19,7 @@ class TherapistController extends Controller
      */
     public function index()
     {
-        $therapists = Therapist::paginate(20);
+        $therapists = Therapist::with('location')->paginate(20);
 
         return response($therapists);
     }
@@ -49,7 +49,7 @@ class TherapistController extends Controller
      */
     public function show(Therapist $therapist)
     {
-        return response()->json($therapist);
+        return response()->json($therapist->load('location'));
     }
 
     /**
