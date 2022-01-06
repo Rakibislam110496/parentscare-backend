@@ -16,7 +16,7 @@ class HomeSampleCategoryController extends Controller
      */
     public function index()
     {
-        $categories = HomeSampleCategory::paginate(20);
+        $categories = HomeSampleCategory::with('subcategories')->paginate(20);
 
         return response()->json($categories);
     }
@@ -46,7 +46,7 @@ class HomeSampleCategoryController extends Controller
      */
     public function show(HomeSampleCategory $homeSampleCategory)
     {
-        return response()->json($homeSampleCategory);
+        return response()->json($homeSampleCategory->load('subcategories'));
     }
 
     /**

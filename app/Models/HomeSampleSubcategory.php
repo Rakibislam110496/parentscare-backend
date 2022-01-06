@@ -10,4 +10,8 @@ class HomeSampleSubcategory extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function category(){
+        return $this->belongsTo(HomeSampleCategory::class, 'home_sample_category_id');
+    }
 }
