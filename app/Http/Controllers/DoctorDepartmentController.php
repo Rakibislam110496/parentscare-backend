@@ -34,8 +34,6 @@ class DoctorDepartmentController extends Controller
     {
         $validated = $request->validated();
 
-        $validated['slug'] = Str::slug($validated['name']);
-
         $department = DoctorDepartment::create($validated);
 
         return response()->json($department);
@@ -62,8 +60,6 @@ class DoctorDepartmentController extends Controller
     public function update(UpdateDoctorDepartmentRequest $request, DoctorDepartment $doctor_department)
     {
         $validated = $request->validated();
-
-        $validated['slug'] = Str::slug($validated['name']);
 
         $doctor_department->update($validated);
 

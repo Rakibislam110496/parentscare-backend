@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateCareGiverServiceRequest extends FormRequest
 {
@@ -25,6 +26,7 @@ class UpdateCareGiverServiceRequest extends FormRequest
     {
         return [
             'name' => 'string',
+            'slug' => ['string', Rule::unique('care_giver_services')->ignore($this->care_giver_service->id)],
             'price' => 'integer',
             'discount' => 'integer',
             'share' => 'integer'

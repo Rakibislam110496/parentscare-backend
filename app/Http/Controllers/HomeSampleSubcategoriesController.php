@@ -31,8 +31,6 @@ class HomeSampleSubcategoriesController extends Controller
     {
         $validated = $request->validated();
 
-        $validated['slug'] = Str::slug($validated['name']);
-
         $subcategory = HomeSampleSubcategory::create($validated);
 
         return response()->json($subcategory);
@@ -56,15 +54,13 @@ class HomeSampleSubcategoriesController extends Controller
      * @param  \App\Models\HomeSampleSubcategory  $homeSampleSubcategory
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateHomeSampleSubcategoryRequest $request, HomeSampleSubcategory $homeSampleSubcategory)
+    public function update(UpdateHomeSampleSubcategoryRequest $request, HomeSampleSubcategory $home_sample_subcategory)
     {
         $validated = $request->validated();
 
-        $validated['slug'] = Str::slug($validated['name']);
+        $home_sample_subcategory->update($validated);
 
-        $homeSampleSubcategory->update($validated);
-
-        return response()->json($homeSampleSubcategory);
+        return response()->json($home_sample_subcategory);
     }
 
     /**

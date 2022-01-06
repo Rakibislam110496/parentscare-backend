@@ -31,7 +31,6 @@ class CareGiverServiceController extends Controller
     public function store(StoreCareGiverServiceRequest $request)
     {
         $validated = $request->validated();
-        $validated['slug'] = Str::slug($validated['name']);
 
         $service = CareGiverService::create($validated);
 
@@ -56,14 +55,13 @@ class CareGiverServiceController extends Controller
      * @param  \App\Models\CareGiverService  $careGiverService
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCareGiverServiceRequest $request, CareGiverService $careGiverService)
+    public function update(UpdateCareGiverServiceRequest $request, CareGiverService $care_giver_service)
     {
         $validated = $request->validated();
-        $validated['slug'] = Str::slug($validated['name']);
 
-        $careGiverService->update($validated);
+        $care_giver_service->update($validated);
 
-        return response()->json($careGiverService);
+        return response()->json($care_giver_service);
     }
 
     /**

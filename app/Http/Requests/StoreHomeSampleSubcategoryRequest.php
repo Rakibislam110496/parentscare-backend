@@ -26,6 +26,7 @@ class StoreHomeSampleSubcategoryRequest extends FormRequest
         return [
             'home_sample_category_id' => 'required|exists:home_sample_categories,id',
             'name' => 'required|string',
+            'slug' => 'required|string|unique:home_sample_subcategories',
             'price' => 'required|integer',
             'discount' => 'required|integer',
             'share' => 'required|integer'

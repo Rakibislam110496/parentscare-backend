@@ -31,8 +31,6 @@ class HomeSampleCategoryController extends Controller
     {
         $validated = $request->validated();
 
-        $validated['slug'] = Str::slug($validated['name']);
-
         $category = HomeSampleCategory::create($validated);
 
         return response()->json($category);
@@ -56,15 +54,13 @@ class HomeSampleCategoryController extends Controller
      * @param  \App\Models\HomeSampleCategory  $homeSampleCategory
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateHomeSampleCategoryRequest $request, HomeSampleCategory $homeSampleCategory)
+    public function update(UpdateHomeSampleCategoryRequest $request, HomeSampleCategory $home_sample_category)
     {
         $validated = $request->validated();
 
-        $validated['slug'] = Str::slug($validated['name']);
+        $home_sample_category->update($validated);
 
-        $category = HomeSampleCategory::create($validated);
-
-        return response()->json($category);
+        return response()->json($home_sample_category);
     }
 
     /**

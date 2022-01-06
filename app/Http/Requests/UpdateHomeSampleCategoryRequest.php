@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateHomeSampleCategoryRequest extends FormRequest
 {
@@ -24,7 +25,8 @@ class UpdateHomeSampleCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'string'
+            'name' => 'string',
+            'slug' => ['string', Rule::unique('home_sample_categories')->ignore($this->home_sample_category->id)]
         ];
     }
 }

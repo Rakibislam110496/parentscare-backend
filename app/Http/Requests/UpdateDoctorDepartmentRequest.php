@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateDoctorDepartmentRequest extends FormRequest
 {
@@ -24,7 +25,8 @@ class UpdateDoctorDepartmentRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'string'
+            'name' => 'string',
+            'slug' => ['string', Rule::unique('doctor_departments')->ignore($this->doctor_department->id)]
         ];
     }
 }

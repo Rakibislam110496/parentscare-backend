@@ -171,8 +171,6 @@ Route::prefix('admin')->group(function (){
         //Therapist appointments
         Route::apiResource('therapist_appointments', TherapistAppointmentController::class)->only('index', 'show', 'update');
     });
-
-
 });
 
 

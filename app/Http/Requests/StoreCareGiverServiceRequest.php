@@ -25,6 +25,7 @@ class StoreCareGiverServiceRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
+            'slug' => 'required|string|unique:care_giver_services',
             'price' => 'required|integer',
             'discount' => 'required|integer',
             'share' => 'required|integer'
