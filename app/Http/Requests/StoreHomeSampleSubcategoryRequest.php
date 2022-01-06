@@ -26,7 +26,9 @@ class StoreHomeSampleSubcategoryRequest extends FormRequest
         return [
             'home_sample_category_id' => 'required|exists:home_sample_categories,id',
             'name' => 'required|string',
-            'price' => 'required|integer'
+            'price' => 'required|integer',
+            'discount' => 'required|integer',
+            'share' => 'required|integer'
         ];
     }
 }

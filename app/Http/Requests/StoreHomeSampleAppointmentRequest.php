@@ -24,6 +24,7 @@ class StoreHomeSampleAppointmentRequest extends FormRequest
     public function rules()
     {
         return [
+            'user_id' => 'exists:users,id',
             'home_sample_subcategories_id' => 'required|exists:home_sample_subcategories,id',
             'patient_name' => 'required|string',
             'patient_gender' => 'required|string',

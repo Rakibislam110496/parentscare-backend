@@ -25,6 +25,8 @@ class StoreCaregiverAppointmentRequest extends FormRequest
     public function rules()
     {
         return [
+            'user_id' => 'exists:users,id',
+            'care_giver_id' => 'exists:care_givers,id',
             'care_giver_service_id' => 'required|exists:care_giver_services,id',
             'patient_name' => 'required|string',
             'patient_gender' => 'required|string',
@@ -33,8 +35,8 @@ class StoreCaregiverAppointmentRequest extends FormRequest
             'patient_phone' => 'required|string',
             'patient_address' => 'required|string',
             'care_giver_type' => 'required|string',
-            'expected_date_from' => 'required|date',
-            'expected_date_to' => 'required|date|after:expected_date_from'
+            'expected_date' => 'required|date',
+            'duration' => 'required|integer'
         ];
     }
 }

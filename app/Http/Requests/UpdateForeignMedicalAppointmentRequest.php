@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreForeignMedicalAppointmentRequest extends FormRequest
+class UpdateForeignMedicalAppointmentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class StoreForeignMedicalAppointmentRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -24,7 +24,6 @@ class StoreForeignMedicalAppointmentRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'exists:users,id',
             'foreign_medical_location_id' => 'required|exists:foreign_medical_locations,id',
             'patient_name' => 'required|string',
             'patient_phone' => 'required|string',

@@ -1,17 +1,24 @@
 <?php
 
+use App\Http\Controllers\CareGiverAppointmentController;
 use App\Http\Controllers\CareGiverController;
 use App\Http\Controllers\CareGiverServiceController;
+use App\Http\Controllers\DoctorAppointmentController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\DoctorDepartmentController;
+use App\Http\Controllers\ForeignMedicalAppointmentController;
 use App\Http\Controllers\ForeignMedicalLocationController;
 use App\Http\Controllers\GlobalPackageController;
+use App\Http\Controllers\HomeSampleAppointmentController;
 use App\Http\Controllers\HomeSampleCategoryController;
 use App\Http\Controllers\HomeSampleSubcategoriesController;
+use App\Http\Controllers\NurseAppointmentController;
 use App\Http\Controllers\NurseController;
 use App\Http\Controllers\NursePackageController;
+use App\Http\Controllers\PatientGuideAppointmentController;
 use App\Http\Controllers\PatientGuideController;
 use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\TherapistAppointmentController;
 use App\Http\Controllers\TherapistController;
 use App\Http\Controllers\TherapistLocationController;
 use App\Http\Controllers\UserController;
@@ -144,13 +151,25 @@ Route::prefix('admin')->group(function (){
         Route::apiResource('global_packages', GlobalPackageController::class);
 
         //Care giver appointments
-        //Doctor appointments
-        //Foreign medical appointments
-        //Home sample appointments
-        //Nurse appointments
-        //Patient guide appointments
-        //Therapist appointments
+        Route::apiResource('care_giver_appointments', CareGiverAppointmentController::class)->only('index', 'show', 'update');
 
+        //Doctor appointments
+        Route::apiResource('doctor_appointments', DoctorAppointmentController::class)->only('index', 'show', 'update');
+
+        //Foreign medical appointments
+        Route::apiResource('foreign_medical_appointments', ForeignMedicalAppointmentController::class)->only('index', 'show', 'update');
+
+        //Home sample appointments
+        Route::apiResource('home_sample_appointments', HomeSampleAppointmentController::class)->only('index', 'show', 'update');
+
+        //Nurse appointments
+        Route::apiResource('nurse_appointments', NurseAppointmentController::class)->only('index', 'show', 'update');
+
+        //Patient guide appointments
+        Route::apiResource('patient_guide_appointments', PatientGuideAppointmentController::class)->only('index', 'show', 'update');
+
+        //Therapist appointments
+        Route::apiResource('therapist_appointments', TherapistAppointmentController::class)->only('index', 'show', 'update');
     });
 
 

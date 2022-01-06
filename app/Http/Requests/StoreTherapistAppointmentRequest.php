@@ -24,6 +24,7 @@ class StoreTherapistAppointmentRequest extends FormRequest
     public function rules()
     {
         return [
+            'user_id' => 'exists:users,id',
             'therapist_id' => 'required|exists:therapists,id',
             'patient_name' => 'required|string',
             'patient_gender' => 'required|string',

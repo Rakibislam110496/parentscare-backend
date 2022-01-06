@@ -24,6 +24,7 @@ class StorePatientGuideAppointmentRequest extends FormRequest
     public function rules()
     {
         return [
+            'user_id' => 'exists:users,id',
             'patient_guide_id' => 'required|exists:patient_guides,id',
             'patient_name' => 'required|string',
             'patient_gender' => 'required|string',

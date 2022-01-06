@@ -24,6 +24,7 @@ class CreateHomeSampleAppointmentsTable extends Migration
             $table->string('phone');
             $table->string('address');
             $table->date('expected_date');
+            $table->date('appointment_date');
             $table->string('status')->default('pending');
             $table->timestamps();
         });
