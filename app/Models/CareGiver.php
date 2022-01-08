@@ -19,4 +19,8 @@ class CareGiver extends Model
 
         static::addGlobalScope(new ActiveScope());
     }
+
+    public function appointments(){
+        return $this->hasMany(CareGiverAppointment::class);
+    }
 }

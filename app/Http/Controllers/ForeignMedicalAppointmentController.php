@@ -15,7 +15,7 @@ class ForeignMedicalAppointmentController extends Controller
      */
     public function index()
     {
-        $appointments = ForeignMedicalAppointment::paginate(20);
+        $appointments = ForeignMedicalAppointment::with('user', 'location')->paginate(20);
 
         return response()->json($appointments);
     }
@@ -39,7 +39,7 @@ class ForeignMedicalAppointmentController extends Controller
      */
     public function show(ForeignMedicalAppointment $foreignMedicalAppointment)
     {
-        return response()->json($foreignMedicalAppointment);
+        return response()->json($foreignMedicalAppointment->load('user', 'location'));
     }
 
     /**

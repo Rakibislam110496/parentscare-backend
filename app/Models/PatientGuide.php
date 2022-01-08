@@ -19,4 +19,8 @@ class PatientGuide extends Model
 
         static :: addGlobalScope(new ActiveScope());
     }
+
+    public function appointments(){
+        return $this->hasMany(PatientGuideAppointment::class, 'patient_guide_appointment_id');
+    }
 }

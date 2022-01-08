@@ -15,4 +15,8 @@ class HomeSampleAppointment extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function subcategory(){
+        return $this->belongsTo(HomeSampleSubcategory::class, 'home_sample_subcategories_id');
+    }
 }

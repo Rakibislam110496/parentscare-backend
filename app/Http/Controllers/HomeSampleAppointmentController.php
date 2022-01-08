@@ -15,7 +15,7 @@ class HomeSampleAppointmentController extends Controller
      */
     public function index()
     {
-        $appointments = HomeSampleAppointment::paginate(20);
+        $appointments = HomeSampleAppointment::with('user', 'subcategory')->paginate(20);
 
         return response()->json($appointments);
     }
@@ -39,7 +39,7 @@ class HomeSampleAppointmentController extends Controller
      */
     public function show(HomeSampleAppointment $homeSampleAppointment)
     {
-        return response()->json($homeSampleAppointment);
+        return response()->json($homeSampleAppointment->load('user', 'subcategory'));
     }
 
     /**

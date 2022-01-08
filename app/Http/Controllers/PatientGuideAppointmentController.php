@@ -15,7 +15,7 @@ class PatientGuideAppointmentController extends Controller
      */
     public function index()
     {
-        $appointments = PatientGuideAppointment::paginate(20);
+        $appointments = PatientGuideAppointment::with('user', 'patientGuide')->paginate(20);
 
         return response()->json($appointments);
     }
@@ -39,7 +39,7 @@ class PatientGuideAppointmentController extends Controller
      */
     public function show(PatientGuideAppointment $patientGuideAppointment)
     {
-        return response()->json($patientGuideAppointment);
+        return response()->json($patientGuideAppointment->load('user', 'patientGuide'));
     }
 
     /**

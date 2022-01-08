@@ -15,7 +15,7 @@ class CareGiverAppointmentController extends Controller
      */
     public function index()
     {
-        $appointments = CareGiverAppointment::paginate(20);
+        $appointments = CareGiverAppointment::with('user', 'careGiver')->paginate(20);
 
         return response()->json($appointments);
     }
@@ -39,7 +39,7 @@ class CareGiverAppointmentController extends Controller
      */
     public function show(CareGiverAppointment $careGiverAppointment)
     {
-        return response()->json($careGiverAppointment);
+        return response()->json($careGiverAppointment->load('user', 'careGiver'));
     }
 
     /**

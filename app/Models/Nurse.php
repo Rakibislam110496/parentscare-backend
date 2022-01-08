@@ -19,4 +19,8 @@ class Nurse extends Model
 
         static :: addGlobalScope(new ActiveScope());
     }
+
+    public function appointments(){
+        return $this->hasMany(NurseAppointment::class);
+    }
 }

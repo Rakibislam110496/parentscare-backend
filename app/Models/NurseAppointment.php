@@ -15,4 +15,12 @@ class NurseAppointment extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function nurse(){
+        return $this->belongsTo(Nurse::class);
+    }
+
+    public function package(){
+        return $this->belongsTo(NursePackage::class, 'nurse_package_id');
+    }
 }

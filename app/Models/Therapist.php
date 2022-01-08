@@ -23,4 +23,8 @@ class Therapist extends Model
     public function location(){
         return $this->belongsTo(TherapistLocation::class, 'therapist_location_id');
     }
+
+    public function appointments(){
+        return $this->hasMany(TherapistAppointment::class, 'therapist_appointment_id');
+    }
 }

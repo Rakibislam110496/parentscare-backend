@@ -15,7 +15,7 @@ class NurseAppointmentController extends Controller
      */
     public function index()
     {
-        $appointments = NurseAppointment::paginate(20);
+        $appointments = NurseAppointment::with('user', 'nurse', 'package')->paginate(20);
 
         return response()->json($appointments);
     }
@@ -39,7 +39,7 @@ class NurseAppointmentController extends Controller
      */
     public function show(NurseAppointment $nurseAppointment)
     {
-        return response()->json($nurseAppointment);
+        return response()->json($nurseAppointment->load('user', 'nurse', 'package'));
     }
 
     /**
