@@ -33,7 +33,8 @@ class UpdateCareGiverRequest extends FormRequest
             'dob' => 'date',
             'address' => 'string',
             'bio' => 'string',
-            'photo' => 'string'
+            'photo' => 'string',
+            'is_active' => 'boolean'
         ];
     }
 }

@@ -37,7 +37,8 @@ class UpdatePatientGuideRequest extends FormRequest
             "photo" => "string",
             "price" => "integer",
             "share" => "integer",
-            "discount" => "integer"
+            "discount" => "integer",
+            "is_active" => "boolean"
         ];
     }
 }

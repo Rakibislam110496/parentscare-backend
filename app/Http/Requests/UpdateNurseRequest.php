@@ -39,7 +39,8 @@ class UpdateNurseRequest extends FormRequest
             "price" => "integer",
             "share" => "integer",
             "discount" => "integer",
-            "availabilities" => "string"
+            "availabilities" => "string",
+            "is_active" => "boolean"
         ];
     }
 }

@@ -29,7 +29,8 @@ class UpdateNursePackageRequest extends FormRequest
             'duration' => 'integer',
             'price' => 'integer',
             'share' => 'integer',
-            'discount' => 'integer'
+            'discount' => 'integer',
+            'is_active' => 'boolean'
         ];
     }
 }

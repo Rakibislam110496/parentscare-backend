@@ -16,6 +16,7 @@ class CreateForeignMedicalLocationsTable extends Migration
         Schema::create('foreign_medical_locations', function (Blueprint $table) {
             $table->id();
             $table->string('country')->unique();
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }

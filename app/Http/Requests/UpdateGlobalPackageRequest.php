@@ -29,7 +29,8 @@ class UpdateGlobalPackageRequest extends FormRequest
             'validity' => 'integer',
             'discount' => 'integer',
             'share' => 'integer',
-            'description' => 'string'
+            'description' => 'string',
+            'is_active' => 'boolean'
         ];
     }
 }

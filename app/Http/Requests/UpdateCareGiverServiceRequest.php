@@ -29,7 +29,8 @@ class UpdateCareGiverServiceRequest extends FormRequest
             'slug' => ['string', Rule::unique('care_giver_services')->ignore($this->care_giver_service->id)],
             'price' => 'integer',
             'discount' => 'integer',
-            'share' => 'integer'
+            'share' => 'integer',
+            'is_active' => 'boolean'
         ];
     }
 }

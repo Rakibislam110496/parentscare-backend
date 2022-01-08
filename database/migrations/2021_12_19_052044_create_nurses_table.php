@@ -30,6 +30,7 @@ class CreateNursesTable extends Migration
             $table->integer('discount');
             $table->integer('share');
             $table->string('availabilities');
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }

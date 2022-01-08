@@ -24,6 +24,7 @@ class CreateCareGiversTable extends Migration
             $table->string('address');
             $table->string('bio');
             $table->string('photo');
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }

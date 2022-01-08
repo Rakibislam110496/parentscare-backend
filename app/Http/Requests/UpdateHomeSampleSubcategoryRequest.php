@@ -30,7 +30,8 @@ class UpdateHomeSampleSubcategoryRequest extends FormRequest
             'slug' => ['string', Rule::unique('home_sample_subcategories')->ignore($this->home_sample_subcategory->id)],
             'price' => 'integer',
             'discount' => 'integer',
-            'share' => 'integer'
+            'share' => 'integer',
+            'is_active' => 'boolean'
         ];
     }
 }

@@ -20,6 +20,7 @@ class CreateCareGiverServicesTable extends Migration
             $table->integer('price');
             $table->integer('discount');
             $table->integer('share');
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }

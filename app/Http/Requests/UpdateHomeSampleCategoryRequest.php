@@ -26,7 +26,8 @@ class UpdateHomeSampleCategoryRequest extends FormRequest
     {
         return [
             'name' => 'string',
-            'slug' => ['string', Rule::unique('home_sample_categories')->ignore($this->home_sample_category->id)]
+            'slug' => ['string', Rule::unique('home_sample_categories')->ignore($this->home_sample_category->id)],
+            'is_active' => 'boolean'
         ];
     }
 }

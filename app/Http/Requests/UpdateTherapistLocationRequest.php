@@ -27,7 +27,8 @@ class UpdateTherapistLocationRequest extends FormRequest
             "address" => "string",
             "price" => "integer",
             "share" => "integer",
-            "discount" => "integer"
+            "discount" => "integer",
+            "is_active" => "boolean"
         ];
     }
 }

@@ -25,7 +25,8 @@ class UpdateForeignMedicalLocationRequest extends FormRequest
     public function rules()
     {
         return [
-            'country' => ['string', Rule::unique('foreign_medical_locations')->ignore($this->foreign_medical_location->id)]
+            'country' => ['string', Rule::unique('foreign_medical_locations')->ignore($this->foreign_medical_location->id)],
+            'is_active' => 'boolean'
         ];
     }
 }

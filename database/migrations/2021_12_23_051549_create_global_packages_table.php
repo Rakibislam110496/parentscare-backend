@@ -21,6 +21,7 @@ class CreateGlobalPackagesTable extends Migration
             $table->integer('discount');
             $table->integer('share');
             $table->text('description');
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }

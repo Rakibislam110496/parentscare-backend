@@ -17,6 +17,7 @@ class CreateHomeSampleCategoriesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }

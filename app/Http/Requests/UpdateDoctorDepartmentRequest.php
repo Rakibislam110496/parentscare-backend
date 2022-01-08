@@ -26,7 +26,8 @@ class UpdateDoctorDepartmentRequest extends FormRequest
     {
         return [
             'name' => 'string',
-            'slug' => ['string', Rule::unique('doctor_departments')->ignore($this->doctor_department->id)]
+            'slug' => ['string', Rule::unique('doctor_departments')->ignore($this->doctor_department->id)],
+            'is_active' => 'boolean'
         ];
     }
 }

@@ -31,5 +31,37 @@ class UserSeeder extends Seeder
                 ]
             ]
         );
+
+        DB::table('personal_access_tokens')->insert(
+            [
+                [
+                    'tokenable_type' => 'App\Models\Admin',
+                    'tokenable_id' => 1,
+                    'name' => 'accessToken',
+                    'token' => 'f83c6dfb6481bade801944d80ec878507bdfadbb3b604f8a4582fb5ee329853f',
+                    'abilities' => '["*"]',
+                    'created_at' => '2022-01-07 19:02:10',
+                    'updated_at' => '2022-01-07 19:02:10',
+                ],
+                [
+                    'tokenable_type' => 'App\Models\User',
+                    'tokenable_id' => 1,
+                    'name' => 'accessToken',
+                    'token' => 'b3151834f1436ccb90eda18a528130389aa55207dfb32c04115ed1a2702116d2',
+                    'abilities' => '["*"]',
+                    'created_at' => '2022-01-07 19:04:20',
+                    'updated_at' => '2022-01-07 19:04:20',
+                ],
+                [
+                    'tokenable_type' => 'App\Models\User',
+                    'tokenable_id' => 2,
+                    'name' => 'accessToken',
+                    'token' => '36f788745dd630972cc939708aa56d577cbbaab87e2a5df7af3439fc01f680b7',
+                    'abilities' => '["*"]',
+                    'created_at' => '2022-01-07 19:04:20',
+                    'updated_at' => '2022-01-07 19:04:20',
+                ],
+            ]
+        );
     }
 }
