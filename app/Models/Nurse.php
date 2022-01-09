@@ -13,6 +13,10 @@ class Nurse extends Model
     protected $guarded = [];
     protected $hidden = ['password'];
 
+    protected $casts = [
+        'dob' => 'datetime',
+    ];
+
     protected static function boot()
     {
         parent::boot();

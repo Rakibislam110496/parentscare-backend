@@ -20,7 +20,7 @@ class CreateNursesTable extends Migration
             $table->string('password');
             $table->string('phone');
             $table->string('designation');
-            $table->dateTimeTz('dob');
+            $table->dateTime('dob');
             $table->string('gender');
             $table->string('location');
             $table->boolean('is_special');

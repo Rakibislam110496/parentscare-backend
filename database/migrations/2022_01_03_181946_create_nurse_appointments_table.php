@@ -22,9 +22,9 @@ class CreateNurseAppointmentsTable extends Migration
             $table->string('patient_gender');
             $table->integer('patient_age');
             $table->string('sickness_details');
-            $table->dateTimeTz('expected_date');
+            $table->dateTime('expected_date');
             $table->integer('duration');
-            $table->dateTimeTz('appointment_date')->nullable();
+            $table->dateTime('appointment_date')->nullable();
             $table->string('phone');
             $table->string('address');
             $table->string('status')->default('pending');

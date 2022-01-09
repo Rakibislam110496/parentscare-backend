@@ -11,6 +11,11 @@ class HomeSampleAppointment extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'expected_date' => 'datetime',
+        'appointment_date' => 'datetime'
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

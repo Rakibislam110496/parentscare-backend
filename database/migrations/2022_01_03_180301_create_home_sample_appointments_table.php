@@ -23,8 +23,8 @@ class CreateHomeSampleAppointmentsTable extends Migration
             $table->string('test_details');
             $table->string('phone');
             $table->string('address');
-            $table->dateTimeTz('expected_date');
-            $table->dateTimeTz('appointment_date')->nullable();
+            $table->dateTime('expected_date');
+            $table->dateTime('appointment_date')->nullable();
             $table->string('status')->default('pending');
             $table->timestamps();
         });
