@@ -21,7 +21,7 @@ class CreateDoctorsTable extends Migration
             $table->string('password');
             $table->string('phone');
             $table->string('speciality');
-            $table->date('dob');
+            $table->dateTimeTz('dob');
             $table->string('gender');
             $table->string('degree');
             $table->text('bio');

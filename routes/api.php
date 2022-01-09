@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\CareGiverAppointmentController;
 use App\Http\Controllers\CareGiverController;
 use App\Http\Controllers\CareGiverServiceController;
@@ -170,6 +171,9 @@ Route::prefix('admin')->group(function (){
 
         //Therapist appointments
         Route::apiResource('therapist_appointments', TherapistAppointmentController::class)->only('index', 'show', 'update');
+
+        //Admin Dashboard
+        Route::get('get_dashboard_data', [AdminDashboardController::class, 'getDashboardData']);
     });
 });
 

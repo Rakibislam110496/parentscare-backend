@@ -20,7 +20,7 @@ class CreateCareGiversTable extends Migration
             $table->string('password');
             $table->string('phone');
             $table->string('gender');
-            $table->date('dob');
+            $table->dateTimeTz('dob');
             $table->string('address');
             $table->string('bio');
             $table->string('photo');

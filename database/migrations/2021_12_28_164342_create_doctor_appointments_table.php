@@ -23,8 +23,8 @@ class CreateDoctorAppointmentsTable extends Migration
             $table->text('sickness_details');
             $table->string('phone');
             $table->string('address');
-            $table->dateTime('expected_date_time');
-            $table->dateTime('appointment_date_time')->nullable();
+            $table->dateTimeTz('expected_date_time');
+            $table->dateTimeTz('appointment_date_time')->nullable();
             $table->string('status')->default('pending');
             $table->timestamps();
         });

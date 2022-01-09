@@ -21,7 +21,7 @@ class CreateTherapistsTable extends Migration
             $table->string('phone');
             $table->string('password');
             $table->string('gender');
-            $table->date('dob');
+            $table->dateTimeTz('dob');
             $table->text('bio');
             $table->string('photo');
             $table->string('availabilities');

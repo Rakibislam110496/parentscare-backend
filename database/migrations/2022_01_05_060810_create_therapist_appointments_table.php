@@ -24,8 +24,8 @@ class CreateTherapistAppointmentsTable extends Migration
             $table->integer('duration');
             $table->string('phone');
             $table->string('address');
-            $table->date('expected_date');
-            $table->date('appointment_date')->nullable();
+            $table->dateTimeTz('expected_date');
+            $table->dateTimeTz('appointment_date')->nullable();
             $table->string('status')->default('pending');
             $table->timestamps();
         });
