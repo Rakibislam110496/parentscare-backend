@@ -24,7 +24,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(20);
+        $users = User::with('doctorAppointments', 'careGiverAppointments', 'foreignMedicalAppointments', 'homeSampleAppointments', 'nurseAppointments', 'patientGuideAppointments', 'therapistAppointments')->paginate(20);
 
         return response()->json($users);
     }
