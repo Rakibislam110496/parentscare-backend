@@ -109,10 +109,35 @@ class AdminDashboardController extends Controller
                 'inactive' => $inactive_home_sample_count,
                 'total' => $active_home_sample_count + $inactive_home_sample_count
             ],
-
             'pending_appointments' => [
                 'doctors' => $pending_doctor_appointment,
-                ''
+                'nurse' => $pending_nurse_appointment,
+                'home_sample' => $pending_home_sample_appointment,
+                'care_giver' => $pending_care_giver_appointment,
+                'patient_guide' => $pending_patient_guide_appointment,
+                'therapist' => $pending_therapist_appointment,
+                'foreign_medical' => $pending_foreign_medical_appointment,
+                'total' => $pending_doctor_appointment + $pending_nurse_appointment + $pending_foreign_medical_appointment + $pending_therapist_appointment + $pending_patient_guide_appointment + $pending_care_giver_appointment + $pending_home_sample_appointment
+            ],
+            'active_appointments' => [
+                'doctors' => $active_doctor_appointment,
+                'nurse' => $active_nurse_appointment,
+                'home_sample' => $active_home_sample_appointment,
+                'care_giver' => $active_care_giver_appointment,
+                'patient_guide' => $active_patient_guide_appointment,
+                'therapist' => $active_therapist_appointment,
+                'foreign_medical' => $active_foreign_medical_appointment,
+                'total' => $active_doctor_appointment + $active_nurse_appointment + $active_therapist_appointment + $active_care_giver_appointment + $active_foreign_medical_appointment + $active_home_sample_appointment + $active_patient_guide_appointment
+            ],
+            'cancelled_appointments' => [
+                'doctors' => $cancelled_doctor_appointment,
+                'nurse' => $cancelled_nurse_appointment,
+                'home_sample' => $cancelled_home_sample_appointment,
+                'care_giver' => $cancelled_care_giver_appointment,
+                'patient_guide' => $cancelled_patient_guide_appointment,
+                'therapist' => $cancelled_therapist_appointment,
+                'foreign_medical' => $cancelled_foreign_medical_appointment,
+                'total' => $cancelled_doctor_appointment + $cancelled_nurse_appointment, $cancelled_therapist_appointment + $cancelled_care_giver_appointment + $cancelled_foreign_medical_appointment + $cancelled_home_sample_appointment + $cancelled_home_sample_appointment
             ]
         ];
 
