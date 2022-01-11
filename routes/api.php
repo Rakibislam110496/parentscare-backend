@@ -19,6 +19,7 @@ use App\Http\Controllers\NursePackageController;
 use App\Http\Controllers\PatientGuideAppointmentController;
 use App\Http\Controllers\PatientGuideController;
 use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\SslCommerzPaymentController;
 use App\Http\Controllers\TherapistAppointmentController;
 use App\Http\Controllers\TherapistController;
 use App\Http\Controllers\TherapistLocationController;
@@ -45,12 +46,12 @@ Route::post('/run-command', function (Request $request) {
 });
 
 
-Route::prefix('user')->group(function (){
+Route::prefix('user')->group(function () {
     Route::post('login', function (Request $request) {
         return User::login($request);
     });
 
-    Route::middleware('auth:user')->group(function (){
+    Route::middleware('auth:user')->group(function () {
         //Doctor departments
         Route::apiResource('doctor_departments', DoctorDepartmentController::class)->only('index', 'show');
 
@@ -100,15 +101,17 @@ Route::prefix('user')->group(function (){
         Route::post('get_patient_guide_appointment', [UserController::class, 'getPatientGuideAppointment']);
         Route::post('get_therapist_appointment', [UserController::class, 'getTherapistAppointment']);
         Route::get('appointments', [UserController::class, 'appointments']);
+
+        //buy packages
     });
 });
 
-Route::prefix('admin')->group(function (){
+Route::prefix('admin')->group(function () {
     Route::post('login', function (Request $request) {
         return Admin::login($request);
     });
 
-    Route::middleware('auth:admin')->group(function (){
+    Route::middleware('auth:admin')->group(function () {
         //Users
         Route::apiResource('users', UserController::class);
 
@@ -180,4 +183,14 @@ Route::prefix('admin')->group(function (){
 
 //Upload photo
 Route::post('upload_photo', [PhotoController::class, 'upload']);
+
+// SSLCOMMERZ Start
+Route::post('pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
+
+Route::post('success', [SslCommerzPaymentController::class, 'success']);
+Route::post('fail', [SslCommerzPaymentController::class, 'fail']);
+Route::post('cancel', [SslCommerzPaymentController::class, 'cancel']);
+
+Route::post('ipn', [SslCommerzPaymentController::class, 'ipn']);
+//SSLCOMMERZ END
 

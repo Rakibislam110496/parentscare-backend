@@ -138,6 +138,9 @@ class AdminDashboardController extends Controller
                 'therapist' => $cancelled_therapist_appointment,
                 'foreign_medical' => $cancelled_foreign_medical_appointment,
                 'total' => $cancelled_doctor_appointment + $cancelled_nurse_appointment, $cancelled_therapist_appointment + $cancelled_care_giver_appointment + $cancelled_foreign_medical_appointment + $cancelled_home_sample_appointment + $cancelled_home_sample_appointment
+            ],
+            'packages' => [
+
             ]
         ];
 

@@ -122,7 +122,7 @@ class UserController extends Controller
     {
         $validated = $request->validated();
 
-        if($request->has('nurse_package_id')){
+        if ($request->has('nurse_package_id')) {
             $package = NursePackage::find($request->nurse_package_id);
             $validated['duration'] = $package->duration;
         }
