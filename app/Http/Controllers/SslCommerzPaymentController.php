@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Library\SslCommerz\SslCommerzNotification;
+use SebastianBergmann\Environment\Console;
+use Symfony\Component\Console\Output\ConsoleOutput;
 
 class SslCommerzPaymentController extends Controller
 {
@@ -124,8 +126,6 @@ class SslCommerzPaymentController extends Controller
             #That means something wrong happened. You can redirect customer to your product page.
             echo "Invalid Transaction";
         }
-
-
     }
 
     public function fail(Request $request)

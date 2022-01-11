@@ -13,6 +13,7 @@ use App\Http\Controllers\GlobalPackageController;
 use App\Http\Controllers\HomeSampleAppointmentController;
 use App\Http\Controllers\HomeSampleCategoryController;
 use App\Http\Controllers\HomeSampleSubcategoriesController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\NurseAppointmentController;
 use App\Http\Controllers\NurseController;
 use App\Http\Controllers\NursePackageController;
@@ -39,9 +40,6 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::get('/test', function(){
-   return response()->json(['message' => 'If you can see this, it means the api is working']);
-});
 
 Route::post('/run-command', function (Request $request) {
     \Illuminate\Support\Facades\Artisan::call($request->input('command'));
@@ -106,7 +104,10 @@ Route::prefix('user')->group(function () {
         Route::post('get_therapist_appointment', [UserController::class, 'getTherapistAppointment']);
         Route::get('appointments', [UserController::class, 'appointments']);
 
-        //buy packages
+        //Messages
+        Route::apiResource('messages', MessageController::class)->only('store');
+
+        //Buy Packages
     });
 });
 
@@ -178,6 +179,9 @@ Route::prefix('admin')->group(function () {
 
         //Therapist appointments
         Route::apiResource('therapist_appointments', TherapistAppointmentController::class)->only('index', 'show', 'update');
+
+        //Messages
+        Route::apiResource('messages', MessageController::class)->only('index', 'show');
 
         //Admin Dashboard
         Route::get('get_dashboard_data', [AdminDashboardController::class, 'getDashboardData']);

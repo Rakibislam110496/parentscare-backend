@@ -18,6 +18,7 @@ class CreateMessagesTable extends Migration
             $table->string('name');
             $table->string('phone');
             $table->text('description');
+            $table->string('topic');
             $table->timestamps();
         });
     }
