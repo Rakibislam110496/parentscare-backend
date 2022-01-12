@@ -25,6 +25,7 @@ use App\Http\Controllers\TherapistAppointmentController;
 use App\Http\Controllers\TherapistController;
 use App\Http\Controllers\TherapistLocationController;
 use App\Http\Controllers\UserController;
+use App\Http\Requests\StoreUserSignupRequest;
 use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -49,6 +50,16 @@ Route::post('/run-command', function (Request $request) {
 
 
 Route::prefix('user')->group(function () {
+    Route::post('signup', function (StoreUserSignupRequest $request) {
+        $validated = $request->validated();
+
+        $validated['password'] = \Illuminate\Support\Facades\Hash::make($validated['password']);
+
+        User::create($validated);
+
+        return response()->json(['message' => 'Signup successfull']);
+    });
+
     Route::post('login', function (Request $request) {
         return User::login($request);
     });
@@ -191,13 +202,6 @@ Route::prefix('admin')->group(function () {
 
 //Upload photo
 Route::post('upload_photo', [PhotoController::class, 'upload']);
-
-// SSLCOMMERZ Start
-Route::post('pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
-
-Route::post('success', [SslCommerzPaymentController::class, 'success']);
-Route::post('fail', [SslCommerzPaymentController::class, 'fail']);
-Route::post('cancel', [SslCommerzPaymentController::class, 'cancel']);
 
 Route::post('ipn', [SslCommerzPaymentController::class, 'ipn']);
 //SSLCOMMERZ END

@@ -13,6 +13,7 @@ use App\Models\NursePackage;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
@@ -24,7 +25,25 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::with('doctorAppointments', 'careGiverAppointments', 'foreignMedicalAppointments', 'homeSampleAppointments', 'nurseAppointments', 'patientGuideAppointments', 'therapistAppointments')->paginate(20);
+        $users = User::paginate(20)->through(function ($row) {
+            return [
+                "id" => 1,
+                "name" => "User 1",
+                "email" => "user1@test.com",
+                "phone" => "01834342343",
+                "email_verified_at" => null,
+                "is_active" => 1,
+                "appointments" => collect([
+                    $row->doctorAppointments,
+                    $row->careGiverAppointments,
+                    $row->foreignMedicalAppointments,
+                    $row->homeSampleAppointments,
+                    $row->nurseAppointments,
+                    $row->patientGuideAppointments,
+                    $row->therapistAppointments,
+                ])->flatten()
+            ];
+        });
 
         return response()->json($users);
     }
@@ -79,7 +98,8 @@ class UserController extends Controller
         $validated = $request->validated();
 
         $appointment = DB::transaction(function () use ($validated) {
-            return auth()->user()->careGiverAppointments()->create($validated);
+            $appointment = auth()->user()->careGiverAppointments()->create($validated);
+            $appointment->order()->create();
         });
 
         return response()->json($appointment);

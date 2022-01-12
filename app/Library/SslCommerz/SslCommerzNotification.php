@@ -306,7 +306,7 @@ class SslCommerzNotification extends AbstractSslCommerz
          * Some transaction could be pending or customer lost his/her session, in such cases back-end IPN plays a very important role to update your backend office.
          *
          * Type: string (255)
-         * Important! Not mandatory, however better to use to avoid missing any payment notification - It is the Instant Payment Notification (IPN) URL of your website where SSLCOMMERZ will send the transaction's status (Length: 255).
+         * Important! Not mandatory, however better to use to avoid missing any payment notification - It is the Instant Order Notification (IPN) URL of your website where SSLCOMMERZ will send the transaction's status (Length: 255).
          * The data will be communicated as SSLCOMMERZ Server to your Server. So, customer session will not work.
          * */
         $this->data['ipn_url'] = (isset($info['ipn_url'])) ? $info['ipn_url'] : null;
@@ -358,8 +358,8 @@ class SslCommerzNotification extends AbstractSslCommerz
         $this->data['emi_option'] = (isset($info['emi_option'])) ? $info['emi_option'] : null; // integer (1)	Mandatory - This is mandatory if transaction is EMI enabled and Value must be 1/0. Here, 1 means customer will get EMI facility for this transaction
         $this->data['emi_max_inst_option'] = (isset($info['emi_max_inst_option'])) ? $info['emi_max_inst_option'] : null; // integer (2)	Max instalment Option, Here customer will get 3,6, 9 instalment at gateway page
         $this->data['emi_selected_inst'] = (isset($info['emi_selected_inst'])) ? $info['emi_selected_inst'] : null; // integer (2)	Customer has selected from your Site, So no instalment option will be displayed at gateway page
-        $this->data['emi_allow_only'] = (isset($info['emi_allow_only'])) ? $info['emi_allow_only'] : 0; 
-        
+        $this->data['emi_allow_only'] = (isset($info['emi_allow_only'])) ? $info['emi_allow_only'] : 0;
+
         return $this->data;
     }
 
