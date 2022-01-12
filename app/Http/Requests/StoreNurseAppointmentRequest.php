@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Models\Nurse;
+use App\Models\NursePackage;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreNurseAppointmentRequest extends FormRequest
@@ -43,13 +44,22 @@ class StoreNurseAppointmentRequest extends FormRequest
     {
         $nurse = Nurse::find($this->nurse_id);
 
-        if($this->has())
-
         $this->merge([
             'price' => $nurse->price,
             'share' => $nurse->share,
             'discount' => $nurse->discount
         ]);
+
+        if($this->has('nurse_package_id')){
+            $package = NursePackage::find($this->nurse_package_id);
+
+            $this->merge([
+                'price' => $package->price,
+                'share' => $package->share,
+                'discount' => $package->discount,
+                'duration' => $package->duration
+            ]);
+        }
 
         return $this->toArray();
     }

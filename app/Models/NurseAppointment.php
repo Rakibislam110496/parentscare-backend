@@ -28,4 +28,9 @@ class NurseAppointment extends Model
     public function package(){
         return $this->belongsTo(NursePackage::class, 'nurse_package_id');
     }
+
+    public function order()
+    {
+        return $this->morphOne(Order::class, 'orderable');
+    }
 }

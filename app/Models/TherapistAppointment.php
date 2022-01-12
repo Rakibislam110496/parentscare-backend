@@ -24,4 +24,9 @@ class TherapistAppointment extends Model
     public function therapist(){
         return $this->belongsTo(Therapist::class);
     }
+
+    public function order()
+    {
+        return $this->morphOne(Order::class, 'orderable');
+    }
 }

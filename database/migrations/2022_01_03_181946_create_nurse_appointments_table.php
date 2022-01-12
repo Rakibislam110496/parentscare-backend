@@ -28,6 +28,9 @@ class CreateNurseAppointmentsTable extends Migration
             $table->string('phone');
             $table->string('address');
             $table->string('status')->default('pending');
+            $table->double('price');
+            $table->integer('share');
+            $table->integer('discount');
             $table->timestamps();
         });
     }

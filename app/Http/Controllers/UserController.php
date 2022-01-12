@@ -163,38 +163,54 @@ class UserController extends Controller
     {
         $validated = $request->validated();
 
-        if ($request->has('nurse_package_id')) {
-            $package = NursePackage::find($request->nurse_package_id);
-            $validated['duration'] = $package->duration;
-        }
+        $order = DB::transaction(function () use ($validated) {
+            $appointment = auth()->user()->nurseAppointments()->create($validated);
+            $order = $appointment->order()->create([
+                'amount' => ($validated["discount"] / 100) * $validated["price"],
+            ]);
 
-        $appointment = DB::transaction(function () use ($validated) {
-            return auth()->user()->nurseAppointments()->create($validated);
+            return $order;
         });
 
-        return response()->json($appointment);
+        $paymentUrl = SslCommerzPaymentController::getPaymentUrl($order);
+
+        return response()->json($paymentUrl);
     }
 
     public function getPatientGuideAppointment(StorePatientGuideAppointmentRequest $request)
     {
         $validated = $request->validated();
 
-        $appointment = DB::transaction(function () use ($validated) {
-            return auth()->user()->patientGuideAppointments()->create($validated);
+        $order = DB::transaction(function () use ($validated) {
+            $appointment = auth()->user()->patientGuideAppointments()->create($validated);
+            $order = $appointment->order()->create([
+                'amount' => ($validated["discount"] / 100) * $validated["price"],
+            ]);
+
+            return $order;
         });
 
-        return response()->json($appointment);
+        $paymentUrl = SslCommerzPaymentController::getPaymentUrl($order);
+
+        return response()->json($paymentUrl);
     }
 
     public function getTherapistAppointment(StoreTherapistAppointmentRequest $request)
     {
         $validated = $request->validated();
 
-        $appointment = DB::transaction(function () use ($validated) {
-            return auth()->user()->therapistAppointments()->create($validated);
+        $order = DB::transaction(function () use ($validated) {
+            $appointment = auth()->user()->therapistAppointments()->create($validated);
+            $order = $appointment->order()->create([
+                'amount' => ($validated["discount"] / 100) * $validated["price"],
+            ]);
+
+            return $order;
         });
 
-        return response()->json($appointment);
+        $paymentUrl = SslCommerzPaymentController::getPaymentUrl($order);
+
+        return response()->json($paymentUrl);
     }
 
     public function appointments(Request $request)

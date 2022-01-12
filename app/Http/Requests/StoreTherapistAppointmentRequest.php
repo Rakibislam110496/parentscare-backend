@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Therapist;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreTherapistAppointmentRequest extends FormRequest
@@ -35,5 +36,18 @@ class StoreTherapistAppointmentRequest extends FormRequest
             'address' => 'required|string',
             'expected_date' => 'required|date'
         ];
+    }
+
+    public function validated()
+    {
+        $location = Therapist::find($this->therapist_id)->location;
+
+        $this->merge([
+            'price' => $location->price,
+            'share' => $location->share,
+            'discount' => $location->discount
+        ]);
+
+        return $this->toArray();
     }
 }

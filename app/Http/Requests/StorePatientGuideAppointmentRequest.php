@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\PatientGuide;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StorePatientGuideAppointmentRequest extends FormRequest
@@ -35,5 +36,18 @@ class StorePatientGuideAppointmentRequest extends FormRequest
             'address' => 'required|string',
             'expected_date' => 'required|date'
         ];
+    }
+
+    public function validated()
+    {
+        $patientGuide = PatientGuide::find($this->patient_guide_id);
+
+        $this->merge([
+            'price' => $patientGuide->price,
+            'share' => $patientGuide->share,
+            'discount' => $patientGuide->discount
+        ]);
+
+        return $this->toArray();
     }
 }

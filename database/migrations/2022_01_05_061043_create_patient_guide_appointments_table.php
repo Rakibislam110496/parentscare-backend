@@ -27,6 +27,9 @@ class CreatePatientGuideAppointmentsTable extends Migration
             $table->dateTime('expected_date');
             $table->dateTime('appointment_date')->nullable();
             $table->string('status')->default('pending');
+            $table->double('price');
+            $table->integer('share');
+            $table->integer('discount');
             $table->timestamps();
         });
     }

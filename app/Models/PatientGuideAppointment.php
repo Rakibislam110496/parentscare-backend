@@ -23,4 +23,9 @@ class PatientGuideAppointment extends Model
     public function patientGuide(){
         return $this->belongsTo(PatientGuide::class);
     }
+
+    public function order()
+    {
+        return $this->morphOne(Order::class, 'orderable');
+    }
 }
