@@ -197,6 +197,7 @@ Route::prefix('admin')->group(function () {
 //Upload photo
 Route::post('upload_photo', [PhotoController::class, 'upload']);
 
+//SSLCOMMERZ START
 Route::post('success', [SslCommerzPaymentController::class, 'success']);
 Route::post('fail', [SslCommerzPaymentController::class, 'fail']);
 Route::post('cancel', [SslCommerzPaymentController::class, 'cancel']);
