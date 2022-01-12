@@ -64,47 +64,43 @@ Route::prefix('user')->group(function () {
         return User::login($request);
     });
 
+    //Doctors
+    Route::apiResource('doctors', DoctorController::class)->only('index', 'show');
+
+    //Nurses
+    Route::apiResource('nurses', NurseController::class)->only('index', 'show');
+
+    //Nurse Packages
+    Route::apiResource('nurse_packages', NursePackageController::class)->only('index', 'show');
+
+    //Patient Guides
+    Route::apiResource('patient_guides', PatientGuideController::class)->only('index', 'show');
+
+    //Therapist Locations
+    Route::apiResource('therapist_locations', TherapistLocationController::class)->only('index', 'show');
+
+    //Therapists
+    Route::apiResource('therapists', TherapistController::class)->only('index', 'show');
+
+    //Foreign Medical Locations
+    Route::apiResource('foreign_medical_locations', ForeignMedicalLocationController::class)->only('index', 'show');
+
+    //Home Sample Categories
+    Route::apiResource('home_sample_categories', HomeSampleCategoryController::class)->only('index', 'show');
+
+    //Home Sample Subcategories
+    Route::apiResource('home_sample_subcategories', HomeSampleSubcategoriesController::class)->only('index', 'show');
+
+    //Care Giver Services
+    Route::apiResource('care_giver_services', CareGiverServiceController::class)->only('index', 'show');
+
+    //Care Givers
+    Route::apiResource('care_givers', CareGiverController::class)->only('index', 'show');
+
+    //Global Packages
+    Route::apiResource('global_packages', GlobalPackageController::class)->only('index', 'show');
+
     Route::middleware('auth:user')->group(function () {
-        //Doctor departments
-        Route::apiResource('doctor_departments', DoctorDepartmentController::class)->only('index', 'show');
-
-        //Doctors
-        Route::apiResource('doctors', DoctorController::class)->only('index', 'show');
-
-        //Nurses
-        Route::apiResource('nurses', NurseController::class)->only('index', 'show');
-
-        //Nurse Packages
-        Route::apiResource('nurse_packages', NursePackageController::class)->only('index', 'show');
-
-        //Patient Guides
-        Route::apiResource('patient_guides', PatientGuideController::class)->only('index', 'show');
-
-        //Therapist Locations
-        Route::apiResource('therapist_locations', TherapistLocationController::class)->only('index', 'show');
-
-        //Therapists
-        Route::apiResource('therapists', TherapistController::class)->only('index', 'show');
-
-        //Foreign Medical Locations
-        Route::apiResource('foreign_medical_locations', ForeignMedicalLocationController::class)->only('index', 'show');
-
-        //Home Sample Categories
-        Route::apiResource('home_sample_categories', HomeSampleCategoryController::class)->only('index', 'show');
-
-        //Home Sample Subcategories
-        Route::apiResource('home_sample_subcategories', HomeSampleSubcategoriesController::class)->only('index', 'show');
-
-        //Care Giver Services
-        Route::apiResource('care_giver_services', CareGiverServiceController::class)->only('index', 'show');
-
-        //Care Givers
-        Route::apiResource('care_givers', CareGiverController::class)->only('index', 'show');
-
-        //Global Packages
-        Route::apiResource('global_packages', GlobalPackageController::class)->only('index', 'show');
-
-
         //Appointments
         Route::post('get_care_giver_appointment', [UserController::class, 'getCareGiverAppointment']);
         Route::post('get_doctor_appointment', [UserController::class, 'getDoctorAppointment']);
