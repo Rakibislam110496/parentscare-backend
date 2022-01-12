@@ -26,6 +26,9 @@ class CreateDoctorAppointmentsTable extends Migration
             $table->dateTime('expected_date_time');
             $table->dateTime('appointment_date_time')->nullable();
             $table->string('status')->default('pending');
+            $table->double('price');
+            $table->integer('share');
+            $table->integer('discount');
             $table->timestamps();
         });
     }

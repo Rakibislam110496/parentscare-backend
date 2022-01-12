@@ -53,8 +53,6 @@ Route::prefix('user')->group(function () {
     Route::post('signup', function (StoreUserSignupRequest $request) {
         $validated = $request->validated();
 
-        $validated['password'] = \Illuminate\Support\Facades\Hash::make($validated['password']);
-
         User::create($validated);
 
         return response()->json(['message' => 'Signup successfull']);
@@ -198,6 +196,10 @@ Route::prefix('admin')->group(function () {
 
 //Upload photo
 Route::post('upload_photo', [PhotoController::class, 'upload']);
+
+Route::post('success', [SslCommerzPaymentController::class, 'success']);
+Route::post('fail', [SslCommerzPaymentController::class, 'fail']);
+Route::post('cancel', [SslCommerzPaymentController::class, 'cancel']);
 
 Route::post('ipn', [SslCommerzPaymentController::class, 'ipn']);
 //SSLCOMMERZ END

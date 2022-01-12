@@ -24,4 +24,8 @@ class HomeSampleAppointment extends Model
     public function subcategory(){
         return $this->belongsTo(HomeSampleSubcategory::class, 'home_sample_subcategories_id');
     }
+
+    public function order(){
+        return $this->morphOne(Order::class, 'orderable');
+    }
 }

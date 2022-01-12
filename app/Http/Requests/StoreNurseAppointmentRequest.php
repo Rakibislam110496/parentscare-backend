@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Nurse;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreNurseAppointmentRequest extends FormRequest
@@ -36,5 +37,20 @@ class StoreNurseAppointmentRequest extends FormRequest
             'phone' => 'required|string',
             'address' => 'required|string'
         ];
+    }
+
+    public function validated()
+    {
+        $nurse = Nurse::find($this->nurse_id);
+
+        if($this->has())
+
+        $this->merge([
+            'price' => $nurse->price,
+            'share' => $nurse->share,
+            'discount' => $nurse->discount
+        ]);
+
+        return $this->toArray();
     }
 }

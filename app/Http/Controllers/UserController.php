@@ -9,6 +9,7 @@ use App\Http\Requests\StoreHomeSampleAppointmentRequest;
 use App\Http\Requests\StoreNurseAppointmentRequest;
 use App\Http\Requests\StorePatientGuideAppointmentRequest;
 use App\Http\Requests\StoreTherapistAppointmentRequest;
+use App\Models\CareGiverService;
 use App\Models\NursePackage;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
@@ -97,23 +98,36 @@ class UserController extends Controller
     {
         $validated = $request->validated();
 
-        $appointment = DB::transaction(function () use ($validated) {
+        $order = DB::transaction(function () use ($validated) {
             $appointment = auth()->user()->careGiverAppointments()->create($validated);
-            $appointment->order()->create();
+            $order = $appointment->order()->create([
+                'amount' => ($validated["discount"] / 100) * $validated["price"],
+            ]);
+
+            return $order;
         });
 
-        return response()->json($appointment);
+        $paymentUrl = SslCommerzPaymentController::getPaymentUrl($order);
+
+        return response()->json($paymentUrl);
     }
 
     public function getDoctorAppointment(StoreDoctorAppointmentRequest $request): JsonResponse
     {
         $validated = $request->validated();
 
-        $appointment = DB::transaction(function () use ($validated) {
-            return auth()->user()->doctorAppointments()->create($validated);
+        $order = DB::transaction(function () use ($validated) {
+            $appointment = auth()->user()->doctorAppointments()->create($validated);
+            $order = $appointment->order()->create([
+                'amount' => ($validated["discount"] / 100) * $validated["price"],
+            ]);
+
+            return $order;
         });
 
-        return response()->json($appointment);
+        $paymentUrl = SslCommerzPaymentController::getPaymentUrl($order);
+
+        return response()->json($paymentUrl);
     }
 
     public function getForeignMedicalAppointment(StoreForeignMedicalAppointmentRequest $request)
@@ -131,11 +145,18 @@ class UserController extends Controller
     {
         $validated = $request->validated();
 
-        $appointment = DB::transaction(function () use ($validated) {
-            return auth()->user()->homeSampleAppointments()->create($validated);
+        $order = DB::transaction(function () use ($validated) {
+            $appointment = auth()->user()->homeSampleAppointments()->create($validated);
+            $order = $appointment->order()->create([
+                'amount' => ($validated["discount"] / 100) * $validated["price"],
+            ]);
+
+            return $order;
         });
 
-        return response()->json($appointment);
+        $paymentUrl = SslCommerzPaymentController::getPaymentUrl($order);
+
+        return response()->json($paymentUrl);
     }
 
     public function getNurseAppointment(StoreNurseAppointmentRequest $request)

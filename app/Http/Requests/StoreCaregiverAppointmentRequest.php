@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\CareGiverService;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreCaregiverAppointmentRequest extends FormRequest
@@ -38,5 +39,18 @@ class StoreCaregiverAppointmentRequest extends FormRequest
             'expected_date' => 'required|date',
             'duration' => 'required|integer'
         ];
+    }
+
+    public function validated()
+    {
+        $careGiverService = CareGiverService::find($this->care_giver_service_id);
+
+         $this->merge([
+            'price' => $careGiverService->price,
+            'share' => $careGiverService->share,
+            'discount' => $careGiverService->discount
+        ]);
+
+         return $this->toArray();
     }
 }

@@ -16,11 +16,10 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->morphs('orderable');
-            $table->double('amount')->nullable();
-            $table->string('status')->nullable();
-            $table->string('transaction_id')->nullable();
-            $table->string('currency')->nullable();
-
+            $table->double('amount');
+            $table->string('status')->default('pending');
+            $table->string('transaction_id')->default(uniqid());
+            $table->string('currency')->default('BDT');
             $table->timestamps();
         });
     }

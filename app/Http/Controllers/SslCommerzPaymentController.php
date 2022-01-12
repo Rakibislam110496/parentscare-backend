@@ -11,28 +11,23 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 class SslCommerzPaymentController extends Controller
 {
 
-    public function payViaAjax(Request $request)
+    public static function getPaymentUrl($order)
     {
-
-        # Here you have to receive all the order data to initate the payment.
-        # Lets your oder trnsaction informations are saving in a table called "orders"
-        # In orders table order uniq identity is "transaction_id","status" field contain status of the transaction, "amount" is the order amount to be paid and "currency" is for storing Site Currency which will be checked with paid currency.
-
         $post_data = array();
-        $post_data['total_amount'] = $request->total_amount; # You cant not pay less than 10
+        $post_data['total_amount'] = $order->amount; # You cant not pay less than 10
         $post_data['currency'] = "BDT";
         $post_data['tran_id'] = uniqid(); // tran_id must be unique
 
         # CUSTOMER INFORMATION
-        $post_data['cus_name'] = $request->cus_name;
-        $post_data['cus_email'] = $request->cus_email;
-        $post_data['cus_add1'] = $request->cus_add1;
+        $post_data['cus_name'] = auth()->user()->name;
+        $post_data['cus_email'] = auth()->user()->name;
+        $post_data['cus_add1'] = auth()->user()->address;
         $post_data['cus_add2'] = "";
         $post_data['cus_city'] = "";
         $post_data['cus_state'] = "";
         $post_data['cus_postcode'] = "";
-        $post_data['cus_country'] = "";
-        $post_data['cus_phone'] = $request->cus_phone;
+        $post_data['cus_country'] = "BD";
+        $post_data['cus_phone'] = auth()->user()->phone;
         $post_data['cus_fax'] = "";
 
         # SHIPMENT INFORMATION
@@ -56,22 +51,30 @@ class SslCommerzPaymentController extends Controller
         $post_data['value_c'] = "";
         $post_data['value_d'] = "";
 
-
-        #Before  going to initiate the payment order status need to update as Pending.
-        $update_product = DB::table('orders')
-            ->where('transaction_id', $post_data['tran_id'])
-            ->updateOrInsert([
-                'amount' => $post_data['total_amount'],
-                'status' => 'Pending',
-                'transaction_id' => $post_data['tran_id'],
-                'currency' => $post_data['currency']
-            ]);
-
         $sslc = new SslCommerzNotification();
         # initiate(Transaction Data , false: Redirect to SSLCOMMERZ gateway/ true: Show all the Payement gateway here )
         $payment_options = $sslc->makePayment($post_data, 'checkout', 'json');
 
         return response()->json(json_decode($payment_options));
+    }
+
+    public function success(Request $request)
+    {
+        $params = 'payment_type='.$request->card_type;
+        $params .= '&&amount='.$request->amount;
+        $params .= '&&transaction_id='.$request->tran_id;
+
+        return redirect('http://parents-care-client.vercel.app/payment/success?'.$params);
+    }
+
+    public function fail(Request $request)
+    {
+        return redirect('https://parents-care-client.vercel.app/payment/failed');
+    }
+
+    public function cancel(Request $request)
+    {
+        return redirect('https://parents-care-client.vercel.app/payment/cancel');
     }
 
     public function ipn(Request $request)

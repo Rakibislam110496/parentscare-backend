@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Doctor;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreDoctorAppointmentRequest extends FormRequest
@@ -34,5 +35,18 @@ class StoreDoctorAppointmentRequest extends FormRequest
             'address' => 'required|string',
             'expected_date_time' => 'required|date'
         ];
+    }
+
+    public function validated()
+    {
+        $doctor = Doctor::find($this->doctor_id);
+
+        $this->merge([
+            'price' => $doctor->price,
+            'share' => $doctor->share,
+            'discount' => $doctor->discount
+        ]);
+
+        return $this->toArray();
     }
 }

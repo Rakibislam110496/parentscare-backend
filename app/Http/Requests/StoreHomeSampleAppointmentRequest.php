@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\HomeSampleSubcategory;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreHomeSampleAppointmentRequest extends FormRequest
@@ -34,5 +35,18 @@ class StoreHomeSampleAppointmentRequest extends FormRequest
             'address' => 'required|string',
             'expected_date' => 'required|date'
         ];
+    }
+
+    public function validated()
+    {
+        $test = HomeSampleSubcategory::find($this->home_sample_subcategories_id);
+
+        $this->merge([
+            'price' => $test->price,
+            'share' => $test->share,
+            'discount' => $test->discount
+        ]);
+
+        return $this->toArray();
     }
 }

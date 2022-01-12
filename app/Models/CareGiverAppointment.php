@@ -26,6 +26,10 @@ class CareGiverAppointment extends Model
         return $this->belongsTo(CareGiver::class);
     }
 
+    public function service(){
+        return $this->belongsTo(CareGiverService::class, 'care_giver_service_id');
+    }
+
     public function order(){
         return $this->morphOne(Order::class, 'orderable');
     }
