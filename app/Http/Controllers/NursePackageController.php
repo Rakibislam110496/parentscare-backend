@@ -15,7 +15,7 @@ class NursePackageController extends Controller
      */
     public function index()
     {
-        $packages = NursePackage::paginate(20);
+        $packages = NursePackage::all();
 
         return response()->json($packages);
     }
