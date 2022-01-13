@@ -45,11 +45,11 @@ class User extends Authenticatable
     ];
 
     public function doctorAppointments(){
-        return $this->hasMany(DoctorAppointment::class);
+        return $this->hasMany(DoctorAppointment::class)->with('doctor');
     }
 
     public function careGiverAppointments(){
-        return $this->hasMany(CareGiverAppointment::class);
+        return $this->hasMany(CareGiverAppointment::class)->with('careGiver');
     }
 
     public function foreignMedicalAppointments(){
@@ -62,15 +62,15 @@ class User extends Authenticatable
 
     public function nurseAppointments()
     {
-        return $this->hasMany(NurseAppointment::class);
+        return $this->hasMany(NurseAppointment::class)->with('nurse');
     }
 
     public function patientGuideAppointments(){
-        return $this->hasMany(PatientGuideAppointment::class);
+        return $this->hasMany(PatientGuideAppointment::class)->with('patientGuide');
     }
 
     public function therapistAppointments(){
-        return $this->hasMany(TherapistAppointment::class);
+        return $this->hasMany(TherapistAppointment::class)->with('therapist');
     }
 
     public function globalPackageSubscriptions(){

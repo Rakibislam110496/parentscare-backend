@@ -242,17 +242,17 @@ class UserController extends Controller
             case 'care_giver':
                 return response()->json(auth()->user()->careGiverAppointments);
             case 'doctor':
-                return response()->json(auth()->user()->doctorAppointments->load('doctor'));
+                return response()->json(auth()->user()->doctorAppointments);
             case 'foreign_medical':
                 return response()->json(auth()->user()->foreignMedicalAppointments);
             case 'home_sample':
                 return response()->json(auth()->user()->homeSampleAppointments);
             case 'nurse':
-                return response()->json(auth()->user()->nurseAppointments->load('nurse'));
+                return response()->json(auth()->user()->nurseAppointments);
             case 'patient_guide':
-                return response()->json(auth()->user()->patientGuideAppointments->load('patient_guide'));
+                return response()->json(auth()->user()->patientGuideAppointments);
             case 'therapist':
-                return response()->json(auth()->user()->therapistAppointments->load('therapist'));
+                return response()->json(auth()->user()->therapistAppointments);
             default:
                 return response()->json([]);
         }
