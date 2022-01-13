@@ -11,6 +11,7 @@ use App\Http\Requests\StorePatientGuideAppointmentRequest;
 use App\Http\Requests\StoreTherapistAppointmentRequest;
 use App\Models\CareGiverService;
 use App\Models\NursePackage;
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -107,7 +108,7 @@ class UserController extends Controller
             return $order;
         });
 
-        $paymentUrl = SslCommerzPaymentController::getPaymentUrl($order);
+        $paymentUrl = SslCommerzPaymentController::getPaymentUrl(Order::find($order->id));
 
         return response()->json(['payment_gateway' => $paymentUrl, 'order' => $order->load('orderable')]);
     }
@@ -125,7 +126,7 @@ class UserController extends Controller
             return $order;
         });
 
-        $paymentUrl = SslCommerzPaymentController::getPaymentUrl($order);
+        $paymentUrl = SslCommerzPaymentController::getPaymentUrl(Order::find($order->id));
 
         return response()->json(['payment_gateway' => $paymentUrl, 'order' => $order->load('orderable')]);
     }
@@ -154,7 +155,7 @@ class UserController extends Controller
             return $order;
         });
 
-        $paymentUrl = SslCommerzPaymentController::getPaymentUrl($order);
+        $paymentUrl = SslCommerzPaymentController::getPaymentUrl(Order::find($order->id));
 
         return response()->json(['payment_gateway' => $paymentUrl, 'order' => $order->load('orderable')]);
     }
@@ -172,7 +173,7 @@ class UserController extends Controller
             return $order;
         });
 
-        $paymentUrl = SslCommerzPaymentController::getPaymentUrl($order);
+        $paymentUrl = SslCommerzPaymentController::getPaymentUrl(Order::find($order->id));
 
         return response()->json(['payment_gateway' => $paymentUrl, 'order' => $order->load('orderable')]);
     }
@@ -190,7 +191,7 @@ class UserController extends Controller
             return $order;
         });
 
-        $paymentUrl = SslCommerzPaymentController::getPaymentUrl($order);
+        $paymentUrl = SslCommerzPaymentController::getPaymentUrl(Order::find($order->id));
 
         return response()->json(['payment_gateway' => $paymentUrl, 'order' => $order->load('orderable')]);
     }
@@ -208,7 +209,7 @@ class UserController extends Controller
             return $order;
         });
 
-        $paymentUrl = SslCommerzPaymentController::getPaymentUrl($order);
+        $paymentUrl = SslCommerzPaymentController::getPaymentUrl(Order::find($order->id));
 
         return response()->json(['payment_gateway' => $paymentUrl, 'order' => $order->load('orderable')]);
     }
