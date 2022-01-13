@@ -25,6 +25,6 @@ class PatientGuide extends Model
     }
 
     public function appointments(){
-        return $this->hasMany(PatientGuideAppointment::class, 'patient_guide_appointment_id');
+        return $this->hasMany(PatientGuideAppointment::class, 'patient_guide_id');
     }
 }

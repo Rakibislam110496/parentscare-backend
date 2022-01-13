@@ -25,6 +25,6 @@ class Nurse extends Model
     }
 
     public function appointments(){
-        return $this->hasMany(NurseAppointment::class);
+        return $this->hasMany(NurseAppointment::class, 'nurse_id');
     }
 }

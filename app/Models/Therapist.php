@@ -29,6 +29,6 @@ class Therapist extends Model
     }
 
     public function appointments(){
-        return $this->hasMany(TherapistAppointment::class, 'therapist_appointment_id');
+        return $this->hasMany(TherapistAppointment::class, 'therapist_id');
     }
 }
