@@ -25,7 +25,7 @@ class UpdateGlobalPackageRequest extends FormRequest
     {
         return [
             'name' => 'string',
-            'amount' => 'integer',
+            'price' => 'integer',
             'validity' => 'integer',
             'discount' => 'integer',
             'share' => 'integer',

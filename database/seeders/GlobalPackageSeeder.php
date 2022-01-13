@@ -16,7 +16,7 @@ class GlobalPackageSeeder extends Seeder
     {
         GlobalPackage::create([
             "name" => "Gloabal package 1",
-            "amount" => 200,
+            "price" => 200,
             "validity" => 7,
             "discount" => 10,
             "share" => 10,
@@ -25,7 +25,7 @@ class GlobalPackageSeeder extends Seeder
 
         GlobalPackage::create([
             "name" => "Gloabal package 2",
-            "amount" => 1000,
+            "price" => 1000,
             "validity" => 7,
             "discount" => 10,
             "share" => 10,

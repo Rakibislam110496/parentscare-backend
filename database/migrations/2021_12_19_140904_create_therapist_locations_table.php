@@ -16,7 +16,7 @@ class CreateTherapistLocationsTable extends Migration
         Schema::create('therapist_locations', function (Blueprint $table) {
             $table->id();
             $table->string('address');
-            $table->integer('price');
+            $table->double('price');
             $table->integer('share');
             $table->integer('discount');
             $table->boolean('is_active')->default(true);

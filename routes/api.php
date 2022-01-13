@@ -83,9 +83,6 @@ Route::prefix('user')->group(function () {
     //Home Sample Categories
     Route::apiResource('home_sample_categories', HomeSampleCategoryController::class)->only('index', 'show');
 
-    //Home Sample Subcategories
-    Route::apiResource('home_sample_subcategories', HomeSampleSubcategoriesController::class)->only('index', 'show');
-
     //Care Giver Services
     Route::apiResource('care_giver_services', CareGiverServiceController::class)->only('index', 'show');
 

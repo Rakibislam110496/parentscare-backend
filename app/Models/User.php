@@ -72,4 +72,8 @@ class User extends Authenticatable
     public function therapistAppointments(){
         return $this->hasMany(TherapistAppointment::class);
     }
+
+    public function globalPackageSubscriptions(){
+        return $this->hasMany(GlobalPackageSubscription::class);
+    }
 }

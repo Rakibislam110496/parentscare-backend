@@ -25,7 +25,7 @@ class StoreGlobalPackageRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'amount' => 'required|integer',
+            'price' => 'required|integer',
             'validity' => 'required|integer',
             'discount' => 'required|integer',
             'share' => 'required|integer',

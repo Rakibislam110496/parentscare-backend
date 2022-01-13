@@ -24,7 +24,7 @@ class CreatePatientGuidesTable extends Migration
             $table->string('location');
             $table->text('bio');
             $table->string('photo');
-            $table->integer('price');
+            $table->double('price');
             $table->integer('discount');
             $table->integer('share');
             $table->boolean('is_active')->default(true);

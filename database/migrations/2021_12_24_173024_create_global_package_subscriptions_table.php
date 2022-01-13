@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class GlobalPackageUser extends Migration
+class CreateGlobalPackageSubscriptionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,13 @@ class GlobalPackageUser extends Migration
      */
     public function up()
     {
-        Schema::create('global_package_user', function (Blueprint $table) {
+        Schema::create('global_package_subscriptions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('global_package_id')->constrained();
+            $table->integer('discount');
+            $table->integer('share');
+            $table->double('price');
             $table->timestamps();
         });
     }
@@ -28,6 +31,6 @@ class GlobalPackageUser extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('global_package_subscriptions');
     }
 }

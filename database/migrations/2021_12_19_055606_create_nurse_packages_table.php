@@ -18,7 +18,7 @@ class CreateNursePackagesTable extends Migration
             $table->string('name');
             $table->boolean('is_special');
             $table->integer('duration');
-            $table->integer('price');
+            $table->double('price');
             $table->integer('share');
             $table->integer('discount');
             $table->boolean('is_active')->default(true);

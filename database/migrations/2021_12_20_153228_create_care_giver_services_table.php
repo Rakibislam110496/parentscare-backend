@@ -17,7 +17,7 @@ class CreateCareGiverServicesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
-            $table->integer('price');
+            $table->double('price');
             $table->integer('discount');
             $table->integer('share');
             $table->boolean('is_active')->default(true);

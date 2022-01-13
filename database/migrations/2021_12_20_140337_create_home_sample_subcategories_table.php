@@ -18,7 +18,7 @@ class CreateHomeSampleSubcategoriesTable extends Migration
             $table->foreignId('home_sample_category_id')->constrained();
             $table->string('name');
             $table->string('slug')->unique();
-            $table->integer('price');
+            $table->double('price');
             $table->integer('discount');
             $table->integer('share');
             $table->boolean('is_active')->default(true);

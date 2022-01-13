@@ -26,7 +26,7 @@ class CreateDoctorsTable extends Migration
             $table->string('degree');
             $table->text('bio');
             $table->string('photo');
-            $table->integer('price');
+            $table->double('price');
             $table->integer('discount');
             $table->integer('share');
             $table->string('availabilities');

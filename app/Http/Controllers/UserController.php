@@ -103,7 +103,7 @@ class UserController extends Controller
         $order = DB::transaction(function () use ($validated) {
             $appointment = auth()->user()->careGiverAppointments()->create($validated);
             $order = $appointment->order()->create([
-                'amount' => ($validated["discount"] / 100) * $validated["price"],
+                'amount' => $validated["price"] - ($validated["discount"] / 100) * $validated["price"],
             ]);
 
             return $order;
@@ -121,7 +121,7 @@ class UserController extends Controller
         $order = DB::transaction(function () use ($validated) {
             $appointment = auth()->user()->doctorAppointments()->create($validated);
             $order = $appointment->order()->create([
-                'amount' => ($validated["discount"] / 100) * $validated["price"],
+                'amount' => $validated["price"] - ($validated["discount"] / 100) * $validated["price"],
             ]);
 
             return $order;
@@ -150,7 +150,7 @@ class UserController extends Controller
         $order = DB::transaction(function () use ($validated) {
             $appointment = auth()->user()->homeSampleAppointments()->create($validated);
             $order = $appointment->order()->create([
-                'amount' => ($validated["discount"] / 100) * $validated["price"],
+                'amount' => $validated["price"] - ($validated["discount"] / 100) * $validated["price"],
             ]);
 
             return $order;
@@ -168,7 +168,7 @@ class UserController extends Controller
         $order = DB::transaction(function () use ($validated) {
             $appointment = auth()->user()->nurseAppointments()->create($validated);
             $order = $appointment->order()->create([
-                'amount' => ($validated["discount"] / 100) * $validated["price"],
+                'amount' => $validated["price"] - ($validated["discount"] / 100) * $validated["price"],
             ]);
 
             return $order;
@@ -204,7 +204,7 @@ class UserController extends Controller
         $order = DB::transaction(function () use ($validated) {
             $appointment = auth()->user()->therapistAppointments()->create($validated);
             $order = $appointment->order()->create([
-                'amount' => ($validated["discount"] / 100) * $validated["price"],
+                'amount' => $validated["price"] - ($validated["discount"] / 100) * $validated["price"],
             ]);
 
             return $order;
@@ -215,10 +215,25 @@ class UserController extends Controller
         return response()->json(['payment_gateway' => $paymentUrl, 'order' => $order->load('orderable')]);
     }
 
-    public function buyGlobalPackage(GlobalPackage $globalPackage){
-        $package = $globalPackage->user()->create(['user_id' => auth()->id()]);
+    public function buyGlobalPackage(GlobalPackage $globalPackage)
+    {
+        $order = DB::transaction(function () use ($globalPackage) {
+            $subscription = auth()->user()->globalPackageSubscriptions()->create([
+                'global_package_id' => $globalPackage->id,
+                'discount' => $globalPackage->discount,
+                'share' => $globalPackage->share,
+                'price' => $globalPackage->price
+            ]);
+            $order = $subscription->order()->create([
+                'amount' => $globalPackage["price"] - ($globalPackage["discount"] / 100) * $globalPackage["price"],
+            ]);
 
+            return $order;
+        });
 
+        $paymentUrl = SslCommerzPaymentController::getPaymentUrl(Order::find($order->id));
+
+        return response()->json(['payment_gateway' => $paymentUrl, 'order' => $order->load('orderable')]);
     }
 
     public function appointments(Request $request)
