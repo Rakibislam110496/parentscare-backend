@@ -185,7 +185,7 @@ class UserController extends Controller
         $order = DB::transaction(function () use ($validated) {
             $appointment = auth()->user()->patientGuideAppointments()->create($validated);
             $order = $appointment->order()->create([
-                'amount' => ($validated["discount"] / 100) * $validated["price"],
+                'amount' => $validated["price"] - ($validated["discount"] / 100) * $validated["price"],
             ]);
 
             return $order;
@@ -212,6 +212,10 @@ class UserController extends Controller
         $paymentUrl = SslCommerzPaymentController::getPaymentUrl(Order::find($order->id));
 
         return response()->json(['payment_gateway' => $paymentUrl, 'order' => $order->load('orderable')]);
+    }
+
+    public function buyGlobalPackage(){
+
     }
 
     public function appointments(Request $request)

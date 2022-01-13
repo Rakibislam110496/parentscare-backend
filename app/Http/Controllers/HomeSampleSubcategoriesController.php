@@ -16,7 +16,7 @@ class HomeSampleSubcategoriesController extends Controller
      */
     public function index()
     {
-        $subcategories = HomeSampleSubcategory::with('category')->paginate(20);
+        $subcategories = HomeSampleSubcategory::with('category')->get();
 
         return response()->json($subcategories);
     }

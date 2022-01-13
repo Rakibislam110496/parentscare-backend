@@ -74,9 +74,6 @@ Route::prefix('user')->group(function () {
     //Patient Guides
     Route::apiResource('patient_guides', PatientGuideController::class)->only('index', 'show');
 
-    //Therapist Locations
-    Route::apiResource('therapist_locations', TherapistLocationController::class)->only('index', 'show');
-
     //Therapists
     Route::apiResource('therapists', TherapistController::class)->only('index', 'show');
 
@@ -113,6 +110,7 @@ Route::prefix('user')->group(function () {
         Route::apiResource('messages', MessageController::class)->only('store');
 
         //Buy Packages
+        Route::get('buy_global_package/{globalPackage}');
     });
 });
 
