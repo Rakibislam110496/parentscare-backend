@@ -109,7 +109,7 @@ class UserController extends Controller
 
         $paymentUrl = SslCommerzPaymentController::getPaymentUrl($order);
 
-        return response()->json($paymentUrl);
+        return response()->json(['payment_gateway' => $paymentUrl, 'order' => $order->load('orderable')]);
     }
 
     public function getDoctorAppointment(StoreDoctorAppointmentRequest $request): JsonResponse
@@ -127,7 +127,7 @@ class UserController extends Controller
 
         $paymentUrl = SslCommerzPaymentController::getPaymentUrl($order);
 
-        return response()->json($paymentUrl);
+        return response()->json(['payment_gateway' => $paymentUrl, 'order' => $order->load('orderable')]);
     }
 
     public function getForeignMedicalAppointment(StoreForeignMedicalAppointmentRequest $request)
@@ -156,7 +156,7 @@ class UserController extends Controller
 
         $paymentUrl = SslCommerzPaymentController::getPaymentUrl($order);
 
-        return response()->json($paymentUrl);
+        return response()->json(['payment_gateway' => $paymentUrl, 'order' => $order->load('orderable')]);
     }
 
     public function getNurseAppointment(StoreNurseAppointmentRequest $request)
@@ -174,7 +174,7 @@ class UserController extends Controller
 
         $paymentUrl = SslCommerzPaymentController::getPaymentUrl($order);
 
-        return response()->json($paymentUrl);
+        return response()->json(['payment_gateway' => $paymentUrl, 'order' => $order->load('orderable')]);
     }
 
     public function getPatientGuideAppointment(StorePatientGuideAppointmentRequest $request)
@@ -192,7 +192,7 @@ class UserController extends Controller
 
         $paymentUrl = SslCommerzPaymentController::getPaymentUrl($order);
 
-        return response()->json($paymentUrl);
+        return response()->json(['payment_gateway' => $paymentUrl, 'order' => $order->load('orderable')]);
     }
 
     public function getTherapistAppointment(StoreTherapistAppointmentRequest $request)
@@ -210,7 +210,7 @@ class UserController extends Controller
 
         $paymentUrl = SslCommerzPaymentController::getPaymentUrl($order);
 
-        return response()->json($paymentUrl);
+        return response()->json(['payment_gateway' => $paymentUrl, 'order' => $order->load('orderable')]);
     }
 
     public function appointments(Request $request)
