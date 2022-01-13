@@ -10,6 +10,7 @@ use App\Http\Requests\StoreNurseAppointmentRequest;
 use App\Http\Requests\StorePatientGuideAppointmentRequest;
 use App\Http\Requests\StoreTherapistAppointmentRequest;
 use App\Models\CareGiverService;
+use App\Models\GlobalPackage;
 use App\Models\NursePackage;
 use App\Models\Order;
 use App\Models\User;
@@ -214,7 +215,9 @@ class UserController extends Controller
         return response()->json(['payment_gateway' => $paymentUrl, 'order' => $order->load('orderable')]);
     }
 
-    public function buyGlobalPackage(){
+    public function buyGlobalPackage(GlobalPackage $globalPackage){
+        $package = $globalPackage->user()->create(['user_id' => auth()->id()]);
+
 
     }
 

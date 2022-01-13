@@ -17,7 +17,7 @@ class CareGiverServiceController extends Controller
      */
     public function index()
     {
-        $services = CareGiverService::paginate(20);
+        $services = CareGiverService::all();
 
         return response($services);
     }
