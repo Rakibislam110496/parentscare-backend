@@ -45,11 +45,11 @@ class User extends Authenticatable
     ];
 
     public function doctorAppointments(){
-        return $this->hasMany(DoctorAppointment::class)->with('doctor');
+        return $this->hasMany(DoctorAppointment::class)->with(['doctor', 'order']);
     }
 
     public function careGiverAppointments(){
-        return $this->hasMany(CareGiverAppointment::class)->with('careGiver');
+        return $this->hasMany(CareGiverAppointment::class)->with(['careGiver', 'order']);
     }
 
     public function foreignMedicalAppointments(){
@@ -57,23 +57,23 @@ class User extends Authenticatable
     }
 
     public function homeSampleAppointments(){
-        return $this->hasMany(HomeSampleAppointment::class);
+        return $this->hasMany(HomeSampleAppointment::class)->with('order');
     }
 
     public function nurseAppointments()
     {
-        return $this->hasMany(NurseAppointment::class)->with('nurse');
+        return $this->hasMany(NurseAppointment::class)->with(['nurse', 'order']);
     }
 
     public function patientGuideAppointments(){
-        return $this->hasMany(PatientGuideAppointment::class)->with('patientGuide');
+        return $this->hasMany(PatientGuideAppointment::class)->with(['patientGuide', 'order']);
     }
 
     public function therapistAppointments(){
-        return $this->hasMany(TherapistAppointment::class)->with('therapist');
+        return $this->hasMany(TherapistAppointment::class)->with(['therapist', 'order']);
     }
 
     public function globalPackageSubscriptions(){
-        return $this->hasMany(GlobalPackageSubscription::class);
+        return $this->hasMany(GlobalPackageSubscription::class)->with('order');
     }
 }
