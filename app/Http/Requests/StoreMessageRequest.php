@@ -26,7 +26,8 @@ class StoreMessageRequest extends FormRequest
         return [
             'name' => 'required|string',
             'phone' => 'required|string',
-            'description' => 'required|string'
+            'description' => 'required|string',
+            'topic' => 'required|string'
         ];
     }
 }
