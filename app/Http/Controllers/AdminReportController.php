@@ -31,7 +31,7 @@ class AdminReportController extends Controller
             case 'doctor':
                 return response()->json(DoctorAppointment::whereBetween('created_at',[$from, $to])->with(['user', 'order'])->get());
             case 'foreign_medical':
-                return response()->json(ForeignMedicalAppointment::whereBetween('created_at',[$from, $to])->with('location')->get());
+                return response()->json(ForeignMedicalAppointment::whereBetween('created_at',[$from, $to])->with(['user','location'])->get());
             case 'home_sample':
                 return response()->json(HomeSampleAppointment::whereBetween('created_at',[$from, $to])->with(['user', 'order'])->get());
             case 'nurse':
