@@ -18,8 +18,15 @@ class AdminSeeder extends Seeder
     {
         Admin::insert([
                 [
+                    'type' => 'super',
                     'name' => "Admin",
                     'email' => 'admin@test.com',
+                    'password' => Hash::make("password")
+                ],
+                [
+                    'type' => 'sub',
+                    'name' => "Sub Admin",
+                    'email' => 'subadmin@test.com',
                     'password' => Hash::make("password")
                 ]
             ]
