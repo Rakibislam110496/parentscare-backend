@@ -11,6 +11,7 @@ use App\Models\HomeSampleAppointment;
 use App\Models\HomeSampleSubcategory;
 use App\Models\Nurse;
 use App\Models\NurseAppointment;
+use App\Models\Order;
 use App\Models\PatientGuide;
 use App\Models\PatientGuideAppointment;
 use App\Models\Therapist;
@@ -20,11 +21,15 @@ use Illuminate\Http\Request;
 class AdminDashboardController extends Controller
 {
     public function getDashboardData(){
-        //todo
+        //earning and revenue
+        $orders = Order::where('status', 'Processing')->with('orderable')->get();
         $total_earning = 0;
-
-        //todo
         $total_revenue = 0;
+
+        foreach ($orders as $order){
+            $total_revenue += $order->amount;
+            $total_earning += ($order->orderable->share/100) * $order->amount;
+        }
 
         //doctors
         $active_doctor_count = Doctor::where('is_active', true)->count();
@@ -79,6 +84,8 @@ class AdminDashboardController extends Controller
 
 
         $response = [
+            'total_earning' => $total_earning,
+            'total_revenue' => $total_revenue,
             'doctors' => [
                 'active' => $active_doctor_count,
                 'inactive' => $inactive_doctor_count,

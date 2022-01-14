@@ -53,7 +53,7 @@ class User extends Authenticatable
     }
 
     public function foreignMedicalAppointments(){
-        return $this->hasMany(ForeignMedicalAppointment::class);
+        return $this->hasMany(ForeignMedicalAppointment::class)->with('location');
     }
 
     public function homeSampleAppointments(){
