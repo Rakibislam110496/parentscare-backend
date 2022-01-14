@@ -16,7 +16,7 @@ class CreateGlobalPackagesTable extends Migration
         Schema::create('global_packages', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('price');
+            $table->double('price');
             $table->integer('validity');
             $table->integer('discount');
             $table->integer('share');

@@ -29,7 +29,7 @@ class CreateCareGiverAppointmentsTable extends Migration
             $table->integer('duration');
             $table->dateTime('appointment_date')->nullable();
             $table->string('status')->default('pending');
-            $table->integer('price');
+            $table->double('price');
             $table->integer('share');
             $table->integer('discount');
             $table->timestamps();
