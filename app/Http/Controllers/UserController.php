@@ -103,13 +103,14 @@ class UserController extends Controller
         $order = DB::transaction(function () use ($validated) {
             $appointment = auth()->user()->careGiverAppointments()->create($validated);
             $order = $appointment->order()->create([
-                'amount' => $validated["price"] - ($validated["discount"] / 100) * $validated["price"],
+                'amount' => round($validated["price"] - ($validated["discount"] / 100) * $validated["price"], 2),
+                'transaction_id' => uniqid()
             ]);
 
-            return $order;
+            return $order->refresh();
         });
 
-        $paymentUrl = SslCommerzPaymentController::getPaymentUrl(Order::find($order->id));
+        $paymentUrl = SslCommerzPaymentController::getPaymentUrl($order);
 
         return response()->json(['payment_gateway' => $paymentUrl, 'order' => $order->load('orderable')]);
     }
@@ -121,13 +122,14 @@ class UserController extends Controller
         $order = DB::transaction(function () use ($validated) {
             $appointment = auth()->user()->doctorAppointments()->create($validated);
             $order = $appointment->order()->create([
-                'amount' => $validated["price"] - ($validated["discount"] / 100) * $validated["price"],
+                'amount' => round($validated["price"] - ($validated["discount"] / 100) * $validated["price"], 2),
+                'transaction_id' => uniqid()
             ]);
 
-            return $order;
+            return $order->refresh();
         });
 
-        $paymentUrl = SslCommerzPaymentController::getPaymentUrl(Order::find($order->id));
+        $paymentUrl = SslCommerzPaymentController::getPaymentUrl($order);
 
         return response()->json(['payment_gateway' => $paymentUrl, 'order' => $order->load('orderable')]);
     }
@@ -150,13 +152,14 @@ class UserController extends Controller
         $order = DB::transaction(function () use ($validated) {
             $appointment = auth()->user()->homeSampleAppointments()->create($validated);
             $order = $appointment->order()->create([
-                'amount' => $validated["price"] - ($validated["discount"] / 100) * $validated["price"],
+                'amount' => round($validated["price"] - ($validated["discount"] / 100) * $validated["price"],2),
+                'transaction_id' => uniqid()
             ]);
 
-            return $order;
+            return $order->refresh();
         });
 
-        $paymentUrl = SslCommerzPaymentController::getPaymentUrl(Order::find($order->id));
+        $paymentUrl = SslCommerzPaymentController::getPaymentUrl($order);
 
         return response()->json(['payment_gateway' => $paymentUrl, 'order' => $order->load('orderable')]);
     }
@@ -168,13 +171,14 @@ class UserController extends Controller
         $order = DB::transaction(function () use ($validated) {
             $appointment = auth()->user()->nurseAppointments()->create($validated);
             $order = $appointment->order()->create([
-                'amount' => $validated["price"] - ($validated["discount"] / 100) * $validated["price"],
+                'amount' => round($validated["price"] - ($validated["discount"] / 100) * $validated["price"], 2),
+                'transaction_id' => uniqid()
             ]);
 
-            return $order;
+            return $order->refresh();
         });
 
-        $paymentUrl = SslCommerzPaymentController::getPaymentUrl(Order::find($order->id));
+        $paymentUrl = SslCommerzPaymentController::getPaymentUrl($order);
 
         return response()->json(['payment_gateway' => $paymentUrl, 'order' => $order->load('orderable')]);
     }
@@ -186,13 +190,14 @@ class UserController extends Controller
         $order = DB::transaction(function () use ($validated) {
             $appointment = auth()->user()->patientGuideAppointments()->create($validated);
             $order = $appointment->order()->create([
-                'amount' => $validated["price"] - ($validated["discount"] / 100) * $validated["price"],
+                'amount' => round($validated["price"] - ($validated["discount"] / 100) * $validated["price"], 2),
+                'transaction_id' => uniqid()
             ]);
 
-            return $order;
+            return $order->refresh();
         });
 
-        $paymentUrl = SslCommerzPaymentController::getPaymentUrl(Order::find($order->id));
+        $paymentUrl = SslCommerzPaymentController::getPaymentUrl($order);
 
         return response()->json(['payment_gateway' => $paymentUrl, 'order' => $order->load('orderable')]);
     }
@@ -204,13 +209,14 @@ class UserController extends Controller
         $order = DB::transaction(function () use ($validated) {
             $appointment = auth()->user()->therapistAppointments()->create($validated);
             $order = $appointment->order()->create([
-                'amount' => $validated["price"] - ($validated["discount"] / 100) * $validated["price"],
+                'amount' => round($validated["price"] - ($validated["discount"] / 100) * $validated["price"], 2),
+                'transaction_id' => uniqid()
             ]);
 
-            return $order;
+            return $order->refresh();
         });
 
-        $paymentUrl = SslCommerzPaymentController::getPaymentUrl(Order::find($order->id));
+        $paymentUrl = SslCommerzPaymentController::getPaymentUrl($order);
 
         return response()->json(['payment_gateway' => $paymentUrl, 'order' => $order->load('orderable')]);
     }
@@ -225,13 +231,14 @@ class UserController extends Controller
                 'price' => $globalPackage->price
             ]);
             $order = $subscription->order()->create([
-                'amount' => $globalPackage["price"] - ($globalPackage["discount"] / 100) * $globalPackage["price"],
+                'amount' => round($globalPackage["price"] - ($globalPackage["discount"] / 100) * $globalPackage["price"], 2),
+                'transaction_id' => uniqid()
             ]);
 
-            return $order;
+            return $order->refresh();
         });
 
-        $paymentUrl = SslCommerzPaymentController::getPaymentUrl(Order::find($order->id));
+        $paymentUrl = SslCommerzPaymentController::getPaymentUrl($order);
 
         return response()->json(['payment_gateway' => $paymentUrl, 'order' => $order->load('orderable')]);
     }

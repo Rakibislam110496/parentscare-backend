@@ -18,7 +18,7 @@ class CreateOrdersTable extends Migration
             $table->morphs('orderable');
             $table->double('amount');
             $table->string('status')->default('Pending');
-            $table->string('transaction_id')->default(uniqid());
+            $table->string('transaction_id');
             $table->string('currency')->default('BDT');
             $table->timestamps();
         });

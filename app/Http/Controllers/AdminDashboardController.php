@@ -7,6 +7,7 @@ use App\Models\CareGiverAppointment;
 use App\Models\Doctor;
 use App\Models\DoctorAppointment;
 use App\Models\ForeignMedicalAppointment;
+use App\Models\GlobalPackageSubscription;
 use App\Models\HomeSampleAppointment;
 use App\Models\HomeSampleSubcategory;
 use App\Models\Nurse;
@@ -23,12 +24,63 @@ class AdminDashboardController extends Controller
     public function getDashboardData(){
         //earning and revenue
         $orders = Order::where('status', 'Processing')->with('orderable')->get();
-        $total_earning = 0;
-        $total_revenue = 0;
+
+        $earning = [
+            "doctor" => 0,
+            "nurse" => 0,
+            "home_sample" => 0,
+            "care_giver" => 0,
+            "patient_guide" => 0,
+            "therapist" => 0,
+            "global_package" => 0,
+            "total" => 0
+        ];
+
+        $revenue = [
+            "doctor" => 0,
+            "nurse" => 0,
+            "home_sample" => 0,
+            "care_giver" => 0,
+            "patient_guide" => 0,
+            "therapist" => 0,
+            "global_package" => 0,
+            "total" => 0
+        ];
 
         foreach ($orders as $order){
-            $total_revenue += $order->amount;
-            $total_earning += ($order->orderable->share/100) * $order->amount;
+            $revenue["total"] += round($order->amount, 2);
+            $earning["total"] += round(($order->orderable->share/100) * $order->amount, 2);
+
+            switch (get_class($order->orderable)){
+                case DoctorAppointment::class:
+                    $revenue["doctor"] += $order->amount;
+                    $earning["doctor"] += round(($order->orderable->share/100) * $order->amount, 2);
+                    break;
+                case NurseAppointment::class:
+                    $revenue["nurse"] += $order->amount;
+                    $earning["nurse"] += round(($order->orderable->share/100) * $order->amount, 2);
+                    break;
+                case HomeSampleAppointment::class:
+                    $revenue["home_sample"] += $order->amount;
+                    $earning["home_sample"] += round(($order->orderable->share/100) * $order->amount, 2);
+                    break;
+                case CareGiverAppointment::class:
+                    $revenue["care_giver"] += $order->amount;
+                    $earning["care_giver"] += round(($order->orderable->share/100) * $order->amount, 2);
+                    break;
+                case PatientGuideAppointment::class:
+                    $revenue["patient_guide"] += $order->amount;
+                    $earning["patient_guide"] += round(($order->orderable->share/100) * $order->amount, 2);
+                    break;
+                case TherapistAppointment::class:
+                    $revenue["therapist"] += $order->amount;
+                    $earning["therapist"] += round(($order->orderable->share/100) * $order->amount, 2);
+                    break;
+                case GlobalPackageSubscription::class:
+                    $revenue["global_package"] += $order->amount;
+                    $earning["global_package"] += round(($order->orderable->share/100) * $order->amount, 2);
+                    break;
+            }
         }
 
         //doctors
@@ -84,8 +136,8 @@ class AdminDashboardController extends Controller
 
 
         $response = [
-            'total_earning' => $total_earning,
-            'total_revenue' => $total_revenue,
+            'earning' => $earning,
+            'revenue' => $revenue,
             'doctors' => [
                 'active' => $active_doctor_count,
                 'inactive' => $inactive_doctor_count,
