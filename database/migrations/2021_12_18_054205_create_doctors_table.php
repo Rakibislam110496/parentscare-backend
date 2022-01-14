@@ -31,6 +31,7 @@ class CreateDoctorsTable extends Migration
             $table->integer('share');
             $table->string('availabilities');
             $table->boolean('is_active')->default(true);
+            $table->boolean('is_senior')->default(false);
             $table->timestamps();
         });
     }

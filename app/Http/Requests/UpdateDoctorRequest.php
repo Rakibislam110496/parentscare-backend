@@ -41,7 +41,8 @@ class UpdateDoctorRequest extends FormRequest
             "share" => "integer",
             "discount" => "integer",
             "availabilities" => "string",
-            "is_active" => "boolean"
+            "is_active" => "boolean",
+            "is_senior" => "boolean"
         ];
     }
 }

@@ -40,7 +40,8 @@ class StoreDoctorRequest extends FormRequest
             "price" => "required|integer",
             "share" => "required|integer",
             "discount" => "required|integer",
-            "availabilities" => 'required|string'
+            "availabilities" => 'required|string',
+            "is_senior" => 'boolean'
         ];
     }
 }
