@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\AdminReportController;
 use App\Http\Controllers\CareGiverAppointmentController;
 use App\Http\Controllers\CareGiverController;
 use App\Http\Controllers\CareGiverServiceController;
@@ -185,6 +186,9 @@ Route::prefix('admin')->group(function () {
 
         //Admin Dashboard
         Route::get('get_dashboard_data', [AdminDashboardController::class, 'getDashboardData']);
+
+        //Admin Report
+        Route::get('get_admin_report', [AdminReportController::class, 'getAdminReport']);
     });
 });
 
