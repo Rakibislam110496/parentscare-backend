@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreNurseRequest;
 use App\Http\Requests\UpdateNurseRequest;
 use App\Models\Nurse;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -17,9 +18,13 @@ class NurseController extends Controller
      *
      * @return JsonResponse
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
         $nurses = Nurse::paginate(20);
+
+        if($request->has("is_special")){
+            $nurses = Nurse::where('is_special', $request->is_special)->paginate(20);
+        }
 
         return response()->json($nurses);
     }
