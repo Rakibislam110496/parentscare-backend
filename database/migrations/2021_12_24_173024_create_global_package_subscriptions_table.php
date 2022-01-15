@@ -20,6 +20,7 @@ class CreateGlobalPackageSubscriptionsTable extends Migration
             $table->integer('discount');
             $table->integer('share');
             $table->double('price');
+            $table->double('status')->default('ongoing');
             $table->timestamps();
         });
     }

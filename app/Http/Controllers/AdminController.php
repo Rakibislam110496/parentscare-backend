@@ -9,7 +9,7 @@ use Illuminate\Validation\Rule;
 
 class AdminController extends Controller
 {
-    public function changePassword(Request $request)
+    public function changeAdminPassword(Request $request)
     {
         $request->validate([
             'old_password' => 'string|required',
@@ -25,7 +25,7 @@ class AdminController extends Controller
         return response()->json(['message' => 'Wrong password provided.']);
     }
 
-    public function updateInfo(Request $request)
+    public function updateAdminInfo(Request $request)
     {
         $validated = $request->validate([
             'name' => 'string',
@@ -37,7 +37,8 @@ class AdminController extends Controller
         return response()->json(['message' => 'Admin info updated successfully.']);
     }
 
-    public function changeSubadminPassword(Request $request){
+    public function changeSubadminPassword(Request $request)
+    {
         $request->validate([
             'old_password' => 'string|required',
             'new_password' => 'string|required|min:6',
@@ -52,5 +53,19 @@ class AdminController extends Controller
         }
 
         return response()->json(['message' => 'Wrong password provided.']);
+    }
+
+    public function updateSubadminInfo(Request $request)
+    {
+        $subadmin = Admin::where('type', 'sub')->first();
+
+        $validated = $request->validate([
+            'name' => 'string',
+            'email' => ['email', Rule::unique('admins')->ignore($subadmin->id)]
+        ]);
+
+        $subadmin->update($validated);
+
+        return response()->json(['message' => 'Subadmin info updated successfully.']);
     }
 }

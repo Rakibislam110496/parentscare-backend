@@ -193,10 +193,10 @@ Route::prefix('admin')->group(function () {
 
         //Admin Profile settings
         //todo : protect this route only for admin
-        Route::post('change_password', [AdminController::class, 'changePassword']);
-        Route::post('update_info', [AdminController::class, 'updateInfo']);
+        Route::post('change_admin_password', [AdminController::class, 'changeAdminPassword']);
+        Route::post('update_admin_info', [AdminController::class, 'updateAdminInfo']);
         Route::post('change_subadmin_password', [AdminController::class, 'changeSubadminPassword']);
-        Route::post('change_subadmin_info', [AdminController::class, 'changeSubadminInfo']);
+        Route::post('update_subadmin_info', [AdminController::class, 'updateSubadminInfo']);
     });
 });
 
