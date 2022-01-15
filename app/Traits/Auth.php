@@ -5,6 +5,7 @@ namespace App\Traits;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 trait Auth
 {
@@ -26,9 +27,5 @@ trait Auth
         }
         return response()->json(['errors' => true, 'message' => 'Username or Password is incorrect.'], 403);
 
-    }
-
-    public function isAdmin(){
-        return get_class(auth()->user()) == Admin::class;
     }
 }

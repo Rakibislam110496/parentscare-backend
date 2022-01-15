@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminReportController;
 use App\Http\Controllers\CareGiverAppointmentController;
@@ -189,6 +190,13 @@ Route::prefix('admin')->group(function () {
 
         //Admin Report
         Route::get('get_admin_report', [AdminReportController::class, 'getAdminReport']);
+
+        //Admin Profile settings
+        //todo : protect this route only for admin
+        Route::post('change_password', [AdminController::class, 'changePassword']);
+        Route::post('update_info', [AdminController::class, 'updateInfo']);
+        Route::post('change_subadmin_password', [AdminController::class, 'changeSubadminPassword']);
+        Route::post('change_subadmin_info', [AdminController::class, 'changeSubadminInfo']);
     });
 });
 

@@ -30,12 +30,11 @@ class UserController extends Controller
     {
         $users = User::paginate(20)->through(function ($row) {
             return [
-                "id" => 1,
-                "name" => "User 1",
-                "email" => "user1@test.com",
-                "phone" => "01834342343",
-                "email_verified_at" => null,
-                "is_active" => 1,
+                "id" => $row->id,
+                "name" => $row->name,
+                "email" => $row->email,
+                "phone" => $row->phone,
+                "is_active" => $row->is_active,
                 "appointments" => collect([
                     $row->doctorAppointments,
                     $row->careGiverAppointments,
