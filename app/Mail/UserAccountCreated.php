@@ -28,6 +28,6 @@ class UserAccountCreated extends Mailable
      */
     public function build()
     {
-        return $this->text("User Account Created.");
+        return $this->markdown('mail.user-account-created');
     }
 }
