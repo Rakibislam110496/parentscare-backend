@@ -59,7 +59,7 @@ Route::prefix('user')->group(function () {
 
         $user = User::create($validated);
 
-        Mail::to($user)->queue(new UserAccountCreated());
+        Mail::to($user->email)->send(new UserAccountCreated());
 
         return response()->json(['message' => 'Signup successful']);
     });
