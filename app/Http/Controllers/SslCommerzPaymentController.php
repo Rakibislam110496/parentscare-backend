@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\Order;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Library\SslCommerz\SslCommerzNotification;
@@ -83,21 +84,23 @@ class SslCommerzPaymentController extends Controller
                 in order table as Processing or Complete.
                 Here you can also sent sms or email for successfull transaction to customer
                 */
-                $update_product = DB::table('orders')
+                DB::table('orders')
                     ->where('transaction_id', $tran_id)
                     ->update(['status' => 'Processing']);
 
-                $params = 'payment_type='.$request->card_type;
-                $params .= '&&amount='.$request->amount;
-                $params .= '&&transaction_id='.$request->tran_id;
+                Order::where('transaction_id', $tran_id)->first()->orderable()->update(['status' => 'ongoing']);
 
-                return redirect('http://parents-care-client.vercel.app/payment/success?'.$params);
+                $params = 'payment_type=' . $request->card_type;
+                $params .= '&&amount=' . $request->amount;
+                $params .= '&&transaction_id=' . $request->tran_id;
+
+                return redirect('http://parents-care-client.vercel.app/payment/success?' . $params);
             } else {
                 /*
                 That means IPN did not work or IPN URL was not set in your merchant panel and Transation validation failed.
                 Here you need to update order status as Failed in order table.
                 */
-                $update_product = DB::table('orders')
+                DB::table('orders')
                     ->where('transaction_id', $tran_id)
                     ->update(['status' => 'Failed']);
                 echo "validation Fail";
@@ -106,11 +109,11 @@ class SslCommerzPaymentController extends Controller
             /*
              That means through IPN Order status already updated. Now you can just show the customer that transaction is completed. No need to udate database.
              */
-            $params = 'payment_type='.$request->card_type;
-            $params .= '&&amount='.$request->amount;
-            $params .= '&&transaction_id='.$request->tran_id;
+            $params = 'payment_type=' . $request->card_type;
+            $params .= '&&amount=' . $request->amount;
+            $params .= '&&transaction_id=' . $request->tran_id;
 
-            return redirect('http://parents-care-client.vercel.app/payment/success?'.$params);
+            return redirect('http://parents-care-client.vercel.app/payment/success?' . $params);
         } else {
             #That means something wrong happened. You can redirect customer to your product page.
             echo "Invalid Transaction";
@@ -128,7 +131,7 @@ class SslCommerzPaymentController extends Controller
             ->select('transaction_id', 'status', 'currency', 'amount')->first();
 
         if ($order_detials->status == 'Pending') {
-            $update_product = DB::table('orders')
+            DB::table('orders')
                 ->where('transaction_id', $tran_id)
                 ->update(['status' => 'Failed']);
             return redirect('https://parents-care-client.vercel.app/payment/failed');
@@ -149,7 +152,7 @@ class SslCommerzPaymentController extends Controller
             ->select('transaction_id', 'status', 'currency', 'amount')->first();
 
         if ($order_detials->status == 'Pending') {
-            $update_product = DB::table('orders')
+            DB::table('orders')
                 ->where('transaction_id', $tran_id)
                 ->update(['status' => 'Canceled']);
             return redirect('https://parents-care-client.vercel.app/payment/cancel');
@@ -183,9 +186,11 @@ class SslCommerzPaymentController extends Controller
                     in order table as Processing or Complete.
                     Here you can also sent sms or email for successful transaction to customer
                     */
-                    $update_product = DB::table('orders')
+                    DB::table('orders')
                         ->where('transaction_id', $tran_id)
                         ->update(['status' => 'Processing']);
+
+                    Order::where('transaction_id', $tran_id)->first()->orderable()->update(['status' => 'ongoing']);
 
                     echo "Transaction is successfully Completed";
                 } else {
@@ -193,7 +198,7 @@ class SslCommerzPaymentController extends Controller
                     That means IPN worked, but Transation validation failed.
                     Here you need to update order status as Failed in order table.
                     */
-                    $update_product = DB::table('orders')
+                    DB::table('orders')
                         ->where('transaction_id', $tran_id)
                         ->update(['status' => 'Failed']);
 

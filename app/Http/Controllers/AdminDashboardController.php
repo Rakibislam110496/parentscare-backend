@@ -26,25 +26,25 @@ class AdminDashboardController extends Controller
         $orders = Order::where('status', 'Processing')->with('orderable')->get();
 
         $earning = [
-            "doctor" => 0,
-            "nurse" => 0,
-            "home_sample" => 0,
-            "care_giver" => 0,
-            "patient_guide" => 0,
-            "therapist" => 0,
-            "global_package" => 0,
-            "total" => 0
+            "doctor" => 0.0,
+            "nurse" => 0.0,
+            "home_sample" => 0.0,
+            "care_giver" => 0.0,
+            "patient_guide" => 0.0,
+            "therapist" => 0.0,
+            "global_package" => 0.0,
+            "total" => 0.0
         ];
 
         $revenue = [
-            "doctor" => 0,
-            "nurse" => 0,
-            "home_sample" => 0,
-            "care_giver" => 0,
-            "patient_guide" => 0,
-            "therapist" => 0,
-            "global_package" => 0,
-            "total" => 0
+            "doctor" => 0.0,
+            "nurse" => 0.0,
+            "home_sample" => 0.0,
+            "care_giver" => 0.0,
+            "patient_guide" => 0.0,
+            "therapist" => 0.0,
+            "global_package" => 0.0,
+            "total" => 0.0
         ];
 
         foreach ($orders as $order){

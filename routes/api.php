@@ -28,9 +28,11 @@ use App\Http\Controllers\TherapistController;
 use App\Http\Controllers\TherapistLocationController;
 use App\Http\Controllers\UserController;
 use App\Http\Requests\StoreUserSignupRequest;
+use App\Mail\UserAccountCreated;
 use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -55,7 +57,9 @@ Route::prefix('user')->group(function () {
     Route::post('signup', function (StoreUserSignupRequest $request) {
         $validated = $request->validated();
 
-        User::create($validated);
+        $user = User::create($validated);
+
+        Mail::to($user)->queue(new UserAccountCreated());
 
         return response()->json(['message' => 'Signup successfull']);
     });

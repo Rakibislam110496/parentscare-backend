@@ -18,4 +18,9 @@ class GlobalPackage extends Model
 
         static::addGlobalScope(new ActiveScope());
     }
+
+    public function subscriptions()
+    {
+        return $this->hasMany(GlobalPackageSubscription::class, 'global_package_id');
+    }
 }
