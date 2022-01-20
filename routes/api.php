@@ -109,7 +109,7 @@ Route::prefix('user')->group(function () {
     //Global Packages
     Route::apiResource('global_packages', GlobalPackageController::class)->only('index', 'show');
 
-    Route::middleware(['auth:user', 'verified'])->group(function () {
+    Route::middleware(['auth:user'])->group(function () {
         //Appointments
         Route::post('get_care_giver_appointment', [UserController::class, 'getCareGiverAppointment']);
         Route::post('get_doctor_appointment', [UserController::class, 'getDoctorAppointment']);
