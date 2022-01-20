@@ -57,9 +57,7 @@ Route::prefix('user')->group(function () {
     Route::post('signup', function (StoreUserSignupRequest $request) {
         $validated = $request->validated();
 
-        $user = User::create($validated);
-
-        Mail::to($user->email)->send(new UserAccountCreated());
+        User::create($validated);
 
         return response()->json(['message' => 'Signup successful']);
     });
@@ -77,6 +75,9 @@ Route::prefix('user')->group(function () {
     Route::post('reset_password', function(Request $request){
         return User::resetPassword($request);
     })->name('password.reset');
+
+    //Update user info
+    Route::post('update_info', [UserController::class, 'updateInfo'])->middleware('auth:user');
 
     //Doctors
     Route::apiResource('doctors', DoctorController::class)->only('index', 'show');

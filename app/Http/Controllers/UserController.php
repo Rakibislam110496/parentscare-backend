@@ -9,6 +9,7 @@ use App\Http\Requests\StoreHomeSampleAppointmentRequest;
 use App\Http\Requests\StoreNurseAppointmentRequest;
 use App\Http\Requests\StorePatientGuideAppointmentRequest;
 use App\Http\Requests\StoreTherapistAppointmentRequest;
+use App\Http\Requests\UpdateUserInfoRequest;
 use App\Models\CareGiverService;
 use App\Models\GlobalPackage;
 use App\Models\NursePackage;
@@ -99,6 +100,14 @@ class UserController extends Controller
     public function destroy($id)
     {
 
+    }
+
+    public function updateInfo(UpdateUserInfoRequest $request){
+        $validated = $request->validated();
+
+        auth()->user()->update($validated);
+
+        return response()->json(['message' => 'User info updated successfully.']);
     }
 
     public function getCareGiverAppointment(StoreCaregiverAppointmentRequest $request)
