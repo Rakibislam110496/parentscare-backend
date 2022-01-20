@@ -63,7 +63,7 @@ trait Auth
             }
         );
 
-        if($status == Password::RESET_LINK_SENT){
+        if($status == Password::PASSWORD_RESET){
             return ['message' => __($status)];
         }
 
