@@ -26,9 +26,15 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::paginate(20)->through(function ($row) {
+        $users = new User();
+
+        if($request->has('name')){
+            $users = $users->where('name', 'LIKE', "%{$request->name}%");
+        }
+
+        $users = $users->paginate(20)->through(function ($row) {
             return [
                 "id" => $row->id,
                 "name" => $row->name,
