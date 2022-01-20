@@ -31,7 +31,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         ResetPassword::createUrlUsing(function ($user, string $token) {
-            return 'https://example.com/reset-password?email='.$user->email.'&token='.$token;
+            return 'https://parents-care-client.vercel.app/reset-password?email='.$user->email.'&token='.$token;
         });
     }
 }
