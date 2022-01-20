@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
+class User extends Authenticatable implements CanResetPassword
 {
     use HasApiTokens, HasFactory, Notifiable, Auth;
 
