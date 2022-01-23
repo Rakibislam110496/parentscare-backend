@@ -12,6 +12,7 @@ use App\Http\Controllers\DoctorDepartmentController;
 use App\Http\Controllers\ForeignMedicalAppointmentController;
 use App\Http\Controllers\ForeignMedicalLocationController;
 use App\Http\Controllers\GlobalPackageController;
+use App\Http\Controllers\GlobalPackageSubscriptionController;
 use App\Http\Controllers\HomeSampleAppointmentController;
 use App\Http\Controllers\HomeSampleCategoryController;
 use App\Http\Controllers\HomeSampleSubcategoriesController;
@@ -30,6 +31,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Requests\StoreUserSignupRequest;
 use App\Mail\UserAccountCreated;
 use App\Models\Admin;
+use App\Models\GlobalPackageSubscription;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -177,6 +179,9 @@ Route::prefix('admin')->group(function () {
         //Global Packages
         Route::apiResource('global_packages', GlobalPackageController::class);
 
+        //Global package subscriptions
+        Route::apiResource('global_package_subscriptions', GlobalPackageSubscriptionController::class)->only('index');
+
         //Care giver appointments
         Route::apiResource('care_giver_appointments', CareGiverAppointmentController::class)->only('index', 'show', 'update');
 
@@ -217,7 +222,6 @@ Route::prefix('admin')->group(function () {
         });
     });
 });
-
 
 //Upload photo
 Route::post('upload_photo', [PhotoController::class, 'upload']);
