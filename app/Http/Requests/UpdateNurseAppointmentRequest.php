@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateNurseAppointmentRequest extends FormRequest
 {
@@ -35,7 +36,7 @@ class UpdateNurseAppointmentRequest extends FormRequest
             'phone' => 'string',
             'address' => 'string',
             'appointment_date' => 'date',
-            'status' => 'string'
+            'status' => ['string', Rule::in(['pending', 'ongoing', 'completed'])]
         ];
     }
 }
