@@ -111,9 +111,9 @@ class UserController extends Controller
     public function updateInfo(UpdateUserInfoRequest $request){
         $validated = $request->validated();
 
-        auth()->user()->update($validated);
+        $user = auth()->user()->update($validated);
 
-        return response()->json(['message' => 'User info updated successfully.']);
+        return response($user)->json();
     }
 
     public function getCareGiverAppointment(StoreCaregiverAppointmentRequest $request)
