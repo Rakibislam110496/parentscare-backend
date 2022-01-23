@@ -24,7 +24,7 @@ trait Auth
         $user = self::where('email', $validated['email'])->first();
         if ($user && Hash::check($validated['password'], $user->password)) {
             if(!$user->is_active){
-                return response()->json(['errors' => true, 'message' => 'User is inactive. Contact support for further queries.'], 401);
+                return response()->json(['errors' => true, 'message' => 'User is inactive. Contact support for further queries.'], 403);
             }
 
             $accessToken = $user->createToken('accessToken')->plainTextToken;
