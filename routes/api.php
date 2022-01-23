@@ -135,7 +135,6 @@ Route::prefix('admin')->group(function () {
         return Admin::login($request);
     });
 
-    //todo: these route will be available for both admin and subadmin
     Route::middleware('auth:admin')->group(function () {
         //Users
         Route::apiResource('users', UserController::class);

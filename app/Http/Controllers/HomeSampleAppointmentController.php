@@ -15,7 +15,7 @@ class HomeSampleAppointmentController extends Controller
      */
     public function index()
     {
-        $appointments = HomeSampleAppointment::with('user', 'subcategory')->paginate(20);
+        $appointments = HomeSampleAppointment::with(['user', 'subcategory', 'order'])->paginate(20);
 
         return response()->json($appointments);
     }

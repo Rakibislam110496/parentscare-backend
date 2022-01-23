@@ -15,7 +15,7 @@ class TherapistAppointmentController extends Controller
      */
     public function index()
     {
-        $appointments = TherapistAppointment::with('user', 'therapist')->paginate(20);
+        $appointments = TherapistAppointment::with(['user', 'therapist', 'order'])->paginate(20);
 
         return response()->json($appointments);
     }
