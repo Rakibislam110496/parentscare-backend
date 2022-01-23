@@ -72,7 +72,7 @@ Route::prefix('user')->group(function () {
     });
 
     //reset password
-    Route::post('reset_password', function(Request $request){
+    Route::post('reset_password', function (Request $request) {
         return User::resetPassword($request);
     })->name('password.reset');
 
@@ -201,18 +201,20 @@ Route::prefix('admin')->group(function () {
         //Messages
         Route::apiResource('messages', MessageController::class)->only('index', 'show');
 
-        //Admin Dashboard
-        Route::get('get_dashboard_data', [AdminDashboardController::class, 'getDashboardData']);
+        Route::middleware('admin_types:super')->group(function(){
+            //Admin Dashboard
+            Route::get('get_dashboard_data', [AdminDashboardController::class, 'getDashboardData']);
 
-        //Admin Report
-        Route::get('get_admin_report', [AdminReportController::class, 'getAdminReport']);
+            //Admin Report
+            Route::get('get_admin_report', [AdminReportController::class, 'getAdminReport']);
 
-        //Admin Profile settings
-        //todo : protect this route only for admin
-        Route::post('change_admin_password', [AdminController::class, 'changeAdminPassword']);
-        Route::post('update_admin_info', [AdminController::class, 'updateAdminInfo']);
-        Route::post('change_subadmin_password', [AdminController::class, 'changeSubadminPassword']);
-        Route::post('update_subadmin_info', [AdminController::class, 'updateSubadminInfo']);
+            //Admin Profile settings
+            //todo : protect this route only for admin
+            Route::post('change_admin_password', [AdminController::class, 'changeAdminPassword']);
+            Route::post('update_admin_info', [AdminController::class, 'updateAdminInfo']);
+            Route::post('change_subadmin_password', [AdminController::class, 'changeSubadminPassword']);
+            Route::post('update_subadmin_info', [AdminController::class, 'updateSubadminInfo']);
+        });
     });
 });
 
