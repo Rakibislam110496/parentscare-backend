@@ -34,7 +34,8 @@ class UpdateNurseAppointmentRequest extends FormRequest
             'duration' => 'integer',
             'phone' => 'string',
             'address' => 'string',
-            'appointment_date' => 'date'
+            'appointment_date' => 'date',
+            'status' => 'string'
         ];
     }
 }

@@ -35,7 +35,8 @@ class UpdateCareGiverAppointmentRequest extends FormRequest
             'care_giver_type' => 'string',
             'expected_date' => 'date',
             'duration' => 'integer',
-            'appointment_date' => 'date'
+            'appointment_date' => 'date',
+            'status' => 'string'
         ];
     }
 }

@@ -33,7 +33,8 @@ class UpdateTherapistAppointmentRequest extends FormRequest
             'phone' => 'string',
             'address' => 'string',
             'expected_date' => 'date',
-            'appointment_date' => 'date'
+            'appointment_date' => 'date',
+            'status' => 'string'
         ];
     }
 }

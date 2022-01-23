@@ -32,7 +32,8 @@ class UpdateDoctorAppointmentRequest extends FormRequest
             'phone' => 'string',
             'address' => 'string',
             'expected_date_time' => 'date',
-            'appointment_date_time' => 'date'
+            'appointment_date_time' => 'date',
+            'status' => 'string'
         ];
     }
 }
