@@ -6,6 +6,7 @@ use App\Http\Requests\StorePatientGuideRequest;
 use App\Http\Requests\UpdatePatientGuideRequest;
 use App\Models\PatientGuide;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -16,9 +17,15 @@ class PatientGuideController extends Controller
      *
      * @return JsonResponse
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        $patientGuides = PatientGuide::paginate(20);
+        $patientGuides = new PatientGuide();
+
+        if($request->has('name')){
+            $patientGuides = $patientGuides->where('name', 'LIKE', "%{$request->name}%");
+        }
+
+        $patientGuides = $patientGuides->paginate(20);
 
         return response()->json($patientGuides);
     }

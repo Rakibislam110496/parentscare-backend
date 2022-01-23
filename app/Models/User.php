@@ -20,13 +20,7 @@ class User extends Authenticatable implements CanResetPassword
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'phone',
-        'address'
-    ];
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for serialization.

@@ -10,11 +10,13 @@ use App\Http\Requests\StoreNurseAppointmentRequest;
 use App\Http\Requests\StorePatientGuideAppointmentRequest;
 use App\Http\Requests\StoreTherapistAppointmentRequest;
 use App\Http\Requests\UpdateUserInfoRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\CareGiverService;
 use App\Models\GlobalPackage;
 use App\Models\NursePackage;
 use App\Models\Order;
 use App\Models\User;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -86,9 +88,13 @@ class UserController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest $request, User $user)
     {
+        $validated = $request->validated();
 
+        $user->update($validated);
+
+        return response()->json($user);
     }
 
     /**

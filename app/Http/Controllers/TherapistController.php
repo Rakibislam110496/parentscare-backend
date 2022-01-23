@@ -17,9 +17,15 @@ class TherapistController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $therapists = Therapist::with('location')->paginate(20);
+        $therapists = new Therapist();
+
+        if($request->has('name')){
+            $therapists = $therapists->where('name', 'LIKE', "%{$request->name}%");
+        }
+
+        $therapists = $therapists->with('location')->paginate(20);
 
         return response($therapists);
     }

@@ -20,11 +20,17 @@ class NurseController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
-        $nurses = Nurse::paginate(20);
+        $nurses = new Nurse();
+
+        if($request->has('name')){
+            $nurses = $nurses->where('name', 'LIKE', "%{$request->name}%");
+        }
 
         if($request->has("is_special")){
-            $nurses = Nurse::where('is_special', $request->is_special)->paginate(20);
+            $nurses = $nurses->where('is_special', $request->is_special);
         }
+
+        $nurses = $nurses->paginate(20);
 
         return response()->json($nurses);
     }

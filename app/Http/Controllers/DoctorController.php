@@ -18,9 +18,15 @@ class DoctorController extends Controller
      *
      * @return JsonResponse
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        $doctors = Doctor::with('department')->orderBy('is_senior', 'desc')->paginate(20);
+        $doctors = new Doctor();
+
+        if($request->has('name')){
+            $doctors = $doctors->where('name', 'LIKE', "%{$request->name}%");
+        }
+
+        $doctors = $doctors->with('department')->orderBy('is_senior', 'desc')->paginate(20);
 
         return response()->json($doctors);
     }

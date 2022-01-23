@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CareGiver;
 use App\Http\Requests\StoreCareGiverRequest;
 use App\Http\Requests\UpdateCareGiverRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -15,9 +16,15 @@ class CareGiverController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $careGivers = CareGiver::paginate(20);
+        $careGivers = new CareGiver();
+
+        if($request->has('name')){
+            $careGivers = $careGivers->where('name', 'LIKE', "%{$request->name}%");
+        }
+
+        $careGivers = $careGivers->paginate(20);
 
         return response()->json($careGivers);
     }

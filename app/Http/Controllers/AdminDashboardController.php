@@ -7,6 +7,7 @@ use App\Models\CareGiverAppointment;
 use App\Models\Doctor;
 use App\Models\DoctorAppointment;
 use App\Models\ForeignMedicalAppointment;
+use App\Models\GlobalPackage;
 use App\Models\GlobalPackageSubscription;
 use App\Models\HomeSampleAppointment;
 use App\Models\HomeSampleSubcategory;
@@ -21,7 +22,8 @@ use Illuminate\Http\Request;
 
 class AdminDashboardController extends Controller
 {
-    public function getDashboardData(){
+    public function getDashboardData()
+    {
         //earning and revenue
         $orders = Order::where('status', 'Processing')->with('orderable')->get();
 
@@ -47,38 +49,38 @@ class AdminDashboardController extends Controller
             "total" => 0.0
         ];
 
-        foreach ($orders as $order){
+        foreach ($orders as $order) {
             $revenue["total"] += round($order->amount, 2);
-            $earning["total"] += round(($order->orderable->share/100) * $order->amount, 2);
+            $earning["total"] += round(($order->orderable->share / 100) * $order->amount, 2);
 
-            switch (get_class($order->orderable)){
+            switch (get_class($order->orderable)) {
                 case DoctorAppointment::class:
                     $revenue["doctor"] += $order->amount;
-                    $earning["doctor"] += round(($order->orderable->share/100) * $order->amount, 2);
+                    $earning["doctor"] += round(($order->orderable->share / 100) * $order->amount, 2);
                     break;
                 case NurseAppointment::class:
                     $revenue["nurse"] += $order->amount;
-                    $earning["nurse"] += round(($order->orderable->share/100) * $order->amount, 2);
+                    $earning["nurse"] += round(($order->orderable->share / 100) * $order->amount, 2);
                     break;
                 case HomeSampleAppointment::class:
                     $revenue["home_sample"] += $order->amount;
-                    $earning["home_sample"] += round(($order->orderable->share/100) * $order->amount, 2);
+                    $earning["home_sample"] += round(($order->orderable->share / 100) * $order->amount, 2);
                     break;
                 case CareGiverAppointment::class:
                     $revenue["care_giver"] += $order->amount;
-                    $earning["care_giver"] += round(($order->orderable->share/100) * $order->amount, 2);
+                    $earning["care_giver"] += round(($order->orderable->share / 100) * $order->amount, 2);
                     break;
                 case PatientGuideAppointment::class:
                     $revenue["patient_guide"] += $order->amount;
-                    $earning["patient_guide"] += round(($order->orderable->share/100) * $order->amount, 2);
+                    $earning["patient_guide"] += round(($order->orderable->share / 100) * $order->amount, 2);
                     break;
                 case TherapistAppointment::class:
                     $revenue["therapist"] += $order->amount;
-                    $earning["therapist"] += round(($order->orderable->share/100) * $order->amount, 2);
+                    $earning["therapist"] += round(($order->orderable->share / 100) * $order->amount, 2);
                     break;
                 case GlobalPackageSubscription::class:
                     $revenue["global_package"] += $order->amount;
-                    $earning["global_package"] += round(($order->orderable->share/100) * $order->amount, 2);
+                    $earning["global_package"] += round(($order->orderable->share / 100) * $order->amount, 2);
                     break;
             }
         }
@@ -134,6 +136,18 @@ class AdminDashboardController extends Controller
         $cancelled_therapist_appointment = TherapistAppointment::where('status', 'cancelled')->count();
         $cancelled_foreign_medical_appointment = ForeignMedicalAppointment::where('status', 'cancelled')->count();
 
+        //packages
+        $packages = GlobalPackage::all()->map(function ($row) {
+            $ongoing = $row->subscriptions()->where('status', 'ongoing')->count();
+            $completed = $row->subscriptions()->where('status', 'completed')->count();
+            return [
+                'id' => $row->id,
+                'name' => $row->name,
+                'ongoing' => $ongoing,
+                'completed' => $completed,
+                'total' => $ongoing + $completed
+            ];
+        });
 
         $response = [
             'earning' => $earning,
@@ -198,9 +212,7 @@ class AdminDashboardController extends Controller
                 'foreign_medical' => $cancelled_foreign_medical_appointment,
                 'total' => $cancelled_doctor_appointment + $cancelled_nurse_appointment, $cancelled_therapist_appointment + $cancelled_care_giver_appointment + $cancelled_foreign_medical_appointment + $cancelled_home_sample_appointment + $cancelled_home_sample_appointment
             ],
-            'packages' => [
-
-            ]
+            'packages' => $packages
         ];
 
         return response()->json($response);
