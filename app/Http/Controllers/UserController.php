@@ -123,7 +123,7 @@ class UserController extends Controller
         $order = DB::transaction(function () use ($validated) {
             $appointment = auth()->user()->careGiverAppointments()->create($validated);
             $order = $appointment->order()->create([
-                'amount' => round($validated["price"] - ($validated["discount"] / 100) * $validated["price"], 2),
+                'amount' => round(($validated["price"] - ($validated["discount"] / 100) * $validated["price"])*$validated['duration'], 2),
                 'transaction_id' => uniqid()
             ]);
 
@@ -191,7 +191,7 @@ class UserController extends Controller
         $order = DB::transaction(function () use ($validated) {
             $appointment = auth()->user()->nurseAppointments()->create($validated);
             $order = $appointment->order()->create([
-                'amount' => round($validated["price"] - ($validated["discount"] / 100) * $validated["price"], 2),
+                'amount' => round(($validated["price"] - ($validated["discount"] / 100) * $validated["price"])*$validated['duration'], 2),
                 'transaction_id' => uniqid()
             ]);
 
@@ -210,7 +210,7 @@ class UserController extends Controller
         $order = DB::transaction(function () use ($validated) {
             $appointment = auth()->user()->patientGuideAppointments()->create($validated);
             $order = $appointment->order()->create([
-                'amount' => round($validated["price"] - ($validated["discount"] / 100) * $validated["price"], 2),
+                'amount' => round(($validated["price"] - ($validated["discount"] / 100) * $validated["price"])*$validated['duration'], 2),
                 'transaction_id' => uniqid()
             ]);
 
@@ -229,7 +229,7 @@ class UserController extends Controller
         $order = DB::transaction(function () use ($validated) {
             $appointment = auth()->user()->therapistAppointments()->create($validated);
             $order = $appointment->order()->create([
-                'amount' => round($validated["price"] - ($validated["discount"] / 100) * $validated["price"], 2),
+                'amount' => round(($validated["price"] - ($validated["discount"] / 100) * $validated["price"])*$validated['duration'], 2),
                 'transaction_id' => uniqid()
             ]);
 
