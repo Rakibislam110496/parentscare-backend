@@ -280,6 +280,8 @@ class UserController extends Controller
                 return response()->json(auth()->user()->patientGuideAppointments);
             case 'therapist':
                 return response()->json(auth()->user()->therapistAppointments);
+                case 'subscriptions':
+                    return response()->json(auth()->user()->globalPackageSubscriptions);
             default:
                 return response()->json([]);
         }
