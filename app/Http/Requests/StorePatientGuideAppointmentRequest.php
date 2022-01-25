@@ -42,12 +42,10 @@ class StorePatientGuideAppointmentRequest extends FormRequest
     {
         $patientGuide = PatientGuide::find($this->patient_guide_id);
 
-        $this->merge([
+        return array_merge(parent::validated(), [
             'price' => $patientGuide->price,
             'share' => $patientGuide->share,
             'discount' => $patientGuide->discount
         ]);
-
-        return $this->toArray();
     }
 }

@@ -41,12 +41,10 @@ class StoreHomeSampleAppointmentRequest extends FormRequest
     {
         $test = HomeSampleSubcategory::find($this->home_sample_subcategories_id);
 
-        $this->merge([
+        return array_merge(parent::validated(), [
             'price' => $test->price,
             'share' => $test->share,
             'discount' => $test->discount
         ]);
-
-        return $this->toArray();
     }
 }

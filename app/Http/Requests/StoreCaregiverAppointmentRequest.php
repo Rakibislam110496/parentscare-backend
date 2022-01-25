@@ -45,12 +45,10 @@ class StoreCaregiverAppointmentRequest extends FormRequest
     {
         $careGiverService = CareGiverService::find($this->care_giver_service_id);
 
-         $this->merge([
-            'price' => $careGiverService->price,
-            'share' => $careGiverService->share,
-            'discount' => $careGiverService->discount
-        ]);
-
-         return $this->toArray();
+         return array_merge(parent::validated(), [
+             'price' => $careGiverService->price,
+             'share' => $careGiverService->share,
+             'discount' => $careGiverService->discount
+         ]);
     }
 }

@@ -42,12 +42,10 @@ class StoreTherapistAppointmentRequest extends FormRequest
     {
         $therapist = Therapist::find($this->therapist_id);
 
-        $this->merge([
+        return array_merge(parent::validated(), [
             'price' => $therapist->location->price,
             'share' => $therapist->location->share,
             'discount' => $therapist->location->discount
         ]);
-
-        return $this->toArray();
     }
 }

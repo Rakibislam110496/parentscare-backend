@@ -44,7 +44,7 @@ class StoreNurseAppointmentRequest extends FormRequest
     {
         $nurse = Nurse::find($this->nurse_id);
 
-        $this->merge([
+        $res = array_merge(parent::validated(), [
             'price' => $nurse->price,
             'share' => $nurse->share,
             'discount' => $nurse->discount
@@ -53,7 +53,7 @@ class StoreNurseAppointmentRequest extends FormRequest
         if($this->has('nurse_package_id')){
             $package = NursePackage::find($this->nurse_package_id);
 
-            $this->merge([
+            $res = array_merge($res, [
                 'price' => $package->price,
                 'share' => $package->share,
                 'discount' => $package->discount,
@@ -61,6 +61,6 @@ class StoreNurseAppointmentRequest extends FormRequest
             ]);
         }
 
-        return $this->toArray();
+        return $res;
     }
 }

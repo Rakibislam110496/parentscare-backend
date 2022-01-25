@@ -41,12 +41,10 @@ class StoreDoctorAppointmentRequest extends FormRequest
     {
         $doctor = Doctor::find($this->doctor_id);
 
-        $this->merge([
+        return array_merge(parent::validated(), [
             'price' => $doctor->price,
             'share' => $doctor->share,
             'discount' => $doctor->discount
         ]);
-
-        return $this->toArray();
     }
 }

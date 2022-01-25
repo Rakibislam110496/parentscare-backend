@@ -33,9 +33,8 @@ class StoreUserSignupRequest extends FormRequest
         ];
     }
 
-    public function validated(){
-        $this->merge(['password' => Hash::make($this->password)]);
-
-        return $this->toArray();
+    public function validated()
+    {
+        return array_merge(parent::validated(), ['password' => Hash::make($this->input('password'))]);
     }
 }
