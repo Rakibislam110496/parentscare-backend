@@ -71,6 +71,6 @@ class User extends Authenticatable implements CanResetPassword
     }
 
     public function globalPackageSubscriptions(){
-        return $this->hasMany(GlobalPackageSubscription::class)->with('order');
+        return $this->hasMany(GlobalPackageSubscription::class)->with(['order', 'package']);
     }
 }
