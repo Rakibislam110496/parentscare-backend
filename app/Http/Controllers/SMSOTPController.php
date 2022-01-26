@@ -33,6 +33,10 @@ class SMSOTPController extends Controller
 
     public function sendOTP()
     {
+        if(auth()->user()->phone_verified_at){
+            return response()->json(['message' => 'Phone number already verified'], 500);
+        }
+
         $otp = auth()->user()->otps()->create(['token' => Random::generate(4, '0-9')]);
 
         $res = $this->sendMessage(auth()->user()->phone, "Your Parents Care One-Time PIN is {$otp->token}. It will expire in 10 minutes.");
@@ -42,6 +46,9 @@ class SMSOTPController extends Controller
 
     public function verifyOTP(Request $request)
     {
+        if(auth()->user()->phone_verified_at){
+            return response()->json(['message' => 'Phone number already verified'], 500);
+        }
 
         $validated = $request->validate([
             'token' => 'string|min:4|max:4'

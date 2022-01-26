@@ -131,7 +131,6 @@ Route::prefix('user')->group(function () {
             Route::get('buy_global_package/{globalPackage}', [UserController::class, "buyGlobalPackage"]);
         });
 
-
         //Messages
         Route::apiResource('messages', MessageController::class)->only('store');
 
