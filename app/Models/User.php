@@ -73,4 +73,8 @@ class User extends Authenticatable implements CanResetPassword
     public function globalPackageSubscriptions(){
         return $this->hasMany(GlobalPackageSubscription::class)->with(['order', 'package']);
     }
+
+    public function otps(){
+        return $this->hasMany(OTP::class);
+    }
 }

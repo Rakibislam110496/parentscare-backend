@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminReportController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CareGiverAppointmentController;
 use App\Http\Controllers\CareGiverController;
 use App\Http\Controllers\CareGiverServiceController;
@@ -23,6 +24,7 @@ use App\Http\Controllers\NursePackageController;
 use App\Http\Controllers\PatientGuideAppointmentController;
 use App\Http\Controllers\PatientGuideController;
 use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\SMSOTPController;
 use App\Http\Controllers\SslCommerzPaymentController;
 use App\Http\Controllers\TherapistAppointmentController;
 use App\Http\Controllers\TherapistController;
@@ -63,6 +65,7 @@ Route::prefix('user')->group(function () {
 
         return response()->json(['message' => 'Signup successful']);
     });
+
 
     Route::post('login', function (Request $request) {
         return User::login($request);
@@ -111,22 +114,29 @@ Route::prefix('user')->group(function () {
     //Global Packages
     Route::apiResource('global_packages', GlobalPackageController::class)->only('index', 'show');
 
-    Route::middleware(['auth:user'])->group(function () {
-        //Appointments
-        Route::post('get_care_giver_appointment', [UserController::class, 'getCareGiverAppointment']);
-        Route::post('get_doctor_appointment', [UserController::class, 'getDoctorAppointment']);
-        Route::post('get_foreign_medical_appointment', [UserController::class, 'getForeignMedicalAppointment']);
-        Route::post('get_home_sample_appointment', [UserController::class, 'getHomeSampleAppointment']);
-        Route::post('get_nurse_appointment', [UserController::class, 'getNurseAppointment']);
-        Route::post('get_patient_guide_appointment', [UserController::class, 'getPatientGuideAppointment']);
-        Route::post('get_therapist_appointment', [UserController::class, 'getTherapistAppointment']);
-        Route::get('appointments', [UserController::class, 'appointments']);
+    Route::middleware('auth:user')->group(function () {
+
+        Route::middleware('phone_verified')->group(function () {
+            //Appointments
+            Route::post('get_care_giver_appointment', [UserController::class, 'getCareGiverAppointment']);
+            Route::post('get_doctor_appointment', [UserController::class, 'getDoctorAppointment']);
+            Route::post('get_foreign_medical_appointment', [UserController::class, 'getForeignMedicalAppointment']);
+            Route::post('get_home_sample_appointment', [UserController::class, 'getHomeSampleAppointment']);
+            Route::post('get_nurse_appointment', [UserController::class, 'getNurseAppointment']);
+            Route::post('get_patient_guide_appointment', [UserController::class, 'getPatientGuideAppointment']);
+            Route::post('get_therapist_appointment', [UserController::class, 'getTherapistAppointment']);
+            Route::get('appointments', [UserController::class, 'appointments']);
+
+            //Buy Packages
+            Route::get('buy_global_package/{globalPackage}', [UserController::class, "buyGlobalPackage"]);
+        });
+
 
         //Messages
         Route::apiResource('messages', MessageController::class)->only('store');
 
-        //Buy Packages
-        Route::get('buy_global_package/{globalPackage}', [UserController::class, "buyGlobalPackage"]);
+        Route::get('send_otp_sms', [SMSOTPController::class, 'sendOTP']);
+        Route::post('verify_otp', [SMSOTPController::class, 'verifyOTP']);
     });
 });
 
@@ -205,7 +215,10 @@ Route::prefix('admin')->group(function () {
         //Messages
         Route::apiResource('messages', MessageController::class)->only('index', 'show');
 
-        Route::middleware('admin_types:super')->group(function(){
+        //Blogs
+        Route::apiResource('blogs', BlogController::class);
+
+        Route::middleware('admin_types:super')->group(function () {
             //Admin Dashboard
             Route::get('get_dashboard_data', [AdminDashboardController::class, 'getDashboardData']);
 
@@ -213,7 +226,6 @@ Route::prefix('admin')->group(function () {
             Route::get('get_admin_report', [AdminReportController::class, 'getAdminReport']);
 
             //Admin Profile settings
-            //todo : protect this route only for admin
             Route::post('change_admin_password', [AdminController::class, 'changeAdminPassword']);
             Route::post('update_admin_info', [AdminController::class, 'updateAdminInfo']);
             Route::post('change_subadmin_password', [AdminController::class, 'changeSubadminPassword']);

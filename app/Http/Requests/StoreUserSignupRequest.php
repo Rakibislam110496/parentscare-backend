@@ -28,13 +28,17 @@ class StoreUserSignupRequest extends FormRequest
             'name' => 'required|string',
             'email' => 'required|email|unique:users',
             'password' => 'required|string|min:6',
-            'phone' => 'required|string',
+            'phone' => 'required|string|min:11|max:15',
             'address' => 'required|string'
         ];
     }
 
     public function validated()
     {
-        return array_merge(parent::validated(), ['password' => Hash::make($this->input('password'))]);
+        $phone = substr(strrev($this->phone), 0, 11);
+
+        $phone = '88'.strrev($phone);
+
+        return array_merge(parent::validated(), ['password' => Hash::make($this->input('password')), 'phone' => $phone]);
     }
 }
