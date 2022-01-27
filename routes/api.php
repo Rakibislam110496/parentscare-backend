@@ -114,6 +114,9 @@ Route::prefix('user')->group(function () {
     //Global Packages
     Route::apiResource('global_packages', GlobalPackageController::class)->only('index', 'show');
 
+    //Blogs
+    Route::apiResource('blogs', BlogController::class)->only('index', 'show');
+
     Route::middleware('auth:user')->group(function () {
 
         Route::middleware('phone_verified')->group(function () {
