@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Admin;
+use App\Mail\Admin\OrderBooking as OrderBookingAdmin;
+use App\Mail\User\OrderBooking as OrderBookingUser;
+use App\Models\GlobalPackageSubscription;
 use App\Models\Order;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Library\SslCommerz\SslCommerzNotification;
-use Illuminate\Support\Facades\Hash;
-use SebastianBergmann\Environment\Console;
-use Symfony\Component\Console\Output\ConsoleOutput;
+use Illuminate\Support\Facades\Mail;
 
 class SslCommerzPaymentController extends Controller
 {
@@ -93,6 +93,22 @@ class SslCommerzPaymentController extends Controller
                 $params = 'payment_type=' . $request->card_type;
                 $params .= '&&amount=' . $request->amount;
                 $params .= '&&transaction_id=' . $request->tran_id;
+
+                $order = Order::where('transaction_id', $tran_id)->first();
+                $orderable = $order->orderable;
+
+                if ($orderable instanceof GlobalPackageSubscription) {
+                    (new SMSOTPController())->sendMessage(
+                        $orderable->user->phone,
+                        'বুকিং এর জন্য ধন্যবাদ। প্যারেন্টসকেয়ার লিমিটেড এর সাথে থাকুন।');
+                } else {
+                    (new SMSOTPController())->sendMessage(
+                            '88'.strrev(substr(strrev($orderable->phone), 0, 11)),
+                            'বুকিং এর জন্য ধন্যবাদ। প্যারেন্টসকেয়ার লিমিটেড এর সাথে থাকুন।');
+                }
+
+                Mail::send(new OrderBookingAdmin($order));
+                Mail::send(new OrderBookingUser($order));
 
                 return redirect('http://parents-care-client.vercel.app/payment/success?' . $params);
             } else {

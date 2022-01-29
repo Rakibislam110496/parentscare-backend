@@ -31,7 +31,7 @@ class UpdateCareGiverAppointmentRequest extends FormRequest
             'patient_gender' => 'string',
             'patient_age' => 'integer',
             'sickness_details' => 'string',
-            'patient_phone' => 'string',
+            'phone' => 'string',
             'patient_address' => 'string',
             'care_giver_type' => 'string',
             'expected_date' => 'date',

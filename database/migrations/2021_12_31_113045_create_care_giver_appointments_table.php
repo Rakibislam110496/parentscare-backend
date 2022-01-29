@@ -22,7 +22,7 @@ class CreateCareGiverAppointmentsTable extends Migration
             $table->string('patient_gender');
             $table->integer('patient_age');
             $table->string('sickness_details');
-            $table->string('patient_phone');
+            $table->string('phone');
             $table->string('patient_address');
             $table->string('care_giver_type');
             $table->dateTime('expected_date');

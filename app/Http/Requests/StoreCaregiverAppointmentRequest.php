@@ -33,7 +33,7 @@ class StoreCaregiverAppointmentRequest extends FormRequest
             'patient_gender' => 'required|string',
             'patient_age' => 'required|integer',
             'sickness_details' => 'required|string',
-            'patient_phone' => 'required|string',
+            'phone' => 'required|string',
             'patient_address' => 'required|string',
             'care_giver_type' => 'required|string',
             'expected_date' => 'required|date',

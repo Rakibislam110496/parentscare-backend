@@ -11,16 +11,13 @@ use App\Http\Requests\StorePatientGuideAppointmentRequest;
 use App\Http\Requests\StoreTherapistAppointmentRequest;
 use App\Http\Requests\UpdateUserInfoRequest;
 use App\Http\Requests\UpdateUserRequest;
-use App\Models\CareGiverService;
+use App\Mail\Admin\OrderBooking;
 use App\Models\GlobalPackage;
-use App\Models\NursePackage;
-use App\Models\Order;
 use App\Models\User;
-use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -130,6 +127,8 @@ class UserController extends Controller
             return $order->refresh();
         });
 
+        Mail::send(new OrderBooking($order));
+
         $paymentUrl = SslCommerzPaymentController::getPaymentUrl($order);
 
         return response()->json(['payment_gateway' => $paymentUrl, 'order' => $order->load('orderable')]);
@@ -149,6 +148,8 @@ class UserController extends Controller
             return $order->refresh();
         });
 
+        Mail::send(new OrderBooking($order));
+
         $paymentUrl = SslCommerzPaymentController::getPaymentUrl($order);
 
         return response()->json(['payment_gateway' => $paymentUrl, 'order' => $order->load('orderable')]);
@@ -161,6 +162,8 @@ class UserController extends Controller
         $appointment = DB::transaction(function () use ($validated) {
             return auth()->user()->foreignMedicalAppointments()->create($validated);
         });
+
+        Mail::send(new OrderBooking($appointment));
 
         return response()->json($appointment);
     }
@@ -178,6 +181,8 @@ class UserController extends Controller
 
             return $order->refresh();
         });
+
+        Mail::send(new OrderBooking($order));
 
         $paymentUrl = SslCommerzPaymentController::getPaymentUrl($order);
 
@@ -198,6 +203,8 @@ class UserController extends Controller
             return $order->refresh();
         });
 
+        Mail::send(new OrderBooking($order));
+
         $paymentUrl = SslCommerzPaymentController::getPaymentUrl($order);
 
         return response()->json(['payment_gateway' => $paymentUrl, 'order' => $order->load('orderable')]);
@@ -213,6 +220,8 @@ class UserController extends Controller
                 'amount' => round(($validated["price"] - ($validated["discount"] / 100) * $validated["price"])*$validated['duration'], 2),
                 'transaction_id' => uniqid()
             ]);
+
+            Mail::send(new OrderBooking($order));
 
             return $order->refresh();
         });
@@ -236,6 +245,8 @@ class UserController extends Controller
             return $order->refresh();
         });
 
+        Mail::send(new OrderBooking($order));
+
         $paymentUrl = SslCommerzPaymentController::getPaymentUrl($order);
 
         return response()->json(['payment_gateway' => $paymentUrl, 'order' => $order->load('orderable')]);
@@ -257,6 +268,8 @@ class UserController extends Controller
 
             return $order->refresh();
         });
+
+        Mail::send(new OrderBooking($order));
 
         $paymentUrl = SslCommerzPaymentController::getPaymentUrl($order);
 
