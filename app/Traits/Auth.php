@@ -24,13 +24,13 @@ trait Auth
         $user = self::where('email', $validated['email'])->first();
         if ($user && Hash::check($validated['password'], $user->password)) {
             if(!$user->is_active){
-                return response()->json(['errors' => true, 'message' => 'User is inactive. Contact support for further queries.'], 403);
+                return response()->json(['errors' => true, 'message' => 'User is inactive. Contact support for further queries.'], 400);
             }
 
             $accessToken = $user->createToken('accessToken')->plainTextToken;
             return response()->json(['accessToken' => $accessToken, 'user' => $user]);
         }
-        return response()->json(['errors' => true, 'message' => 'Username or Password is incorrect.'], 403);
+        return response()->json(['errors' => true, 'message' => 'Username or Password is incorrect.'], 400);
 
     }
 
