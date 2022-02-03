@@ -26,7 +26,7 @@ class DoctorController extends Controller
             $doctors = $doctors->where('name', 'LIKE', "%{$request->name}%");
         }
         if($request->has('dept_id')){
-            $doctors = $doctors->where('department_id', $request->dept_id);
+            $doctors = $doctors->where('doctor_department_id', $request->dept_id);
         }
 
         if(isAdmin())
