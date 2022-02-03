@@ -25,6 +25,9 @@ class DoctorController extends Controller
         if($request->has('name')){
             $doctors = $doctors->where('name', 'LIKE', "%{$request->name}%");
         }
+        if($request->has('dept_id')){
+            $doctors = $doctors->where('department_id', $request->dept_id);
+        }
 
         if(isAdmin())
             $doctors = $doctors->with('ongoingAppointments');
