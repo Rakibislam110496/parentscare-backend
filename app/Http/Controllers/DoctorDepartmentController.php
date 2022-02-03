@@ -19,7 +19,7 @@ class DoctorDepartmentController extends Controller
      */
     public function index()
     {
-        $departments = DoctorDepartment::all();
+        $departments = DoctorDepartment::with('doctors')->get();
 
         return response()->json($departments);
     }

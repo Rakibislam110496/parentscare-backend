@@ -84,6 +84,9 @@ Route::prefix('user')->group(function () {
     //Update user info
     Route::post('update_info', [UserController::class, 'updateInfo'])->middleware('auth:user');
 
+    //Doctor departments
+    Route::apiResource('doctor_departments', DoctorDepartmentController::class)->only('index', 'show');
+
     //Doctors
     Route::apiResource('doctors', DoctorController::class)->only('index', 'show');
 
