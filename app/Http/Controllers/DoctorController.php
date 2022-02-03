@@ -26,6 +26,9 @@ class DoctorController extends Controller
             $doctors = $doctors->where('name', 'LIKE', "%{$request->name}%");
         }
 
+        if(isAdmin())
+            $doctors = $doctors->with('ongoingAppointments');
+
         $doctors = $doctors->with('department')->orderBy('is_senior', 'desc')->paginate(20);
 
         return response()->json($doctors);
@@ -55,7 +58,10 @@ class DoctorController extends Controller
      */
     public function show(Doctor $doctor)
     {
-        return response()->json($doctor->load(['department', 'appointments']));
+        if(isAdmin())
+            $doctor->load('appointments');
+
+        return response()->json($doctor->load('department'));
     }
 
     /**

@@ -25,6 +25,9 @@ class TherapistController extends Controller
             $therapists = $therapists->where('name', 'LIKE', "%{$request->name}%");
         }
 
+        if(isAdmin())
+            $therapists = $therapists->with('ongoingAppointments');
+
         $therapists = $therapists->with('location')->paginate(20);
 
         return response($therapists);
@@ -55,6 +58,9 @@ class TherapistController extends Controller
      */
     public function show(Therapist $therapist)
     {
+        if(isAdmin())
+            $therapist->load('appointments');
+
         return response()->json($therapist->load('location'));
     }
 

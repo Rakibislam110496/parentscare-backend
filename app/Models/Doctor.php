@@ -32,4 +32,8 @@ class Doctor extends Model
     public function appointments(){
         return $this->hasMany(DoctorAppointment::class, 'doctor_id');
     }
+
+    public function ongoingAppointments(){
+        return $this->hasMany(DoctorAppointment::class, 'doctor_id')->where('status', 'ongoing');
+    }
 }

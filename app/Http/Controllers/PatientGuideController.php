@@ -25,6 +25,9 @@ class PatientGuideController extends Controller
             $patientGuides = $patientGuides->where('name', 'LIKE', "%{$request->name}%");
         }
 
+        if(isAdmin())
+            $patientGuides = $patientGuides->with('ongoingAppointments');
+
         $patientGuides = $patientGuides->paginate(20);
 
         return response()->json($patientGuides);
@@ -55,6 +58,9 @@ class PatientGuideController extends Controller
      */
     public function show(PatientGuide $patientGuide): JsonResponse
     {
+        if(isAdmin())
+            $patientGuide->load('appointments');
+
         return response()->json($patientGuide);
     }
 

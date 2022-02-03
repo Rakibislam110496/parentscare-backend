@@ -31,4 +31,8 @@ class Therapist extends Model
     public function appointments(){
         return $this->hasMany(TherapistAppointment::class, 'therapist_id');
     }
+
+    public function ongoingAppointments(){
+        return $this->hasMany(TherapistAppointment::class, 'therapist_id')->where('status', 'ongoing');
+    }
 }

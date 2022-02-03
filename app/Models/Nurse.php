@@ -27,4 +27,9 @@ class Nurse extends Model
     public function appointments(){
         return $this->hasMany(NurseAppointment::class, 'nurse_id');
     }
+
+    public function ongoingAppointments(){
+        return $this->hasMany(NurseAppointment::class, 'nurse_id')->where('status', 'ongoing');
+    }
+
 }

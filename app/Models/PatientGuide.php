@@ -27,4 +27,8 @@ class PatientGuide extends Model
     public function appointments(){
         return $this->hasMany(PatientGuideAppointment::class, 'patient_guide_id');
     }
+
+    public function ongoingAppointments(){
+        return $this->hasMany(PatientGuideAppointment::class, 'patient_guide_id')->where('status', 'ongoing');
+    }
 }

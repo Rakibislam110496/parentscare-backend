@@ -30,6 +30,9 @@ class NurseController extends Controller
             $nurses = $nurses->where('is_special', $request->is_special);
         }
 
+        if(isAdmin())
+            $nurses = $nurses->with('ongoingAppointments');
+
         $nurses = $nurses->paginate(20);
 
         return response()->json($nurses);
@@ -60,6 +63,8 @@ class NurseController extends Controller
      */
     public function show(Nurse $nurse): JsonResponse
     {
+        if(isAdmin())
+            $nurse->load('appointments');
         return response()->json($nurse);
     }
 

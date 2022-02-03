@@ -24,6 +24,9 @@ class CareGiverController extends Controller
             $careGivers = $careGivers->where('name', 'LIKE', "%{$request->name}%");
         }
 
+        if(isAdmin())
+            $careGivers = $careGivers->with('ongoingAppointments');
+
         $careGivers = $careGivers->paginate(20);
 
         return response()->json($careGivers);
@@ -53,6 +56,9 @@ class CareGiverController extends Controller
      */
     public function show(CareGiver $careGiver)
     {
+        if(isAdmin())
+            $careGiver->load('appointments');
+
         return response()->json($careGiver);
     }
 
