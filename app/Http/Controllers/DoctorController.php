@@ -55,7 +55,7 @@ class DoctorController extends Controller
      */
     public function show(Doctor $doctor)
     {
-        return response()->json($doctor->load('department'));
+        return response()->json($doctor->load(['department', 'appointments']));
     }
 
     /**
