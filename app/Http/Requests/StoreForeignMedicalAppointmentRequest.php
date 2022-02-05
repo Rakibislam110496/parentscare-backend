@@ -35,7 +35,8 @@ class StoreForeignMedicalAppointmentRequest extends FormRequest
             'patient_need_ticket_booking' => 'required|boolean',
             'patient_need_accommodation' => 'required|boolean',
             'patient_need_local_transportation' => 'required|boolean',
-            'patient_need_hospital_admission' => 'required|boolean'
+            'patient_need_hospital_admission' => 'required|boolean',
+            'patient_need_air_ambulance' => 'required|boolean'
         ];
     }
 }

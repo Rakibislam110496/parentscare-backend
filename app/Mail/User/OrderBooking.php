@@ -11,16 +11,16 @@ class OrderBooking extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
-    private $order;
+    private $oderable;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($order)
+    public function __construct($oderable)
     {
-        $this->order = $order;
+        $this->oderable = $oderable;
     }
 
     /**
@@ -30,6 +30,6 @@ class OrderBooking extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->to($this->order->orderable->user->email)->markdown('emails.orders.user.booked');
+        return $this->to($this->oderable->user->email)->markdown('emails.orders.user.booked');
     }
 }

@@ -107,8 +107,8 @@ class SslCommerzPaymentController extends Controller
                             'বুকিং এর জন্য ধন্যবাদ। প্যারেন্টসকেয়ার লিমিটেড এর সাথে থাকুন।');
                 }
 
-                Mail::send(new OrderBookingAdmin($order));
-                Mail::send(new OrderBookingUser($order));
+                Mail::send(new OrderBookingAdmin($order->orderable));
+                Mail::send(new OrderBookingUser($order->orderable));
 
                 return redirect('http://parents-care-client.vercel.app/payment/success?' . $params);
             } else {
