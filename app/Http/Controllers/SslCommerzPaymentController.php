@@ -103,12 +103,16 @@ class SslCommerzPaymentController extends Controller
                         'বুকিং এর জন্য ধন্যবাদ। প্যারেন্টসকেয়ার লিমিটেড এর সাথে থাকুন।');
                 } else {
                     (new SMSOTPController())->sendMessage(
-                            '88'.strrev(substr(strrev($orderable->phone), 0, 11)),
-                            'বুকিং এর জন্য ধন্যবাদ। প্যারেন্টসকেয়ার লিমিটেড এর সাথে থাকুন।');
+                        '88' . strrev(substr(strrev($orderable->phone), 0, 11)),
+                        'বুকিং এর জন্য ধন্যবাদ। প্যারেন্টসকেয়ার লিমিটেড এর সাথে থাকুন।');
                 }
 
-                Mail::send(new OrderBookingAdmin($order->orderable));
-                Mail::send(new OrderBookingUser($order->orderable));
+                try {
+                    Mail::send(new OrderBookingAdmin($order->orderable));
+                    Mail::send(new OrderBookingUser($order->orderable));
+                } catch (\Exception $exception) {
+
+                }
 
                 return redirect('http://parents-care-client.vercel.app/payment/success?' . $params);
             } else {
