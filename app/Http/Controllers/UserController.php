@@ -127,7 +127,7 @@ class UserController extends Controller
             return $order->refresh();
         });
 
-        Mail::send(new OrderBooking($order));
+        Mail::send(new OrderBooking($order->orderable));
 
         $paymentUrl = SslCommerzPaymentController::getPaymentUrl($order);
 
@@ -148,7 +148,7 @@ class UserController extends Controller
             return $order->refresh();
         });
 
-        Mail::send(new OrderBooking($order));
+        Mail::send(new OrderBooking($order->orderable));
 
         $paymentUrl = SslCommerzPaymentController::getPaymentUrl($order);
 
@@ -182,7 +182,7 @@ class UserController extends Controller
             return $order->refresh();
         });
 
-        Mail::send(new OrderBooking($order));
+        Mail::send(new OrderBooking($order->orderable));
 
         $paymentUrl = SslCommerzPaymentController::getPaymentUrl($order);
 
@@ -203,7 +203,7 @@ class UserController extends Controller
             return $order->refresh();
         });
 
-        Mail::send(new OrderBooking($order));
+        Mail::send(new OrderBooking($order->orderable));
 
         $paymentUrl = SslCommerzPaymentController::getPaymentUrl($order);
 
@@ -221,7 +221,7 @@ class UserController extends Controller
                 'transaction_id' => uniqid()
             ]);
 
-            Mail::send(new OrderBooking($order));
+            Mail::send(new OrderBooking($order->orderable));
 
             return $order->refresh();
         });
@@ -245,7 +245,7 @@ class UserController extends Controller
             return $order->refresh();
         });
 
-        Mail::send(new OrderBooking($order));
+        Mail::send(new OrderBooking($order->orderable));
 
         $paymentUrl = SslCommerzPaymentController::getPaymentUrl($order);
 
@@ -269,7 +269,7 @@ class UserController extends Controller
             return $order->refresh();
         });
 
-        Mail::send(new OrderBooking($order));
+        Mail::send(new OrderBooking($order->orderable));
 
         $paymentUrl = SslCommerzPaymentController::getPaymentUrl($order);
 
