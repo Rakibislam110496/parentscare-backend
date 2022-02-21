@@ -130,8 +130,8 @@ class UserController extends Controller
         });
 
         try {
-            Mail::send(new  AdminOrderBooking($order->orderable));
-            Mail::send(new UserOrderReceived($order->orderable));
+            Mail::queue(new  AdminOrderBooking($order->orderable));
+            Mail::queue(new UserOrderReceived($order->orderable));
         } catch (\Exception $exception) {
 
         }
@@ -155,8 +155,13 @@ class UserController extends Controller
             return $order->refresh();
         });
 
+        try{
             Mail::queue(new AdminOrderBooking($order->orderable));
             Mail::queue(new UserOrderReceived($order->orderable));
+
+        }catch(\Exception $exception){
+
+        }
 
 
         $paymentUrl = SslCommerzPaymentController::getPaymentUrl($order);
@@ -173,8 +178,7 @@ class UserController extends Controller
         });
 
         try {
-            Mail::send(new AdminOrderBooking($appointment));
-            Mail::send(new UserOrderReceived($order->orderable));
+            Mail::queue(new AdminOrderBooking($appointment));
         } catch (\Exception $exception) {
 
         }
@@ -197,8 +201,8 @@ class UserController extends Controller
         });
 
         try {
-            Mail::send(new AdminOrderBooking($order->orderable));
-            Mail::send(new UserOrderReceived($order->orderable));
+            Mail::queue(new AdminOrderBooking($order->orderable));
+            Mail::queue(new UserOrderReceived($order->orderable));
         } catch (\Exception $exception) {
 
         }
@@ -223,8 +227,8 @@ class UserController extends Controller
         });
 
         try {
-            Mail::send(new AdminOrderBooking($order->orderable));
-            Mail::send(new UserOrderReceived($order->orderable));
+            Mail::queue(new AdminOrderBooking($order->orderable));
+            Mail::queue(new UserOrderReceived($order->orderable));
         } catch (\Exception $exception) {
 
         }
@@ -245,14 +249,12 @@ class UserController extends Controller
                 'transaction_id' => uniqid()
             ]);
 
-            Mail::send(new AdminOrderBooking($order->orderable));
-            Mail::send(new UserOrderReceived($order->orderable));
-
             return $order->refresh();
         });
 
         try {
-            Mail::send(new AdminOrderBooking($order->orderable));
+            Mail::queue(new AdminOrderBooking($order->orderable));
+            Mail::queue(new UserOrderReceived($order->orderable));
         } catch (\Exception $exception) {
 
         }
@@ -277,8 +279,8 @@ class UserController extends Controller
         });
 
         try {
-            Mail::send(new AdminOrderBooking($order->orderable));
-            Mail::send(new UserOrderReceived($order->orderable));
+            Mail::queue(new AdminOrderBooking($order->orderable));
+            Mail::queue(new UserOrderReceived($order->orderable));
         } catch (\Exception $exception) {
 
         }
@@ -306,8 +308,7 @@ class UserController extends Controller
         });
 
         try {
-            Mail::send(new AdminOrderBooking($order->orderable));
-            Mail::send(new UserOrderReceived($order->orderable));
+            Mail::queue(new AdminOrderBooking($order->orderable));
         } catch (\Exception $exception) {
 
         }
