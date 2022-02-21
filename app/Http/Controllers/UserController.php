@@ -155,8 +155,8 @@ class UserController extends Controller
             return $order->refresh();
         });
 
-            Mail::send(new AdminOrderBooking($order->orderable));
-            Mail::send(new UserOrderReceived($order->orderable));
+            Mail::queue(new AdminOrderBooking($order->orderable));
+            Mail::queue(new UserOrderReceived($order->orderable));
 
 
         $paymentUrl = SslCommerzPaymentController::getPaymentUrl($order);
