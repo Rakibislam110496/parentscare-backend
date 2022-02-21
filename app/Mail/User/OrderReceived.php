@@ -30,6 +30,6 @@ class OrderReceived extends Mailable
      */
     public function build()
     {
-        return $this->to($this->orderable->user->email)->markdown('emails.user.received');
+        return $this->to($this->orderable->user->email)->markdown('emails.orders.user.received');
     }
 }
