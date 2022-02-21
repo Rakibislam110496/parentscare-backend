@@ -11,7 +11,8 @@ use App\Http\Requests\StorePatientGuideAppointmentRequest;
 use App\Http\Requests\StoreTherapistAppointmentRequest;
 use App\Http\Requests\UpdateUserInfoRequest;
 use App\Http\Requests\UpdateUserRequest;
-use App\Mail\Admin\OrderBooking;
+use App\Mail\Admin\OrderBooking as AdminOrderBooking;
+use App\Mail\User\OrderReceived as UserOrderReceived;
 use App\Models\GlobalPackage;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
@@ -129,7 +130,8 @@ class UserController extends Controller
         });
 
         try {
-            Mail::send(new OrderBooking($order->orderable));
+            Mail::send(new  AdminOrderBooking($order->orderable));
+            Mail::send(new UserOrderReceived($order->orderable));
         } catch (\Exception $exception) {
 
         }
@@ -154,7 +156,8 @@ class UserController extends Controller
         });
 
         try {
-            Mail::send(new OrderBooking($order->orderable));
+            Mail::send(new AdminOrderBooking($order->orderable));
+            Mail::send(new UserOrderReceived($order->orderable));
         } catch (\Exception $exception) {
 
         }
@@ -173,7 +176,8 @@ class UserController extends Controller
         });
 
         try {
-            Mail::send(new OrderBooking($appointment));
+            Mail::send(new AdminOrderBooking($appointment));
+            Mail::send(new UserOrderReceived($order->orderable));
         } catch (\Exception $exception) {
 
         }
@@ -196,7 +200,8 @@ class UserController extends Controller
         });
 
         try {
-            Mail::send(new OrderBooking($order->orderable));
+            Mail::send(new AdminOrderBooking($order->orderable));
+            Mail::send(new UserOrderReceived($order->orderable));
         } catch (\Exception $exception) {
 
         }
@@ -221,7 +226,8 @@ class UserController extends Controller
         });
 
         try {
-            Mail::send(new OrderBooking($order->orderable));
+            Mail::send(new AdminOrderBooking($order->orderable));
+            Mail::send(new UserOrderReceived($order->orderable));
         } catch (\Exception $exception) {
 
         }
@@ -242,13 +248,14 @@ class UserController extends Controller
                 'transaction_id' => uniqid()
             ]);
 
-            Mail::send(new OrderBooking($order->orderable));
+            Mail::send(new AdminOrderBooking($order->orderable));
+            Mail::send(new UserOrderReceived($order->orderable));
 
             return $order->refresh();
         });
 
         try {
-            Mail::send(new OrderBooking($order->orderable));
+            Mail::send(new AdminOrderBooking($order->orderable));
         } catch (\Exception $exception) {
 
         }
@@ -273,7 +280,8 @@ class UserController extends Controller
         });
 
         try {
-            Mail::send(new OrderBooking($order->orderable));
+            Mail::send(new AdminOrderBooking($order->orderable));
+            Mail::send(new UserOrderReceived($order->orderable));
         } catch (\Exception $exception) {
 
         }
@@ -301,7 +309,8 @@ class UserController extends Controller
         });
 
         try {
-            Mail::send(new OrderBooking($order->orderable));
+            Mail::send(new AdminOrderBooking($order->orderable));
+            Mail::send(new UserOrderReceived($order->orderable));
         } catch (\Exception $exception) {
 
         }
