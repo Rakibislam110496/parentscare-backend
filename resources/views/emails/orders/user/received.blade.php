@@ -1,9 +1,9 @@
 @component('mail::message')
-# Payment Successful
+# Payment Pending
 
 Hello Sir/Madam,
 
-Thank you for booking the appointment with us. Your appointment has been confirmed. please confirm the payment. Our customer care will give you all the details regarding your appointment as soon as possible.
+We've received your order. Please confirm the payment. Our customer care will give you all the details regarding your appointment as soon as possible.
 
 If you have any queries, please call 01883399933/09613551177
 Thank you for staying with ParentsCare.

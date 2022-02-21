@@ -132,6 +132,9 @@ class UserController extends Controller
         try {
             Mail::queue(new  AdminOrderBooking($order->orderable));
             Mail::queue(new UserOrderReceived($order->orderable));
+            (new SMSOTPController())->sendMessage(
+                '88' . strrev(substr(strrev($order->orderable->phone), 0, 11)),
+                'বুকিং এর জন্য ধন্যবাদ। প্যারেন্টসকেয়ার লিমিটেড এর সাথে থাকুন।');
         } catch (\Exception $exception) {
 
         }
@@ -158,7 +161,9 @@ class UserController extends Controller
         try{
             Mail::queue(new AdminOrderBooking($order->orderable));
             Mail::queue(new UserOrderReceived($order->orderable));
-
+            (new SMSOTPController())->sendMessage(
+                '88' . strrev(substr(strrev($order->orderable->phone), 0, 11)),
+                'বুকিং এর জন্য ধন্যবাদ। প্যারেন্টসকেয়ার লিমিটেড এর সাথে থাকুন।');
         }catch(\Exception $exception){
 
         }
@@ -203,6 +208,9 @@ class UserController extends Controller
         try {
             Mail::queue(new AdminOrderBooking($order->orderable));
             Mail::queue(new UserOrderReceived($order->orderable));
+            (new SMSOTPController())->sendMessage(
+                '88' . strrev(substr(strrev($order->orderable->phone), 0, 11)),
+                'বুকিং এর জন্য ধন্যবাদ। প্যারেন্টসকেয়ার লিমিটেড এর সাথে থাকুন।');
         } catch (\Exception $exception) {
 
         }
@@ -229,6 +237,9 @@ class UserController extends Controller
         try {
             Mail::queue(new AdminOrderBooking($order->orderable));
             Mail::queue(new UserOrderReceived($order->orderable));
+            (new SMSOTPController())->sendMessage(
+                '88' . strrev(substr(strrev($order->orderable->phone), 0, 11)),
+                'বুকিং এর জন্য ধন্যবাদ। প্যারেন্টসকেয়ার লিমিটেড এর সাথে থাকুন।');
         } catch (\Exception $exception) {
 
         }
@@ -255,6 +266,9 @@ class UserController extends Controller
         try {
             Mail::queue(new AdminOrderBooking($order->orderable));
             Mail::queue(new UserOrderReceived($order->orderable));
+            (new SMSOTPController())->sendMessage(
+                '88' . strrev(substr(strrev($order->orderable->phone), 0, 11)),
+                'বুকিং এর জন্য ধন্যবাদ। প্যারেন্টসকেয়ার লিমিটেড এর সাথে থাকুন।');
         } catch (\Exception $exception) {
 
         }
@@ -281,6 +295,9 @@ class UserController extends Controller
         try {
             Mail::queue(new AdminOrderBooking($order->orderable));
             Mail::queue(new UserOrderReceived($order->orderable));
+            (new SMSOTPController())->sendMessage(
+                '88' . strrev(substr(strrev($order->orderable->phone), 0, 11)),
+                'বুকিং এর জন্য ধন্যবাদ। প্যারেন্টসকেয়ার লিমিটেড এর সাথে থাকুন।');
         } catch (\Exception $exception) {
 
         }
