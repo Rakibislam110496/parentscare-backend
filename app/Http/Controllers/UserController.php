@@ -155,12 +155,9 @@ class UserController extends Controller
             return $order->refresh();
         });
 
-        try {
             Mail::send(new AdminOrderBooking($order->orderable));
             Mail::send(new UserOrderReceived($order->orderable));
-        } catch (\Exception $exception) {
 
-        }
 
         $paymentUrl = SslCommerzPaymentController::getPaymentUrl($order);
 
