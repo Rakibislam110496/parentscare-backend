@@ -17,6 +17,15 @@ class StoreUserSignupRequest extends FormRequest
         return true;
     }
 
+    public function prepareForValidation()
+    {
+        $phone = substr(strrev($this->phone), 0, 11);
+
+        $phone = '88'.strrev($phone);
+
+        $this->phone = $phone;
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -35,10 +44,6 @@ class StoreUserSignupRequest extends FormRequest
 
     public function validated()
     {
-        $phone = substr(strrev($this->phone), 0, 11);
-
-        $phone = '88'.strrev($phone);
-
-        return array_merge(parent::validated(), ['password' => Hash::make($this->input('password')), 'phone' => $phone]);
+        return array_merge(parent::validated(), ['password' => Hash::make($this->input('password'))]);
     }
 }
