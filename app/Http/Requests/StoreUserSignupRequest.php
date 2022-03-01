@@ -23,7 +23,7 @@ class StoreUserSignupRequest extends FormRequest
 
         $phone = '88'.strrev($phone);
 
-        $this->phone = $phone;
+        $this->merge(['phone' => $phone]);
     }
 
     /**
